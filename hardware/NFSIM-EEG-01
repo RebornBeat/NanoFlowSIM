@@ -1,0 +1,13 @@
+**README.** Dry-electrode (spring-pin gold-plated) EEG headset. Open-source, OpenBCI-compatible. ADS1299 8-channel. 250 Hz sampling. Battery-powered, BLE to host.
+
+**SPECIFICATIONS.** 8 channels (or 16 with daughter board). ADS1299 (8ch 24-bit). Dry spring-pin gold-plated electrodes (no gel). Software bandpass filtering, notch (50/60 Hz). ICA artifact removal on host. BLE 5.0. ~$180.
+
+**THEORY.** Standard EEG with dry electrodes for convenience. Lower SNR than wet electrodes; compensated by host-side ICA + ML-based artifact rejection. BCI applications, sleep staging, attention monitoring.
+
+**BLOCK DIAGRAM.** ADS1299 + nRF52840 → BLE host (Pi or phone running OpenBCI GUI or NFSIM EEG client). Headset adjustable for fit.
+
+**BOM.** ADS1299 ($25), nRF52840 ($5), spring-pin gold electrodes ×16 ($30 / set), headset frame ($60), 1000 mAh battery ($5), PCB ($15), enclosure ($25), misc ($15). Total ~$180.
+
+**FIRMWARE.** Continuous streaming at 250 Hz. NFS BLE protocol.
+
+**ASSEMBLY.** 3D-print or commercial adjustable headset frame. Spring-pin electrodes at standard 10-20 positions (FP1, FP2, F3, F4, C3, C4, P3, P4 at minimum). Cable routing to electronics housing.
