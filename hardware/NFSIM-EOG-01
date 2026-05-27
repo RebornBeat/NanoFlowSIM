@@ -1,0 +1,9 @@
+### NFSIM-EOG-01 — EOG Glasses
+
+**README.** Electrooculography glasses for eye movement tracking. Sleep stage detection (REM), gaze-based BCI.
+
+**SPECIFICATIONS.** ADS1299 4-channel + periorbital dry electrodes built into glasses temples and bridge; BLE; ~$88.
+
+**THEORY.** Electrical potential difference between cornea and retina rotates with eye movement; EOG measures this.
+
+**ASSEMBLY.** Standard glasses frame with electrodes integrated into temples and bridge.
