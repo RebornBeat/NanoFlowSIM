@@ -1,127 +1,116 @@
-# LICENSE
+NanoFlowSIM Ecosystem — Open-Source Precision Medicine Platform
 
-**NanoFlowSIM Ecosystem**
-Copyright (c) 2026 NanoFlowSIM
+─────────────────────────────────────────────────────────────────────
 
-This project is a multi-layered open-source ecosystem. Different components are covered by different licenses to maximize openness while ensuring that improvements are shared back with the community.
+SOFTWARE (firmware, simulation engine, desktop app, mobile app,
+          backend server, SDKs, scripts, tools)
 
-## 1. Hardware Designs
-**Applies to:** `/hardware`, `/mechanical`, `/consumables` directories (Schematics, PCB layouts, CAD models, BOMs).
+MIT License
+Copyright (c) 2026 NanoFlowSIM Contributors
 
-**License:** **CERN Open Hardware Licence Version 2 - Weakly Reciprocal (CERN-OHL-W)**
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject
+to the following conditions:
 
-> This license ensures that the hardware designs remain open. You can manufacture and sell hardware based on these designs, but if you modify the design files themselves, you must share those modifications under the same license.
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
 
-*The full text of the CERN-OHL-W v2 license is included at the bottom of this file.*
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
+BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
-## 2. Software & Firmware
-**Applies to:** `/core`, `/software`, `/firmware` directories (Source code, binaries, scripts).
+─────────────────────────────────────────────────────────────────────
 
-**License:** **GNU General Public License v3.0 (GPL-3.0)**
+HARDWARE (schematics, PCB layouts, Gerber files, BOMs,
+          mechanical CAD files, 3D models, consumable designs)
 
-> This license ensures that the software remains free. If you distribute the software (modified or unmodified), you must also provide the source code under the same license.
+CERN Open Hardware Licence Version 2 — Weakly Reciprocal
+(CERN OHL-W v2)
+Copyright (c) 2026 NanoFlowSIM Contributors
 
-*Full license text available at: https://www.gnu.org/licenses/gpl-3.0.txt*
+Full text: legal/LICENSE-HARDWARE.md
 
-## 3. Documentation & Data
-**Applies to:** `/docs`, `/protocol`, `/production` directories (Guides, specifications, white papers, datasheets).
+Key conditions:
+  • Use, study, modify, and distribute freely
+  • Products based on this hardware may be sold commercially
+  • Attribution required: "Based on NanoFlowSIM hardware (CERN OHL-W)"
+  • Modifications to hardware source files must be shared under
+    CERN OHL-W v2 or compatible license
+  • No warranty provided; users assume all risk
 
-**License:** **Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)**
+─────────────────────────────────────────────────────────────────────
 
-> This license allows you to share and adapt the documentation, even commercially, as long as you credit the original authors and distribute your contributions under the same license.
+DOCUMENTATION (README, guides, theory documents, API references,
+               assembly guides, calibration procedures)
 
-*Full license text available at: https://creativecommons.org/licenses/by-sa/4.0/*
+Creative Commons Attribution 4.0 International (CC BY 4.0)
+Copyright (c) 2026 NanoFlowSIM Contributors
 
----
+Full text: legal/LICENSE-DOCS.md
 
-# CERN Open Hardware Licence Version 2 - Weakly Reciprocal
+You are free to:
+  Share — copy and redistribute in any medium or format
+  Adapt — remix, transform, and build upon the material
+  for any purpose, even commercially.
 
-This source is subject to the terms of the CERN Open Hardware Licence
-Version 2 - Weakly Reciprocal. A copy of the license can be found at:
+Under the following terms:
+  Attribution — give appropriate credit, provide a link to the
+  license, and indicate if changes were made.
 
-https://ohwr.org/project/cernohl/wikis/Documents/CERN-OHL-W-2.0
+─────────────────────────────────────────────────────────────────────
 
-**Preamble**
+THIRD-PARTY COMPONENTS
 
-CERN has developed this licence to promote collaboration among
-hardware designers and to reduce the barriers to innovation.
+All third-party dependencies retain their original licenses.
+See legal/third-party-licenses/ for the complete set.
 
-By using this licence, you agree to be bound by its terms. This
-licence governs the use, copying, modification, and distribution of
-the licensed material.
+Notable third-party licenses included:
+  FreeRTOS:          MIT License (Amazon Web Services)
+  TensorFlow Lite:   Apache 2.0 (Google LLC)
+  Three.js:          MIT License
+  React:             MIT License (Meta Platforms)
+  Django:            BSD 3-Clause (Django Software Foundation)
+  KiCad Libraries:   Creative Commons CC-BY-SA 4.0
+  MaRCoS:            GPL v3 (MaRCoS contributors)
+  Open Ephys:        GPL v3 (Open Ephys contributors)
+  Bonito:            Mozilla Public License 2.0 (Oxford Nanopore)
 
-**Terms and Conditions**
+─────────────────────────────────────────────────────────────────────
 
-**1. Definitions**
+DISCLAIMER
 
-In this Licence, the following terms have the following meanings:
-"License" means this CERN-OHL-W-2.0 license.
-"Source" means the preferred form of the Licensed Material for making
-modifications to it.
-"Notice" means any notice of copyright or other intellectual property
-rights.
-"Licensor" means the person or entity that distributes the Licensed
-Material under this License.
-"You" means any person or entity exercising permissions under this
-License.
+ALL NANOFLOWSIM HARDWARE DEVICES ARE LABELED:
+"FOR RESEARCH USE ONLY. NOT FOR CLINICAL DIAGNOSTIC USE."
 
-**2. Scope**
+None of the hardware or software in this repository has been
+evaluated, cleared, or approved as a medical device by the FDA,
+CE/MDR notified bodies, Health Canada, or any other regulatory
+authority anywhere in the world.
 
-This License applies to any hardware designs, schematics, circuit
-layouts, mechanical drawings, and other hardware-related data
-(hereinafter "Licensed Material") made available under the terms of
-this License.
+These designs are not intended to diagnose, treat, cure, prevent,
+or monitor any disease or medical condition.
 
-**3. Grant of Rights**
+Use of NanoFlowSIM hardware or software for clinical decision-making
+without appropriate regulatory clearance in your jurisdiction may
+be illegal. Users assume full responsibility for regulatory
+compliance in their region.
 
-Subject to the terms of this License, the Licensor hereby grants You a
-worldwide, royalty-free, non-exclusive, sublicensable license to:
+The NanoFlowSIM project and its contributors expressly disclaim all
+liability for any injury, illness, data loss, or legal consequence
+arising from the use of these designs, regardless of how such use
+occurs.
 
-a) use the Licensed Material for any purpose;
-b) study the Licensed Material and use it for any purpose;
-c) reproduce and distribute copies of the Licensed Material;
-d) modify the Licensed Material and distribute modified copies.
+─────────────────────────────────────────────────────────────────────
 
-**4. Conditions**
-
-The above rights are granted provided that You meet the following
-conditions:
-
-a) You must give any other recipients of the Licensed Material a copy
-of this License, and you must inform them that the Licensed Material
-is licensed under the terms of this License.
-
-b) You must keep intact all notices that refer to this License and to
-the disclaimer of warranties with every copy of the Licensed Material.
-
-c) If You modify the Licensed Material, You must make the modified
-Source available under the terms of this License.
-
-**5. Disclaimer of Warranties**
-
-THE LICENSED MATERIAL IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
-KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
-OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-WITH THE LICENSED MATERIAL OR THE USE OR OTHER DEALINGS IN THE LICENSED
-MATERIAL.
-
-**6. No Obligation to Provide Support**
-
-The Licensor is not obligated to provide support, updates, or
-enhancements for the Licensed Material.
-
-**7. Jurisdiction**
-
-This License shall be governed by the laws of the jurisdiction in which
-the Licensor resides or in which the Licensor conducts its principal
-business.
-
-**8. Miscellaneous**
-
-If any provision of this License is held to be unenforceable, such
-provision shall be reformed only to the extent necessary to make it
-enforceable, and the remaining provisions shall remain in full force
-and effect.
+Repository:   github.com/rebornbeat/nanoflowsim
+Version:      1.0.0-alpha
+Date:         2026
