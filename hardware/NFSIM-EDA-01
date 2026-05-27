@@ -1,0 +1,9 @@
+### NFSIM-EDA-01 — EDA Wrist Sensor
+
+**README.** Electrodermal activity (skin conductance) wrist sensor. Stress, emotional state, sympathetic nervous system activation.
+
+**SPECIFICATIONS.** ADS1256 + 500 mV AC bridge for skin conductance; 1 µS resolution; BLE; 24h battery; ~$42.
+
+**THEORY.** Skin conductance rises with sweat gland activation (sympathetic). AC excitation avoids electrode polarization.
+
+**ASSEMBLY.** Wristband with two skin-contact electrodes on inside of wrist.
