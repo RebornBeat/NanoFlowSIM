@@ -1,21 +1,127 @@
-MIT License
+# LICENSE
 
-Copyright (c) 2024 RebornBeat
+**NanoFlowSIM Ecosystem**
+Copyright (c) 2026 NanoFlowSIM
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+This project is a multi-layered open-source ecosystem. Different components are covered by different licenses to maximize openness while ensuring that improvements are shared back with the community.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+## 1. Hardware Designs
+**Applies to:** `/hardware`, `/mechanical`, `/consumables` directories (Schematics, PCB layouts, CAD models, BOMs).
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+**License:** **CERN Open Hardware Licence Version 2 - Weakly Reciprocal (CERN-OHL-W)**
+
+> This license ensures that the hardware designs remain open. You can manufacture and sell hardware based on these designs, but if you modify the design files themselves, you must share those modifications under the same license.
+
+*The full text of the CERN-OHL-W v2 license is included at the bottom of this file.*
+
+## 2. Software & Firmware
+**Applies to:** `/core`, `/software`, `/firmware` directories (Source code, binaries, scripts).
+
+**License:** **GNU General Public License v3.0 (GPL-3.0)**
+
+> This license ensures that the software remains free. If you distribute the software (modified or unmodified), you must also provide the source code under the same license.
+
+*Full license text available at: https://www.gnu.org/licenses/gpl-3.0.txt*
+
+## 3. Documentation & Data
+**Applies to:** `/docs`, `/protocol`, `/production` directories (Guides, specifications, white papers, datasheets).
+
+**License:** **Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)**
+
+> This license allows you to share and adapt the documentation, even commercially, as long as you credit the original authors and distribute your contributions under the same license.
+
+*Full license text available at: https://creativecommons.org/licenses/by-sa/4.0/*
+
+---
+
+# CERN Open Hardware Licence Version 2 - Weakly Reciprocal
+
+This source is subject to the terms of the CERN Open Hardware Licence
+Version 2 - Weakly Reciprocal. A copy of the license can be found at:
+
+https://ohwr.org/project/cernohl/wikis/Documents/CERN-OHL-W-2.0
+
+**Preamble**
+
+CERN has developed this licence to promote collaboration among
+hardware designers and to reduce the barriers to innovation.
+
+By using this licence, you agree to be bound by its terms. This
+licence governs the use, copying, modification, and distribution of
+the licensed material.
+
+**Terms and Conditions**
+
+**1. Definitions**
+
+In this Licence, the following terms have the following meanings:
+"License" means this CERN-OHL-W-2.0 license.
+"Source" means the preferred form of the Licensed Material for making
+modifications to it.
+"Notice" means any notice of copyright or other intellectual property
+rights.
+"Licensor" means the person or entity that distributes the Licensed
+Material under this License.
+"You" means any person or entity exercising permissions under this
+License.
+
+**2. Scope**
+
+This License applies to any hardware designs, schematics, circuit
+layouts, mechanical drawings, and other hardware-related data
+(hereinafter "Licensed Material") made available under the terms of
+this License.
+
+**3. Grant of Rights**
+
+Subject to the terms of this License, the Licensor hereby grants You a
+worldwide, royalty-free, non-exclusive, sublicensable license to:
+
+a) use the Licensed Material for any purpose;
+b) study the Licensed Material and use it for any purpose;
+c) reproduce and distribute copies of the Licensed Material;
+d) modify the Licensed Material and distribute modified copies.
+
+**4. Conditions**
+
+The above rights are granted provided that You meet the following
+conditions:
+
+a) You must give any other recipients of the Licensed Material a copy
+of this License, and you must inform them that the Licensed Material
+is licensed under the terms of this License.
+
+b) You must keep intact all notices that refer to this License and to
+the disclaimer of warranties with every copy of the Licensed Material.
+
+c) If You modify the Licensed Material, You must make the modified
+Source available under the terms of this License.
+
+**5. Disclaimer of Warranties**
+
+THE LICENSED MATERIAL IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
+KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE LICENSED MATERIAL OR THE USE OR OTHER DEALINGS IN THE LICENSED
+MATERIAL.
+
+**6. No Obligation to Provide Support**
+
+The Licensor is not obligated to provide support, updates, or
+enhancements for the Licensed Material.
+
+**7. Jurisdiction**
+
+This License shall be governed by the laws of the jurisdiction in which
+the Licensor resides or in which the Licensor conducts its principal
+business.
+
+**8. Miscellaneous**
+
+If any provision of this License is held to be unenforceable, such
+provision shall be reformed only to the extent necessary to make it
+enforceable, and the remaining provisions shall remain in full force
+and effect.
