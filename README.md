@@ -1,3585 +1,4144 @@
 # NanoFlowSIM
 
-> **Integrated Precision Medicine Platform — Multi-Layered Computational Analysis, Open-Source Portable Biological Sensing Ecosystem, and Full-Stack Patient Data Architecture**
+**Integrated Precision Medicine Platform — Open-Source Portable Biosensing Ecosystem + Multi-Layered Nanoparticle Simulation + Living Patient Body Map**
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Hardware: CERN OHL v2](https://img.shields.io/badge/Hardware-CERN%20OHL%20v2-blue.svg)](legal/CERN_OHL_v2.txt)
-[![Status: Active Development](https://img.shields.io/badge/Status-Active%20Development-green.svg)]()
-[![Platforms: Linux | Windows | macOS | Android | iOS](https://img.shields.io/badge/Platforms-Linux%20%7C%20Windows%20%7C%20macOS%20%7C%20Android%20%7C%20iOS-lightgrey.svg)]()
+> *Every measurement. Every modality. Every moment. One platform.*
 
 ---
 
 ## Table of Contents
 
-1. [Project Vision](#1-project-vision)
-2. [NanoFlowSIM Software Platform](#2-nanoflowsim-software-platform)
-   - 2.1 [Key Features](#21-key-features)
-   - 2.2 [System Workflow](#22-system-workflow)
-   - 2.3 [Therapy Modeling](#23-therapy-modeling)
-   - 2.4 [Expanded Clinical Applications](#24-expanded-clinical-applications)
-3. [Data Integration Architecture — The Full Loop](#3-data-integration-architecture--the-full-loop)
-   - 3.1 [Non-Continuous Data Sources](#31-non-continuous-data-sources)
-   - 3.2 [Continuous Data Sources (Current)](#32-continuous-data-sources-current)
-   - 3.3 [Future Continuous Systems](#33-future-continuous-systems)
-   - 3.4 [Patient Data Aggregation Model](#34-patient-data-aggregation-model)
-4. [UI/UX Specification — Consumer and Professional](#4-uiux-specification--consumer-and-professional)
-   - 4.1 [Design Philosophy](#41-design-philosophy)
-   - 4.2 [3D Body Map System](#42-3d-body-map-system)
-   - 4.3 [Consumer View](#43-consumer-view)
-   - 4.4 [Professional/Clinical View](#44-professionalclinical-view)
-   - 4.5 [Data Capture Workflow](#45-data-capture-workflow)
-   - 4.6 [Live vs. Historical Mode](#46-live-vs-historical-mode)
-   - 4.7 [Regional Data Interaction](#47-regional-data-interaction)
-5. [Biological Sensing Domains — Complete Evolutionary Study](#5-biological-sensing-domains--complete-evolutionary-study)
-   - 5.1 [Molecular / Genomic Sensing](#51-molecular--genomic-sensing)
-   - 5.2 [Structural / Anatomical Imaging](#52-structural--anatomical-imaging)
-   - 5.3 [Chemical / Metabolic Sensing](#53-chemical--metabolic-sensing)
-   - 5.4 [Electrical / Bioelectric Sensing](#54-electrical--bioelectric-sensing)
-   - 5.5 [Implantable / Closed-Loop Systems](#55-implantable--closed-loop-systems)
-   - 5.6 [Cellular / Microscopic Sensing](#56-cellular--microscopic-sensing)
-   - 5.7 [Dynamic Physiological Monitoring](#57-dynamic-physiological-monitoring)
-   - 5.8 [Multi-Modal Convergence Systems](#58-multi-modal-convergence-systems)
-6. [Open-Source Portable Hardware Ecosystem](#6-open-source-portable-hardware-ecosystem)
-   - 6.1 [Philosophy and Mandate](#61-philosophy-and-mandate)
-   - 6.2 [Molecular / Genomic Hardware Variants](#62-molecular--genomic-hardware-variants)
-   - 6.3 [Structural Imaging Hardware Variants](#63-structural-imaging-hardware-variants)
-   - 6.4 [Chemical / Metabolic Sensing Hardware Variants](#64-chemical--metabolic-sensing-hardware-variants)
-   - 6.5 [Electrical / Bioelectric Sensing Hardware Variants](#65-electrical--bioelectric-sensing-hardware-variants)
-   - 6.6 [Ingestible / Capsule Sensor Variants](#66-ingestible--capsule-sensor-variants)
-   - 6.7 [Wearable Patch and Implant Variants](#67-wearable-patch-and-implant-variants)
-   - 6.8 [Field / Environmental Sensing Variants](#68-field--environmental-sensing-variants)
-7. [Full Hardware Specifications — All Devices](#7-full-hardware-specifications--all-devices)
-   - 7.1 [NFSIM-PCR-01 — Portable Individual PCR Unit](#71-nfsim-pcr-01--portable-individual-pcr-unit)
-   - 7.2 [NFSIM-PCR-02 — Micro Gel-Slip PCR Strip Reader](#72-nfsim-pcr-02--micro-gel-slip-pcr-strip-reader)
-   - 7.3 [NFSIM-SEQ-01 — Open Nanopore Sequencer (Gel Membrane Variant)](#73-nfsim-seq-01--open-nanopore-sequencer-gel-membrane-variant)
-   - 7.4 [NFSIM-SEQ-02 — Solid-State Nanopore Research Board](#74-nfsim-seq-02--solid-state-nanopore-research-board)
-   - 7.5 [NFSIM-CRISPR-01 — Portable CRISPR Diagnostic Device](#75-nfsim-crispr-01--portable-crispr-diagnostic-device)
-   - 7.6 [NFSIM-dPCR-01 — Portable Digital PCR (Droplet)](#76-nfsim-dpcr-01--portable-digital-pcr-droplet)
-   - 7.7 [NFSIM-GELEC-01 — Portable Gel Electrophoresis System](#77-nfsim-gelec-01--portable-gel-electrophoresis-system)
-   - 7.8 [NFSIM-US-01 — Portable Ultrasound Probe (USB-C)](#78-nfsim-us-01--portable-ultrasound-probe-usb-c)
-   - 7.9 [NFSIM-US-02 — Wearable Ultrasound Patch Array](#79-nfsim-us-02--wearable-ultrasound-patch-array)
-   - 7.10 [NFSIM-US-03 — Pill Capsule Ultrasound (Ingestible)](#710-nfsim-us-03--pill-capsule-ultrasound-ingestible)
-   - 7.11 [NFSIM-MRI-01 — Low-Field Portable MRI (Permanent Magnet)](#711-nfsim-mri-01--low-field-portable-mri-permanent-magnet)
-   - 7.12 [NFSIM-XRAY-01 — Low-Dose Portable X-Ray Panel](#712-nfsim-xray-01--low-dose-portable-x-ray-panel)
-   - 7.13 [NFSIM-OCT-01 — Portable OCT Probe](#713-nfsim-oct-01--portable-oct-probe)
-   - 7.14 [NFSIM-CGM-01 — Open CGM Sensor Platform](#714-nfsim-cgm-01--open-cgm-sensor-platform)
-   - 7.15 [NFSIM-SWEAT-01 — Wearable Sweat Chemistry Patch](#715-nfsim-sweat-01--wearable-sweat-chemistry-patch)
-   - 7.16 [NFSIM-CHEM-01 — Portable Blood Chemistry Analyzer](#716-nfsim-chem-01--portable-blood-chemistry-analyzer)
-   - 7.17 [NFSIM-OXY-01 — Multi-Site Tissue Oxygenation Array](#717-nfsim-oxy-01--multi-site-tissue-oxygenation-array)
-   - 7.18 [NFSIM-BREATH-01 — Portable Breath Metabolomics Device](#718-nfsim-breath-01--portable-breath-metabolomics-device)
-   - 7.19 [NFSIM-ECG-01 — Open Single-Lead ECG Patch](#719-nfsim-ecg-01--open-single-lead-ecg-patch)
-   - 7.20 [NFSIM-ECG-02 — 12-Lead Portable ECG Vest](#720-nfsim-ecg-02--12-lead-portable-ecg-vest)
-   - 7.21 [NFSIM-EEG-01 — Dry-Electrode Open EEG Headset](#721-nfsim-eeg-01--dry-electrode-open-eeg-headset)
-   - 7.22 [NFSIM-EMG-01 — Multi-Channel Surface EMG Armband](#722-nfsim-emg-01--multi-channel-surface-emg-armband)
-   - 7.23 [NFSIM-NEURAL-01 — Open High-Density ECoG Research Array](#723-nfsim-neural-01--open-high-density-ecog-research-array)
-   - 7.24 [NFSIM-CAP-01 — Capsule: Ingestible Imaging + Chemical Sensor](#724-nfsim-cap-01--capsule-ingestible-imaging--chemical-sensor)
-   - 7.25 [NFSIM-CAP-02 — Capsule: GI Ultrasound Capsule](#725-nfsim-cap-02--capsule-gi-ultrasound-capsule)
-   - 7.26 [NFSIM-CAP-03 — Capsule: DNA/RNA Capture Capsule](#726-nfsim-cap-03--capsule-dnarna-capture-capsule)
-   - 7.27 [NFSIM-CAP-04 — Capsule: Full Multi-Modal Research Capsule](#727-nfsim-cap-04--capsule-full-multi-modal-research-capsule)
-   - 7.28 [NFSIM-FLOW-01 — Portable Cytometry / Cell Counter](#728-nfsim-flow-01--portable-cytometry--cell-counter)
-   - 7.29 [NFSIM-ENV-01 — Environmental Bio-Aerosol Sampler](#729-nfsim-env-01--environmental-bio-aerosol-sampler)
-   - 7.30 [NFSIM-MICRO-01 — Portable Digital Microscope (Pathology)](#730-nfsim-micro-01--portable-digital-microscope-pathology)
-8. [Communication Protocol Specification](#8-communication-protocol-specification)
-9. [Firmware Architecture — Universal](#9-firmware-architecture--universal)
-10. [Software Architecture](#10-software-architecture)
-    - 10.1 [Desktop Application](#101-desktop-application)
-    - 10.2 [Mobile Application](#102-mobile-application)
-    - 10.3 [Web Dashboard](#103-web-dashboard)
-    - 10.4 [SDK](#104-sdk)
-    - 10.5 [AI/ML Layer](#105-aiml-layer)
-11. [Monorepo Directory Structure — Complete](#11-monorepo-directory-structure--complete)
-12. [Production & Manufacturing](#12-production--manufacturing)
-13. [Legal, Compliance & Licensing](#13-legal-compliance--licensing)
-14. [Roadmap](#14-roadmap)
-15. [Contributing](#15-contributing)
-16. [Acknowledgements](#16-acknowledgements)
+1. [Project Overview](#1-project-overview)
+2. [Three Pillars of NanoFlowSIM](#2-three-pillars-of-nanoflowsim)
+3. [Simulation Framework](#3-simulation-framework)
+4. [Patient Data Architecture & Living Body Map](#4-patient-data-architecture--living-body-map)
+5. [UI/UX Specification — Consumer & Professional](#5-uiux-specification--consumer--professional)
+6. [Data Integration — Full Loop (Current + Future)](#6-data-integration--full-loop-current--future)
+7. [Biological Sensing Domain Encyclopedia](#7-biological-sensing-domain-encyclopedia)
+8. [Open-Source Hardware Ecosystem — All Devices](#8-open-source-hardware-ecosystem--all-devices)
+   - [Domain A: Molecular / Genomic](#domain-a-molecular--genomic)
+   - [Domain B: Structural / Anatomical Imaging](#domain-b-structural--anatomical-imaging)
+   - [Domain C: Chemical / Metabolic](#domain-c-chemical--metabolic)
+   - [Domain D: Electrical / Bioelectric](#domain-d-electrical--bioelectric)
+   - [Domain E: Ingestible / Traversing Capsules](#domain-e-ingestible--traversing-capsules)
+   - [Domain F: Flow Cytometry & Environmental](#domain-f-flow-cytometry--environmental)
+9. [Universal NFS Communication Protocol](#9-universal-nfs-communication-protocol)
+10. [Firmware Architecture (Universal)](#10-firmware-architecture-universal)
+11. [Software Stack](#11-software-stack)
+12. [Monorepo Structure](#12-monorepo-structure)
+13. [Production, Manufacturing & Quality](#13-production-manufacturing--quality)
+14. [Regulatory & Legal](#14-regulatory--legal)
+15. [Roadmap](#15-roadmap)
+16. [License](#16-license)
 
 ---
 
----
+## 1. Project Overview
 
-# 1. Project Vision
+NanoFlowSIM is a three-pillar precision medicine ecosystem built on the principle that every layer of biological information — structural, electrical, chemical, molecular, genomic — should be simultaneously accessible, open-source, portable, continuously monitored, and unified into a single living model of the patient.
 
-NanoFlowSIM is a vertically integrated precision medicine ecosystem with three interlocking pillars:
+### The Problem NanoFlowSIM Solves
 
-**Pillar 1 — Simulation Platform**
-A Rust-based computational framework that models nanoparticle behavior in biological systems at molecular, cellular, tissue, and whole-system levels. It is designed for oncology, gene therapy, rare disease research, and broad infectious disease modeling.
+Modern medicine is fragmented across institutional silos:
 
-**Pillar 2 — Patient Data Architecture**
-A personal health data aggregation platform that integrates data from every category of biological sensing — past, present, and future. Each data point anchors to a 3D anatomical model of the patient, enabling both consumer-facing health tracking and clinician-facing precision medicine workflows. Individuals own their data. Institutions may access it with consent.
+| Domain | Typical Siloed System |
+|---|---|
+| Structural imaging | Hospital radiology department |
+| ECG / cardiac | Cardiology clinic |
+| Genomics / SNPs | Specialized genetics lab |
+| Continuous glucose | Endocrinology/diabetes care |
+| Blood chemistry | Clinical laboratory |
+| Neural signals | Neurology |
+| Nanoparticle therapy design | Research institution |
 
-**Pillar 3 — Open-Source Portable Hardware Ecosystem**
-A full suite of open-source, open-hardware biological sensing devices spanning every domain of biological measurement: molecular, genomic, structural, chemical, electrical, implantable, and ingestible. Every device in this ecosystem is designed to be portable, affordable, reproducible, and NanoFlowSIM-native.
+No single system integrates all of these into a continuous, patient-owned, portable, open-source platform.
 
-The unifying thesis:
+NanoFlowSIM changes this entirely.
 
-> Biological data has historically been siloed, episodic, expensive, and inaccessible. NanoFlowSIM treats the entire history of biological sensing — from gel electrophoresis to nanopore sequencing to ingestible capsule sensors — as a single evolving stack, and builds open-source portable versions of every layer, feeding all data into a unified living 3D patient model.
+### What NanoFlowSIM Is
 
----
+A unified open-source ecosystem comprising:
 
-# 2. NanoFlowSIM Software Platform
+**Pillar 1 — Simulation Engine:** A Rust-based nanoparticle behavior simulation framework that models therapeutic delivery at molecular, cellular, tissue, and systemic levels, integrating patient-specific genomic, proteomic, and physiological data.
 
-## 2.1 Key Features
+**Pillar 2 — Living Patient Body Map:** A personal health data platform where every data point from every sensing modality maps to an anatomical region of a 3D human body model. Historical, episodic, and live continuous data all coexist on the same model. The patient owns their data entirely.
 
-### Multi-Layered Simulation Architecture
-
-**Molecular Level**
-- Simulates receptor-ligand interactions with thermodynamic binding affinity modeling
-- CRISPR guide RNA targeting and off-target prediction
-- Nanoparticle stability under physiological pH, temperature, and enzymatic environments
-- Payload encapsulation integrity modeling
-- Ligand density optimization algorithms
-
-**Cellular Level**
-- Endocytosis pathway modeling (clathrin-mediated, caveolae-mediated, macropinocytosis)
-- Endosomal escape kinetics and membrane disruption modeling
-- Intracellular trafficking and subcellular localization prediction
-- Therapeutic payload release kinetics under intracellular conditions
-- Cell viability and cytotoxicity prediction
-
-**Tissue Level**
-- Tissue permeability and heterogeneity modeling
-- Enhanced Permeability and Retention (EPR) effect simulation
-- Tumor microenvironment modeling including hypoxia, acidic pH zones, and immune cell densities
-- Vascular extravasation prediction
-- Lymphatic clearance modeling
-
-**Whole-System Feedback**
-- Patient-specific genetic and proteomic data integration
-- Immune profile incorporation (checkpoint expression, T-cell densities, NK activity)
-- Systemic pharmacokinetics and ADMET prediction
-- Real-time clinical feedback loop for iterative refinement
-
-### Back-Testing and Iterative Refinement
-- Historical clinical trial data comparison
-- Patient case study validation
-- Automated nanoparticle design parameter adjustment
-- Simulation confidence scoring
-
-### Hybrid Therapy Modeling
-- Chemotherapy + gene therapy co-delivery systems
-- CRISPR + immunotherapy combinations
-- Sequential and simultaneous payload release modeling
-- Synergy scoring algorithms for therapy combination ranking
-
-### Machine Learning-Driven Predictions
-- Optimal therapeutic combination selection from historical + simulated data
-- Ligand design generation from receptor profile inputs
-- Adverse event probability prediction
-- Patient stratification for trial matching
-
-### Modular and Scalable Framework
-- Plugin architecture for new therapeutic modalities
-- Scalable from single patient to population-level simulations
-- Standards-compliant data formats (FHIR, HL7, DICOM, VCF, FASTQ)
+**Pillar 3 — Open-Source Portable Hardware Ecosystem:** 30+ portable, open-hardware biosensing devices spanning all biological sensing domains — designed to be built from KiCad schematics, assembled from JLCPCB-compatible BOMs, flashed with open firmware, and operated with open software that natively integrates into the NanoFlowSIM platform.
 
 ---
 
-## 2.2 System Workflow
+## 2. Three Pillars of NanoFlowSIM
 
-### Step 1: Data Collection
+### Pillar 1: Simulation Engine
 
-**Patient Data Acquisition**
+The NanoFlowSIM simulation engine is a Rust workspace that models nanoparticle therapeutics across four computational layers:
 
-| Data Type | Format | Source |
+- **Molecular Layer:** Receptor-ligand binding kinetics, CRISPR guide RNA efficiency modeling, payload encapsulation stability under pH/enzymatic conditions, ligand density optimization
+- **Cellular Layer:** Endocytosis modeling, endosomal escape probability, intracellular trafficking, payload release kinetics, gene editing efficiency, off-target risk scoring
+- **Tissue Layer:** Tissue permeability modeling (EPR effect, vascular extravasation), immune cell infiltration, tumor microenvironment modeling, tissue heterogeneity mapping
+- **Systemic Layer:** Bloodstream circulation time prediction, immune clearance modeling (mononuclear phagocyte system), organ distribution, pharmacokinetics
+
+**Key simulation capabilities:**
+
+- Multi-therapy hybrid simulation (CRISPR + chemotherapy + immunotherapy in simultaneous configuration)
+- Automated therapy combination screening with ML-ranked output
+- Back-testing against clinical trial data and patient outcomes
+- Patient-specific customization driven by genomic, proteomic, and imaging input
+- Nanoparticle design parameter sweep (size, shape, surface chemistry, payload type)
+- Blood-brain barrier crossing simulation
+- Pathogen reservoir targeting (HIV latent reservoirs, herpesvirus neural latency)
+
+### Pillar 2: Living Patient Body Map
+
+A persistent, patient-owned health record system that anchors every data point to an anatomical region using the UBERON ontology (Uber Anatomy Ontology — a cross-species anatomical reference).
+
+The body map exists at five levels of resolution:
+
+| Level | Description | Data Required |
 |---|---|---|
-| Genomic mutations | VCF, FASTQ | Sequencing lab, personal sequencer |
-| CRISPR target loci | BED, FASTA | Computational prediction + lab |
-| Proteomic profiles | mzML, CSV | Mass spectrometry |
-| MRI/CT imaging | DICOM | Hospital, portable imaging |
-| Immune cell profiling | FCS (flow cytometry) | Lab panel, portable cytometer |
-| Continuous biosensor | JSON stream | CGM, ECG, EEG, wearables |
-| Microbiome | FASTQ | 16S/WGS sequencing |
-| SNP panel | VCF | Array or sequencing |
-| Liquid biopsy cfDNA | BAM, VCF | Sequencing |
-| Metabolomics | mzML | Mass spec or portable breath |
+| 0 | Generic anatomical mesh | None |
+| 1 | Anthropometric-matched mesh | Height, weight, age, sex |
+| 2 | Imaging-derived patient mesh | DICOM CT/MRI segmentation |
+| 3 | Functional overlay | Live sensor streams active |
+| 4 | Molecular overlay | Genomic variants, cfDNA, nanoparticle trajectories |
 
-**Tumor / Target Region Profiling**
-- Tissue heterogeneity mapping from imaging data
-- Receptor expression quantification per region
-- Vascular density estimation from imaging
-- Immune infiltrate density mapping
-- Permeability coefficient estimation per tissue zone
+### Pillar 3: Hardware Ecosystem
 
-### Step 2: Simulation Configuration
+30+ open-source portable biosensing devices across six sensing domains. Each device:
 
-**Therapeutic Goal Selection**
-
-| Mode | Therapies Available |
-|---|---|
-| Single Therapy | CRISPR, Chemotherapy, Immunotherapy, Gene Replacement, RNA Therapy |
-| Combination Therapy | Any pairing or multi-agent combination of the above |
-| Automated Selection | AI-ranked screening of all viable combinations given patient data |
-
-**Nanoparticle Design Parameters**
-
-| Parameter | Options |
-|---|---|
-| Size | 1–500 nm range |
-| Shape | Spherical, Rod, Disc, Core-Shell, Liposomal, Polymeric |
-| Surface Coating | PEG, Ligand type, Charge (positive/neutral/negative) |
-| Ligand Type | Antibody, Aptamer, Peptide, Small molecule, CRISPR-RNP |
-| Ligand Density | Molecules per nm² |
-| Payload Type | siRNA, mRNA, CRISPR-Cas9, Chemotherapy drug, Cytokine |
-| Payload Loading | % encapsulation efficiency |
-| Release Mechanism | pH-triggered, Enzymatic, Thermal, Light-activated, Mechanical |
-
-### Step 3: Simulation Execution
-
-**Molecular Layer Execution**
-- Monte Carlo ligand-receptor binding simulation
-- Molecular dynamics for membrane interaction
-- Payload stability testing across pH 4.5–7.4 and enzymatic environments
-
-**Cellular Layer Execution**
-- Agent-based cellular uptake simulation
-- Endosomal pH map traversal
-- Payload release timing relative to intracellular environment
-
-**Systemic Layer Execution**
-- Blood compartment pharmacokinetic modeling
-- Mononuclear phagocyte system (MPS) clearance rates
-- Complement activation probability
-- Tissue perfusion modeling
-
-**Therapy-Specific Metrics**
-
-| Therapy | Key Metrics Computed |
-|---|---|
-| CRISPR | On-target editing efficiency (%), off-target sites identified, indel rate |
-| Chemotherapy | Tumor drug AUC, healthy tissue AUC, therapeutic index |
-| Immunotherapy | T-cell activation score, tumor immune infiltration delta |
-| Gene Replacement | Transduction efficiency, expression duration |
-| RNA (siRNA/mRNA) | Knockdown %, protein expression level |
-
-### Step 4: Back-Testing and Validation
-
-- Import clinical trial datasets (CSV, FHIR, custom JSON)
-- Automated comparison of predicted vs. observed outcomes
-- Root-cause analysis for prediction deviations
-- Iterative parameter refinement via Bayesian optimization
-- Confidence interval reporting per simulation output
-
-### Step 5: Output Analysis
-
-**Simulation Results**
-
-| Output | Description |
-|---|---|
-| Targeting Efficiency | % nanoparticles reaching target site |
-| Payload Release Profile | Release % over time with pharmacokinetic curve |
-| Off-Target Distribution | Organ-level nanoparticle accumulation heatmap |
-| Side Effect Profile | Predicted toxicity events with probability |
-| Immune Response Curve | Predicted antibody titer, cytokine release |
-| Editing Efficiency Map | CRISPR on/off-target efficiency per locus |
-
-**Visualization Outputs**
-- 3D molecular trajectory rendering (WebGL / Vulkan backend)
-- Tissue heatmaps of targeting and therapeutic concentration
-- Pharmacokinetic curves per compartment
-- Animated nanoparticle flow through vasculature
-- Off-target risk topology maps
+- Runs open firmware (C/C++ or Rust, FreeRTOS or Zephyr)
+- Communicates via the NFS universal protocol (BLE 5.0 GATT + USB-C + JSON)
+- Tags all data with UBERON anatomical codes
+- Integrates directly with NanoFlowSIM desktop, mobile, and web clients
+- Is reproducible from KiCad source files via JLCPCB or equivalent PCB fab
 
 ---
 
-## 2.3 Therapy Modeling
-
-### Automated Therapy Combination Selection
-
-The combination engine:
-1. Enumerates all feasible therapy pairings from available modalities
-2. Filters by patient contraindications (genomic, clinical)
-3. Ranks combinations by predicted synergy score and safety margin
-4. Selects top N combinations for detailed simulation
-5. Reports confidence intervals and uncertainty estimates
-
-### Combination Synergy Modeling
-
-| Combination | Synergy Type | Modeled Interaction |
-|---|---|---|
-| Chemo + Immunotherapy | Immunogenic cell death enhancement | Calreticulin exposure, DAMP release |
-| CRISPR + Chemo | Sensitivity gene editing | Resistance gene knockout before chemo |
-| CRISPR + Immunotherapy | Neoantigen generation | Targeted mutation for immune recognition |
-| RNA + Immunotherapy | Checkpoint modulation | PD-L1 siRNA knockdown + T-cell activation |
-
----
-
-## 2.4 Expanded Clinical Applications
-
-### Oncology
-- Heterogeneous tumor treatment optimization
-- Metastatic cancer multi-site targeting
-- Drug resistance evolution modeling
-- CAR-T cell delivery optimization
-
-### HIV Treatment
-- CRISPR-mediated HIV DNA excision from T-cell latent reservoirs
-- Immune checkpoint modulation to reactivate latent reservoirs
-- Antiretroviral nanoparticle delivery optimization
-- CNS reservoir penetration modeling (blood-brain barrier crossing)
-
-### Herpesvirus Infections (HSV-1, HSV-2, VZV, CMV, EBV)
-- CRISPR payload delivery to neural ganglia
-- Blood-brain barrier crossing nanoparticle design
-- Antiviral combination delivery optimization
-- Recurrence suppression protocol design
-
-### Rare Genetic Diseases
-- Single-gene therapy delivery simulation
-- Tissue-specific targeting for organ-of-interest
-- Off-target risk minimization for rare pediatric cases
-- Patient-specific variant-to-therapy mapping
-
-### Neurological Disorders (Parkinson's, Alzheimer's, MS)
-- Blood-brain barrier (BBB) crossing nanoparticle optimization
-- Neuron-targeted gene editing simulation
-- Anti-neuroinflammatory delivery
-- Alpha-synuclein / amyloid-beta clearance strategies
-
-### Autoimmune Diseases
-- Regulatory T-cell targeted immunomodulation
-- Localized immunosuppression nanoparticle design
-- CRISPR immune tolerance restoration
-
-### Cardiovascular Diseases
-- Arterial plaque-targeting nanoparticle design
-- Cardiomyocyte gene therapy delivery post-MI
-- Growth factor delivery for tissue regeneration
-- Clot-targeting thrombolytic delivery
-
-### Antimicrobial Resistance (AMR)
-- CRISPR-based bacteriophage resistance disruption
-- Antibiotic + nanoparticle synergy optimization
-- Biofilm penetration modeling
-
-### Broad Infectious Diseases
-- SARS-CoV-2 and respiratory virus nanoparticle antivirals
-- Malaria parasite-stage-specific targeting
-- Fungal biofilm penetration modeling
-- Tuberculosis macrophage-targeted delivery
-
----
-
-# 3. Data Integration Architecture — The Full Loop
-
-NanoFlowSIM is not a snapshot system. It is a **living biological data architecture** that aggregates, anchors, and interprets data from every category of biological sensing — past scans, present wearables, future continuous molecular monitors — and maps all of it to a patient's 3D model.
-
-## 3.1 Non-Continuous Data Sources
-
-These are episodic or one-time data inputs. They are stored as timestamped events anchored to the 3D anatomical region where they were collected.
-
-| Data Category | Specific Type | Format | Frequency |
-|---|---|---|---|
-| Genomic | SNP array | VCF | Once / annually |
-| Genomic | Whole genome sequence | FASTQ, BAM | Once / rarely |
-| Genomic | Exome sequence | FASTQ, BAM | Occasionally |
-| Genomic | RNA-seq | FASTQ | Per study |
-| Genomic | Liquid biopsy cfDNA | BAM, VCF | Per clinical visit |
-| Imaging | MRI (brain, body, joint) | DICOM | Per clinical need |
-| Imaging | CT scan | DICOM | Per clinical need |
-| Imaging | X-ray | DICOM | Per clinical need |
-| Imaging | PET scan | DICOM | Per clinical need |
-| Imaging | Ultrasound image | DICOM | Per clinical need |
-| Pathology | Tissue biopsy | Slide image (SVS) | Per clinical need |
-| Blood labs | CBC, CMP, lipid panel | FHIR/HL7, CSV | Per visit |
-| Blood labs | Hormone panels | FHIR/HL7, CSV | Per visit |
-| Blood labs | Tumor markers | FHIR/HL7, CSV | Per visit |
-| Blood labs | Inflammatory markers (CRP, IL-6) | FHIR/HL7, CSV | Per visit |
-| Microbiology | Blood culture | Text/FHIR | Per infection |
-| Microbiology | Gut microbiome 16S | FASTQ | Occasionally |
-| Immune profiling | Flow cytometry panel | FCS | Per clinical need |
-| Proteomics | Mass spec protein panel | mzML | Per study |
-| Metabolomics | Plasma metabolomics | mzML, CSV | Per study |
-| Medical history | Diagnoses, procedures | FHIR | Continuous import |
-| Medications | Drug list | FHIR | Continuous import |
-| Family history | Pedigree + variants | PED, JSON | Once |
-
-## 3.2 Continuous Data Sources (Current)
-
-These are live-streaming or near-continuous data feeds from wearable and monitoring devices.
-
-| Device Type | Measurand | Update Rate | Protocol |
-|---|---|---|---|
-| CGM (Continuous Glucose Monitor) | Interstitial glucose | 1–5 min | BLE, NFC |
-| ECG patch | Heart rhythm | Real-time | BLE |
-| Smartwatch (optical HR) | Heart rate, SpO2, HRV | Continuous | BLE |
-| EEG headset | Brain electrical activity | Real-time | BLE |
-| Blood pressure cuff (24h) | Systolic/diastolic | 15–30 min | BLE |
-| Pulse oximeter | SpO2 | Real-time | BLE |
-| Temperature patch | Core/skin temperature | 1 min | BLE |
-| Accelerometer/IMU | Motion, posture, steps | Real-time | BLE |
-| Sleep tracker | Sleep staging | Nightly | BLE |
-| Sweat sensor patch | Lactate, electrolytes | 10–30 min | BLE, NFC |
-| Capnometer | EtCO2 | Real-time | BLE |
-| Spirometer | FEV1, FVC | Per session | BLE, USB |
-| EMG armband | Muscle activation | Real-time | BLE |
-| Intraocular pressure | IOP | Continuous (implant) | Inductive |
-| Implantable CGM | Glucose (subcutaneous) | 1 min | NFC, BLE |
-| Cardiac implant (pacemaker/ICD telemetry) | Rhythm, events | Real-time | Proprietary/BLE |
-
-## 3.3 Future Continuous Systems
-
-These are emerging or experimental technologies expected to enter clinical and consumer use within the next 5–15 years. NanoFlowSIM's data architecture is pre-built to receive them.
-
-| Future System | Measurand | Status |
-|---|---|---|
-| Continuous liquid biopsy monitor | cfDNA fragments, tumor DNA | Experimental |
-| Continuous proteomics patch | Cytokines, hormones | Research stage |
-| Implantable metabolomics sensor | Metabolite panel | Research stage |
-| Continuous nanopore sequencer | Pathogen DNA/RNA, cell-free DNA | Early research |
-| Ingestible continuous capsule | GI chemistry, microbiome, images | Emerging |
-| Wearable mass spectrometry | Skin volatiles, breath | Research |
-| Neural implant data stream | Neural spike trains, LFP | Clinical trials (BCIs) |
-| Epigenetic methylation monitor | DNA methylation | Experimental |
-| Continuous cortisol sensor | Cortisol (stress) | Late research |
-| Microfluidic blood panel | CBC, chemistry in real time | Research |
-
-## 3.4 Patient Data Aggregation Model
-
-### Ownership and Consent
-- All data belongs to the individual
-- Institutional access requires explicit per-study consent
-- Data export in standard formats (FHIR, VCF, JSON, CSV) at any time
-- Anonymization layer for research data contribution
-
-### Hospital Records Import
-- Patient requests records from institution
-- FHIR R4 / HL7 v2 compliant import
-- DICOM import with automatic segmentation and 3D anchoring
-- Historical lab results ingested with date-stamped anchoring to body region
-
-### Data Anchoring to 3D Body Model
-Every data point — whether a blood test, a genomic variant, an ECG reading, or an imaging scan — is tagged with:
-- Anatomical region (body part ontology: UBERON / FMA)
-- Tissue type (if applicable)
-- Collection method
-- Timestamp
-- Data quality / confidence score
-
-This enables region-specific queries such as:
-- "Show all data collected about the right lung over the past 2 years"
-- "What is the genomic landscape of my liver?"
-- "Display all inflammatory markers correlated with cardiac events"
-
-### Storage System
-- Patient data stored encrypted at rest (AES-256)
-- Each data layer stored in domain-specific schema with shared patient ID
-- Local-first option: all data can reside on personal device with optional cloud sync
-- Federated model: research institutions can query aggregate patterns without accessing individual identifiers
-
----
-
-# 4. UI/UX Specification — Consumer and Professional
-
-## 4.1 Design Philosophy
-
-NanoFlowSIM's interface operates on a single core principle: **the 3D human body is the universal data anchor**. Every piece of biological information — a blood test, a gene variant, a biosensor reading, a simulation result — must be accessible by interacting with the body region it relates to.
-
-The interface has two modes that share the same underlying 3D model but differ in information density and interaction depth:
-
-- **Consumer Mode** — designed for individuals managing their own health. Clear, accessible, non-overwhelming. Surfaces actionable insights. Hides technical noise.
-- **Professional/Clinical Mode** — designed for researchers, oncologists, genetic counselors, and bioengineers. Exposes raw data, statistical overlays, simulation parameters, and full API access.
-
-Both modes transition smoothly. A consumer user can grant their physician Professional Mode access to their exact same data layer.
-
----
-
-## 4.2 3D Body Map System
-
-### Generic Body (Default State)
-When a patient profile is not yet fully mapped — or for a new user with minimal data — the system displays a **high-quality generic 3D anatomical human**:
-
-- Anatomically accurate surface mesh
-- Internal organ visibility (toggle layers: skin → muscle → organ → skeletal → vascular → neural)
-- Gender-neutral default; options for male/female/intersex anatomical variants
-- Pediatric, adolescent, adult, and geriatric body variants
-- Body size/BMI slider for approximate morphological match
-
-The generic body is not a placeholder — it is a fully interactive data-entry surface. A user can click any region even with zero data and see:
-- "No data collected for this region yet"
-- "Add data" prompt
-- Suggested sensor/test for this region
-
-### Patient-Specific Body (Mapped State)
-When patient-specific data exists, the generic model progressively transforms:
-
-**Level 1 — Anthropometric Match**
-Patient height, weight, and BMI adjust the body mesh proportionally.
-
-**Level 2 — Imaging-Derived Geometry**
-When DICOM data (MRI, CT) is imported:
-- Automated segmentation extracts organ boundaries
-- Patient-specific organ shapes replace generic anatomy
-- Tumor locations, lesions, and structural anomalies appear in situ
-- Vascular anatomy reconstructed from contrast imaging
-
-**Level 3 — Functional Overlay**
-When continuous sensor data is active:
-- Organs/regions glow or animate to indicate live data streams
-- Color-coded overlays for oxygenation, metabolic activity, electrical activity
-- Pulsing animations for cardiac and vascular regions during ECG/PPG feeds
-
-**Level 4 — Molecular Overlay**
-When genomic and simulation data is integrated:
-- Variant hotspots displayed as localized markers per gene's tissue expression
-- Simulated nanoparticle trajectories rendered as particle flows
-- Receptor expression heatmaps overlay tissue surfaces
-
-### Camera and Navigation
-- Orbit, pan, zoom, and slice navigation
-- Pre-set anatomical views (anterior, posterior, lateral, sagittal, coronal, axial)
-- Free cross-section slice tool — drag a plane through any axis to reveal interior
-- Cinematic fly-through mode for presentations
-- AR mode (mobile) — overlay patient body map on camera view
-
----
-
-## 4.3 Consumer View
-
-### Dashboard (Home Screen)
-The consumer home screen prioritizes clarity and action. It shows:
-
-**Body Map Panel (center/left, 60% of screen)**
-- 3D body map (generic or patient-specific)
-- Active sensor indicators — pulsing icons over active device regions
-- Summary overlays: green/yellow/red per region based on latest data
-
-**Live Feed Panel (right)**
-- Current readings from active continuous sensors
-- Sparkline history for last 24h per metric
-- Alert badges for out-of-range values
-
-**Today's Summary (bottom)**
-- Key insights: "Your glucose has been stable today. Heart rate variability is within normal range."
-- Pending actions: "Add yesterday's blood test results"
-- AI health brief: weekly pattern summary
-
-### Body Region Detail (Click on Region)
-Clicking any body region opens the **Region Detail Panel**:
-
-```
-[ Region Name: Right Lung ]
-[ Last Updated: 2 hours ago — Live: Pulse Oximetry ]
-
-LIVE DATA
-  SpO2: 98.2%  ↑ Stable
-  Respiratory Rate: 14 bpm
-
-HISTORICAL DATA (Timeline scrubber)
-  2024-03-01: CT Scan — [View 3D] [View DICOM]
-  2023-11-15: Spirometry — FEV1: 3.2L (94% predicted)
-  2023-08-01: Blood gas panel — PaO2: 95 mmHg
-
-GENOMIC DATA
-  CFTR gene — No pathogenic variants detected
-  SFTPC — Variant of uncertain significance (rs#######)
-
-SIMULATION DATA (if applicable)
-  Nanoparticle delivery sim — 2024-01-10
-  [View Results] [Re-run] [Modify Parameters]
-
-[ + Add Data ] [ Request Lab ] [ Share with Doctor ]
-```
-
-### Timeline View
-A full chronological timeline of all data collected, filterable by:
-- Region
-- Data type (imaging, lab, genomic, continuous)
-- Date range
-- Sensor source
-
-### Notification System
-- Glucose out of range alert
-- Unusual ECG pattern detected
-- Medication adherence reminder
-- New simulation result available
-- New data from connected hospital records
-
----
-
-## 4.4 Professional/Clinical View
-
-The professional view adds:
-
-### Patient Panel
-- Full demographics
-- Active diagnoses (ICD-10 coded)
-- Medication list with dosing
-- Allergy and contraindication flags
-- Active clinical trials eligibility
-
-### Advanced Data Overlay Controls
-- Toggle individual data layers on/off
-- Adjust visualization scales (log vs. linear)
-- Select timeframe for aggregation
-- Layer statistical confidence intervals on all continuous readings
-
-### Genomic Analysis Panel
-- Full variant browser (filter by pathogenicity, gene, chromosome)
-- Polygenic risk score display
-- Copy number variation (CNV) viewer
-- Pharmacogenomics panel (drug-gene interactions)
-- CRISPR target candidate sites per region
-
-### Simulation Control Panel
-- Full NanoFlowSIM simulation launcher
-- Parameter editor for nanoparticle properties
-- Therapy combination selector
-- Back-testing data import and comparison
-- Result export (PDF report, JSON, CSV)
-
-### Multi-Patient Research View
-- De-identified population overlay on shared anatomy
-- Variant frequency maps across cohort
-- Therapy outcome comparison by patient cluster
-- Trial enrollment tracking
-
-### API Access Panel
-- Live API key management
-- Webhook configuration for data push
-- FHIR export endpoint
-- Simulation API documentation
-
----
-
-## 4.5 Data Capture Workflow
-
-### Capturing Data That Doesn't Have a Perfect 3D Region
-
-Some lab values — such as serum sodium, blood glucose, or systemic inflammatory markers — technically relate to the whole body or bloodstream. The system handles this with:
-
-**Option A — Systemic Tag**
-Data is tagged to "Systemic / Bloodstream" — a special non-regional category shown as a circulatory overlay on the entire body.
-
-**Option B — Primary Expression Region**
-AI suggests the most relevant anatomical anchor:
-- Serum glucose → Pancreas + Liver
-- Creatinine → Kidneys
-- Troponin → Heart
-- ALT/AST → Liver
-- PSA → Prostate
-
-The user can accept or override the suggestion. Both the systemic tag and the regional anchor are stored.
-
-**Every lab value, imaging study, and genomic result is mappable to at least one region.** The system will never leave data unanchored — even if the anchor is "Systemic."
-
-### Adding Data Manually
-1. Tap/click **+ Add Data** anywhere
-2. Select data type from categorized list
-3. Input values OR upload file (PDF report, DICOM, FASTQ, CSV)
-4. System auto-detects format and extracts structured data
-5. System suggests anatomical anchor(s)
-6. User confirms or adjusts
-7. Data appears in region timeline immediately
-
-### Hospital Records Import
-1. User selects "Import Medical Records"
-2. Enter institution name → system checks FHIR R4 endpoint compatibility
-3. OAuth2 patient authorization flow with institution's patient portal
-4. Records downloaded and ingested automatically
-5. AI categorizes, dates, and anchors all records to body regions
-6. Conflicts or duplicates flagged for user review
-
----
-
-## 4.6 Live vs. Historical Mode
-
-The body map is always in one of two display states:
-
-### Live Mode (Active Sensors)
-- Triggered automatically when any connected sensor is streaming data
-- Active regions pulse or glow based on data type:
-  - **Cardiac region**: rhythmic pulse animation synced to detected heart rate
-  - **Glucose region (pancreas/bloodstream)**: color gradient shifting with glucose trend
-  - **Brain region**: subtle oscillation representing EEG band activity
-  - **Respiratory region**: expansion/contraction animation
-- Data values overlay directly on the 3D model in real time
-- Sensor connection status icons float near device attachment point on body
-
-### Historical Mode (No Active Sensors)
-- Timeline scrubber appears at bottom of body map
-- Drag to any date/time to see body state at that moment
-- Regions that had data at that time light up
-- Regions with no data at that time are dim/greyed
-- Animated replay mode: watch body state evolve forward through time
-
-### Transition
-- Live mode and historical mode are never exclusive — user can scrub backward in time while a sensor is still streaming, then return to live
-
----
-
-## 4.7 Regional Data Interaction
-
-Each region supports two access patterns:
-
-**Surface Interaction (Outer Anatomy)**
-- Click any visible surface region
-- Returns data anchored to that surface: skin sensor data, patch readings, external examination findings, radiation dosimetry from imaging
-
-**Depth Interaction (Inner Anatomy)**
-- Slice plane tool exposes interior
-- Click any internal organ or structure
-- Returns all data anchored to that structure: imaging findings, biopsy results, implant data, simulated nanoparticle trajectories, genomic expression data
-
-**Cross-Layer Correlation**
-- Select two regions and invoke "Correlate"
-- System runs statistical correlation across all shared data types and timeframes
-- Surfaces significant correlations (e.g., liver enzyme elevation correlating temporally with elevated inflammatory markers in bloodstream)
-
----
-
-# 5. Biological Sensing Domains — Complete Evolutionary Study
-
-This section documents the complete engineering evolution of every biological sensing domain. This study directly informs the design of NanoFlowSIM's portable hardware ecosystem: we identify where each technology is today, what made it expensive/large, what miniaturization pathway opened it up, and where the portable open-source variant sits.
-
----
-
-## 5.1 Molecular / Genomic Sensing
-
-### Domain Definition
-Molecular sensing reads the **information content** of biology: DNA sequences, RNA expression, protein identity, pathogen genomes, genetic variants, epigenetic marks, and direct molecular identity.
-
-### Phase 0 — Pre-Molecular Era (Pre-1950s)
-Medicine observed symptoms, tissue damage, and cellular morphology. The information layer of biology (the genome, the proteome) was entirely invisible. Disease was classified by observation and autopsy alone.
-
-### Phase 1 — Gel Electrophoresis (1950s–1970s)
-
-**Core Physics**: DNA is negatively charged. Under electric current, DNA migrates through a gel matrix. Smaller fragments travel faster than larger ones, producing size-based separation.
-
-**Original Hardware Stack**:
-| Component | Function |
-|---|---|
-| Agarose gel matrix | Molecular sieve |
-| Buffer solution (TAE or TBE) | Ion-conducting medium |
-| Platinum/carbon electrodes | Apply electric field |
-| DC power supply | Drive 80–120V gradient |
-| UV transilluminator | Excite ethidium bromide / SYBR |
-| Casting tray + comb | Form gel wells |
-| Staining bath | Intercalating dye application |
-
-**Signal Chain**:
-`DNA fragments → Electric migration → Size-based separation → Fluorescent staining → UV excitation → Band visualization → Photograph/digital capture`
-
-**Constraints**: Manual, slow, requires UV safety equipment, semi-quantitative, no sequence information.
-
-**Miniaturization Path**: Microfluidic chip-based electrophoresis (Bioanalyzer, Agilent TapeStation) reduced full gel runs to chip-scale capillary systems. Modern: disposable polymer gel strips loadable in handheld readers.
-
-### Phase 2 — PCR Revolution (1983)
-**Core Biochemistry**: Polymerase chain reaction exponentially copies a target DNA sequence using thermocycling.
-
-Three cycle stages:
-1. **Denaturation** ~95°C — strands separate
-2. **Annealing** ~50–65°C — primers bind
-3. **Extension** ~72°C — polymerase copies
-
-**Original Hardware Stack**:
-| Component | Function |
-|---|---|
-| Aluminum thermal block | Holds PCR tubes, conducts heat |
-| Resistive heating elements | Rapid temperature rise |
-| Peltier thermoelectric module | Active cooling |
-| Thermistor/thermocouple | Temperature feedback |
-| PID controller | Cycling precision |
-| MOSFET/relay drivers | Power switching |
-| Microcontroller | Cycle programming |
-| Power supply (120–240V) | High current for heaters |
-
-**Constraints**: Bulky thermal mass, slow cycling, large sample volumes (50–100 µL), high power draw (200–800W).
-
-**qPCR Additions**:
-| Added Component | Purpose |
-|---|---|
-| LED array (470 nm, 520 nm) | Excite fluorescent dyes |
-| Optical bandpass filters | Wavelength isolation |
-| Photodiode / CMOS sensor | Fluorescence detection |
-| Real-time DSP | Amplification curve analysis |
-| Threshold crossing logic | Ct value determination |
-
-**Digital PCR Addition**: DNA partitioned into 10,000–1,000,000 droplets/wells. Each compartment is either positive (target present) or negative. Absolute quantification without standard curve.
-
-**Miniaturization Path**:
-- Better Peltier efficiency → faster cycling
-- MEMS thin-film heaters → microscale chambers
-- Microfluidics → 2–10 µL reactions
-- Battery-compatible power budgets → field portability
-- Integrated optical → no external transilluminator needed
-
-### Phase 3 — Sanger Sequencing (1977)
-**Core Principle**: Chain-terminating dideoxynucleotides (ddNTPs) randomly stop DNA synthesis. Fragments of different lengths, each terminated at a specific base, are separated and read.
-
-**Hardware Stack**:
-| Component | Function |
-|---|---|
-| Capillary array (50 cm glass) | Electrophoretic separation |
-| Laser (488 nm argon ion) | Excite fluorescent dye-terminators |
-| CCD/PMT optical detector | Emission detection |
-| Fluorescent dye-labeled ddNTPs | Mark each base type |
-| Polymer loading robot | Fill capillaries |
-| Thermal oven | Denaturation |
-| High-voltage power supply (15 kV) | Drive migration |
-| Data acquisition PC | Trace capture |
-
-**Read Length**: 700–1000 bp
-**Throughput**: ~96 samples/run
-**Constraints**: Requires elaborate optical system, expensive consumables, 3–6 hour runs per plate.
-
-### Phase 4 — Next Generation Sequencing (2005–present)
-**Core Shift**: Massively parallel sequencing — millions of fragments simultaneously.
-
-**Illumina (Sequencing by Synthesis)**:
-| Component | Function |
-|---|---|
-| Flow cell (glass slide with clusters) | DNA attachment and clustering |
-| Fluidics system (pumps, valves) | Reagent delivery |
-| Laser lines (4 wavelengths) | Fluorescence excitation |
-| Scientific CMOS camera | Image entire flow cell |
-| Temperature control plate | Reaction temperature |
-| GPU compute cluster | Image analysis, basecalling |
-| Data storage (100+ TB) | Per run output |
-
-**Constraints**: Requires vibration isolation, precise optics, fluidic robotics, and massive compute. Machine size: refrigerator to room-scale.
-
-### Phase 5 — Third Generation: Oxford Nanopore (2014–present)
-**Core Breakthrough**: No optical system. DNA detected electrically through protein nanopores.
-
-**Physics**: α-hemolysin protein nanopore (1 nm diameter) embedded in artificial membrane. Voltage applied. Ionic current flows. As DNA bases transit the pore, they differentially block current. Four bases → four distinct current signatures.
-
-**MinION Hardware Stack**:
-| Component | Function |
-|---|---|
-| Flow cell membrane | Artificial lipid bilayer support |
-| α-hemolysin nanopores | Sensing elements (~512 per flow cell) |
-| Motor proteins (helicase) | Ratchet DNA at controlled speed (~400 bp/s) |
-| Analog front-end ASIC | Measure picoamp (pA) current per pore |
-| ADC (12–16 bit, 3–5 kHz) | Digitize current trace |
-| FPGA | Real-time signal processing, multiplexing |
-| USB 3.0 controller | Stream data to host at ~300 MB/s |
-| Host basecaller (GPU) | Neural network converts signal to bases |
-
-**Read Length**: Theoretically unlimited (megabase reads demonstrated)
-**Accuracy**: ~99%+ with R10.4.1 pores + duplex basecalling
-**Constraints**: Flow cell cost (~$500–900), pore degradation, signal noise, bioinformatics complexity.
-
-**What MinION Opened**: Sequencing in jungles, ships, field hospitals, Antarctica, ISS. USB-powered, laptop-compatible.
-
-**What Remains Proprietary**: Flow cell chemistry, nanopore protein engineering, ASIC design, motor protein sourcing.
-
-### Phase 6 — CRISPR Diagnostics (2016–present)
-CRISPR proteins (Cas12, Cas13) can be reprogrammed to detect specific DNA/RNA sequences. Upon target binding, a "collateral cleavage" activity activates, cutting reporter molecules.
-
-**Detection Methods**:
-- Fluorescent reporter cleavage (SHERLOCK, DETECTR) → optical readout
-- Lateral flow strip → visual line (like pregnancy test)
-- Electrochemical detection → electrode current change
-
-**Significance for portability**: CRISPR diagnostics require no thermal cycling and can run at room temperature with minimal equipment. The detection is isothermal.
-
-### Phase 7 — Continuous Molecular Monitoring (Emerging)
-**Target analytes for continuous monitoring**:
-- Cell-free DNA (cfDNA) fragments → cancer, organ damage, infection signatures
-- Circulating tumor DNA (ctDNA) → real-time tumor evolution
-- Pathogen RNA → infection progression
-- Cell-free RNA → gene expression dynamics
-
-**Technologies under development**:
-- Continuous nanopore flow cells with microfluidic blood sampling
-- Aptamer-based electrochemical sensors for specific molecular targets
-- Nanotube-based molecular sensors
-- Implantable electrochemical biosensors
-
----
-
-## 5.2 Structural / Anatomical Imaging
-
-### Domain Definition
-Structural imaging answers: **What physically exists inside the body?** Shape, density, geometry, tissue organization, pathological mass, organ dimensions.
-
-### Phase 0 — Pre-Imaging Medicine (Pre-1895)
-Internal anatomy visible only through surgery or autopsy. Diagnosis from external symptoms, palpation, percussion, auscultation.
-
-### Phase 1 — X-Ray (1895)
-**Core Physics**: X-rays are ionizing electromagnetic radiation (0.01–10 nm wavelength). Tissues attenuate X-rays proportionally to their density and atomic number.
-
-| Tissue | Attenuation | Appearance |
-|---|---|---|
-| Air/gas | Minimal | Black |
-| Fat | Low | Dark grey |
-| Soft tissue | Moderate | Grey |
-| Bone | High | Light grey/white |
-| Metal/contrast | Very high | Bright white |
-
-**Hardware Stack**:
-| Component | Function |
-|---|---|
-| X-ray tube (cathode-anode) | Bremsstrahlung X-ray generation |
-| High voltage generator (40–150 kV) | Accelerate electrons |
-| Tungsten anode target | X-ray production |
-| Beam collimator | Shape and limit beam |
-| Anti-scatter grid | Reject scattered X-rays |
-| Flat panel detector (amorphous silicon + CsI scintillator) | Capture transmission image |
-| A/D converter | Digitize detector output |
-| Workstation | Image display |
-
-**Miniaturization Path**: Battery-powered portable X-ray generators (4–8 kg) with wireless flat panel detectors (~1.5 kg). Used in field medicine, ICUs, veterinary mobile units.
-
-### Phase 2 — Fluoroscopy
-Continuous X-ray imaging for real-time motion visualization. Modern flat-panel fluoroscopy systems use pulsed X-ray to reduce dose. Image intensifiers largely replaced by direct flat-panel detectors.
-
-### Phase 3 — Computed Tomography (CT) (1972)
-**Core Physics**: Same X-ray attenuation but acquired from multiple angles (180–360°) around the patient. Filtered back-projection or iterative reconstruction computes 3D volumetric density map.
-
-**Gantry Hardware**:
-| Component | Function |
-|---|---|
-| Rotating X-ray tube | Multiple projection angles |
-| Multi-row detector arrays (64–320 rows) | Parallel slice acquisition |
-| Slip ring assembly | Continuous rotation without cable wrap |
-| High-speed gantry motor | 0.2–0.5 second rotation |
-| High voltage generator (80–140 kV, 100–800 mA) | High power X-ray |
-| DAS (data acquisition system) | 100+ MB/s data from detectors |
-| GPU reconstruction cluster | Filtered back projection / AI recon |
-| Patient table with sub-mm positioning | Isocenter placement |
-
-**Modern additions**: AI-based iterative reconstruction (reduces dose 60–80%), dual-energy CT (two voltage acquisitions for material decomposition), spectral CT.
-
-**Portable CT**: Emerging mobile CT systems on wheeled gantries (NeuroLogica, Samsung). Lower kVp/mA. AI reconstruction compensates. Brain, extremity, and point-of-care CT now practical.
-
-### Phase 4 — MRI (1973–present)
-**Core Physics**: Nuclear magnetic resonance of hydrogen protons. Strong external field aligns proton magnetic moments. RF pulse at Larmor frequency tips alignment. Protons relax and emit RF signals. Gradient coils spatially encode signal origin.
-
-**Hardware Stack**:
-| Component | Function |
-|---|---|
-| Superconducting magnet (1.5T–7T) | Primary static field |
-| Cryostat + liquid helium (4K) | Superconductor cooling |
-| Gradient coils (X,Y,Z) | Spatial encoding |
-| RF transmit coil (body coil) | Excitation pulses |
-| RF receive coil array | Signal detection |
-| Gradient amplifiers (1000A+) | Drive gradient coils |
-| RF amplifier (15–30 kW) | Transmit power |
-| Shim coils | Field homogeneity correction |
-| RF shield room | Block external RF interference |
-| Helium compressor | Cryocooler |
-| Reconstruction computer | K-space Fourier transform |
-
-**Constraints**: Superconducting magnet requires cryogenics, weighs 5–15 tonnes, requires shielded room. $1–5M installed cost.
-
-**Miniaturization Path**:
-- Low-field permanent magnets (0.02T–0.3T) eliminate cryogenics
-- AI reconstruction compensates for lower SNR at low field
-- Hyperfine Swoop (64 mT) — portable, battery-operable, non-shielded room
-- Point-of-care brain MRI now demonstrated in ICU, ambulance
-
-**fMRI**: Adds BOLD (Blood Oxygen Level Dependent) contrast. Detects neural activity indirectly via oxygenated hemoglobin concentration changes.
-
-**Diffusion MRI**: Measures water diffusion directionality. Maps white matter tracts (tractography).
-
-### Phase 5 — Ultrasound (1940s–present)
-**Core Physics**: Piezoelectric crystals convert electrical signals to ultrasonic pressure waves (1–20 MHz). Sound reflects at tissue interfaces (acoustic impedance mismatch). Return echoes detected by same piezoelectric elements. Time-of-flight × speed of sound = depth.
-
-**Transducer Types**:
-| Type | Frequency | Application |
-|---|---|---|
-| Linear array | 5–15 MHz | Superficial structures, vascular |
-| Curved array | 2–5 MHz | Abdominal |
-| Phased array | 1–5 MHz | Cardiac (echocardiography) |
-| Endocavitary | 5–10 MHz | Transvaginal, transrectal |
-| Intravascular (IVUS) | 20–40 MHz | Coronary artery wall |
-| High-frequency | 15–50 MHz | Skin, eye, small parts |
-
-**Hardware Stack**:
-| Component | Function |
-|---|---|
-| Piezoelectric array (PZT or CMUT) | Transmit/receive ultrasound |
-| Transmit beamformer | Phase delays for beam steering |
-| High-voltage pulser (50–100V) | Drive transducer |
-| T/R switch | Protect receiver during transmit |
-| Low-noise amplifier (LNA) | Receive signal |
-| Time-gain compensation (TGC) | Depth-normalized amplification |
-| Receive beamformer | Coherent addition of array elements |
-| Envelope detection + log compression | Image formation |
-| Scan converter | Polar to rectangular |
-| Display | Real-time imaging |
-
-**Doppler Mode**: Detects frequency shift of reflected sound from moving blood. Color Doppler maps flow direction and velocity.
-
-**Miniaturization Path**:
-- Digital beamforming on ASIC → eliminates analog beamformer
-- CMUT (Capacitive Micromachined Ultrasonic Transducers) → semiconductor-fabricated transducer arrays
-- SOC integration → single-chip ultrasound
-- Result: Butterfly iQ (USB probe), Philips Lumify — smartphone-connected ultrasound probes
-
-**Extreme miniaturization**: Capsule ultrasound (NFSIM-US-03) — described in hardware section. Intravascular ultrasound (IVUS) catheters 1–2 mm diameter.
-
-### Phase 6 — Optical Structural Imaging
-**OCT (Optical Coherence Tomography)**: Near-infrared interferometry. Micron-scale resolution to 1–2 mm depth. Dominant in ophthalmology (retinal imaging), cardiology (IVOCT), dermatology.
-
-**Hardware Stack**:
-| Component | Function |
-|---|---|
-| Near-IR light source (840–1300 nm) | Coherence gate illumination |
-| Beam splitter | Reference + sample arm |
-| Galvo mirror scanner | 2D scan |
-| Spectrometer/swept source | Interferometric detection |
-| High-speed ADC | Fringe capture |
-| GPU | A-scan processing, volume rendering |
-
-**Miniaturized OCT**: Fiber-optic probe OCT — catheter-delivered for coronary, GI endoscopic use.
-
-**Endoscopy**: Direct optical visualization of luminal structures. White-light, NBI (narrow band), fluorescence, and AI-augmented endoscopy.
-
----
-
-## 5.3 Chemical / Metabolic Sensing
-
-### Domain Definition
-Chemical sensing asks: **What is the body chemically doing right now?** Dissolved gases, metabolites, electrolytes, hormones, drugs, inflammatory markers — the ongoing chemistry of physiology.
-
-### Phase 0 — Pre-Electronic Chemistry (1800s)
-Visual colorimetric tests, titration, flame tests. Urine glucose by copper reduction (Benedict's test). Manual, slow, subjective.
-
-### Phase 1 — Electrochemical Biosensors (1950s)
-**Core Physics**: Chemistry generates or consumes electrons. Electrodes measure:
-- **Potentiometry**: voltage from ion concentration
-- **Amperometry**: current from redox reaction
-- **Conductometry**: solution conductivity
-
-**Ion-selective electrodes (ISE)**:
-| Ion | Membrane Material |
-|---|---|
-| H⁺ (pH) | Glass membrane |
-| Na⁺ | Sodium ionophore |
-| K⁺ | Valinomycin |
-| Cl⁻ | AgCl membrane |
-| Ca²⁺ | Calcium ionophore |
-
-**Signal Chain**: Ion concentration → Membrane potential → Nernst equation → Ion activity
-
-### Phase 2 — Blood Chemistry Analyzers (1960s–present)
-Automated multi-analyte analyzers (Beckman Coulter, Abbott, Roche). Internal fluidics routes sample to multiple sensing chambers. Combines ISE, spectrophotometry, enzyme reactions.
-
-**Hardware Modules**:
-| Module | Analytes |
-|---|---|
-| ISE module | Na, K, Cl, CO2, Li |
-| Spectrophotometer | Glucose, creatinine, BUN, bilirubin |
-| Immunoassay | Troponin, HbA1c, TSH, hCG |
-| Cell counter | CBC |
-| Hemolysis detector | Sample quality |
-
-**Constraints**: Large footprint, expensive reagents, requires trained operator, 15–60 min turnaround.
-
-**Miniaturization Path**:
-- Lab-on-chip integration
-- Microfluidic reagent cartridges (i-STAT — Abbott)
-- Dry chemistry strips
-- Result: i-STAT — credit-card-sized cartridge, handheld reader, 2-min blood chemistry panel at bedside
-
-### Phase 3 — Glucose Sensing (1970s–present)
-**Enzymatic Electrochemistry**:
-`Glucose + O₂ + H₂O → Gluconic acid + H₂O₂` (glucose oxidase reaction)
-`H₂O₂ → 2H⁺ + O₂ + 2e⁻` (electrode oxidation)
-
-Current proportional to glucose concentration.
-
-**First-Generation Meters** (1970s): Reflectance photometry on enzyme strip.
-**Second-Generation Meters** (1980s+): Electrochemical strips with mediator (ferricyanide, ferrocene).
-**Third-Generation** (enzymatic wired, no O₂ dependence).
-**Fourth-Generation CGM**: Subcutaneous enzymatic wire, continuous amperometric, wireless BLE.
-
-**CGM Hardware Stack**:
-| Component | Specification |
-|---|---|
-| Sensing filament | 25–400 µm diameter, 5–10 mm length, platinum/carbon working electrode |
-| Enzyme layer | Glucose oxidase crosslinked in biocompatible polymer |
-| Interference rejection layer | Cellulose acetate membrane, blocks ascorbate, acetaminophen |
-| Reference electrode | Ag/AgCl on filament |
-| Analog front end | 3-electrode potentiostat, nA-range current |
-| ADC | 16-bit, 1 Hz sampling |
-| MCU | Ultra-low-power (nRF52840 or similar) |
-| NFC/BLE radio | 2.4 GHz |
-| Battery | 100–200 mAh coin cell |
-| Encapsulation | Medical-grade silicone, waterproof |
-| Adhesive | Acrylate skin adhesive, 7–14 day wear |
-
-**Sensor lifetime**: 7–15 days (enzymatic degradation limits)
-**Calibration**: Factory-calibrated or finger-stick calibration per 12h
-
-### Phase 4 — Pulse Oximetry (1972–present)
-**Physics**: Beer-Lambert law. Oxygenated (HbO2) and deoxygenated (Hb) hemoglobin have different absorption spectra. HbO2 absorbs more IR, less red. Hb absorbs more red, less IR. Ratio of modulated AC component (pulsatile) to DC component isolates arterial signal from tissue background.
-
-**Hardware Stack**:
-| Component | Specification |
-|---|---|
-| Red LED | 660 nm |
-| Infrared LED | 940 nm |
-| Photodiode | Broadband Si detector |
-| Transimpedance amplifier | Convert photodiode current to voltage |
-| Bandpass filter | Isolate cardiac pulse |
-| ADC | Digitize both wavelengths |
-| Ratio computation | R = (AC660/DC660) / (AC940/DC940) |
-| SpO2 lookup table | Empirically calibrated |
-
-**Modern extensions**: 4+ wavelength reflectance oximetry (forehead, wrist). Masimo Rainbow — 8 wavelengths, detects carboxyhemoglobin, methemoglobin, total hemoglobin.
-
-### Phase 5 — Sweat Sensing (2010s–present)
-**Target analytes in sweat**: Na⁺, K⁺, Cl⁻, lactate, glucose (low correlation to blood), cortisol, urea, ammonium.
-
-**Hardware Stack**:
-| Component | Function |
-|---|---|
-| Microfluidic channels | Route sweat from pores to sensors |
-| Flexible ISE array | Multi-ion detection |
-| Enzymatic lactate electrode | Amperometric lactate |
-| Skin-conformal substrate | Polyimide, PDMS |
-| Reference electrode (Ag/AgCl) | Stable electrochemical reference |
-| Flexible interconnects | Maintain contact during movement |
-| BLE SoC | Wireless data |
-| Flexible battery | Power |
-
-**Challenge**: Sweat rate variability, skin contamination, dilution effects, calibration drift.
-
-### Phase 6 — Breath Analysis (present/emerging)
-Exhaled breath contains >1000 volatile organic compounds (VOCs) reflecting systemic metabolism.
-
-**Key biomarkers**:
-| Compound | Associated Condition |
-|---|---|
-| Acetone | Ketosis, diabetes |
-| Isoprene | Cholesterol metabolism |
-| Ammonia | Renal failure, liver disease |
-| NOx compounds | Airway inflammation (asthma) |
-| Ethanol | Alcohol metabolism |
-| Hydrogen, methane | GI dysbiosis |
-
-**Detection technologies**:
-- Electronic nose (e-nose): array of non-specific chemiresistors
-- Selected ion flow tube MS (SIFT-MS): real-time mass spectrometry
-- Proton transfer reaction MS (PTR-MS)
-- Photoacoustic spectroscopy: laser-based gas detection
-- Quartz crystal microbalance: mass-sensitive detection
-
----
-
-## 5.4 Electrical / Bioelectric Sensing
-
-### Domain Definition
-Bioelectric sensing measures **what the body is actively doing electrically** — ion gradients, action potentials, synchronized field potentials, conduction pathways, muscle activation.
-
-### Core Physics
-All bioelectric signals originate from **ion flux across cell membranes**:
-- Resting membrane potential: approximately –70 mV (neuron), –90 mV (cardiac muscle)
-- Action potential: rapid depolarization to +40 mV followed by repolarization
-- Propagation: electrical signal moves along membrane (conduction) and through tissue (volume conduction)
-
-### Phase 1 — ECG (1903–present)
-The heart depolarizes in a coordinated wave, generating a dipole that propagates through the body volume. Electrodes on the skin surface detect tiny potential differences (0.1–5 mV) representing this cardiac dipole projected onto the electrode axis.
-
-**P wave**: Atrial depolarization
-**QRS complex**: Ventricular depolarization (largest)
-**T wave**: Ventricular repolarization
-
-**Hardware Stack**:
-| Component | Specification |
-|---|---|
-| Ag/AgCl gel electrodes | 1–10 kΩ contact impedance |
-| Instrumentation amplifier (INA) | 100–1000× gain, CMRR >80 dB |
-| High-pass filter (0.05 Hz) | Remove DC baseline drift |
-| Low-pass filter (150 Hz) | Anti-alias |
-| Notch filter (50/60 Hz) | Power line rejection |
-| ADC (16 bit, 500 Hz–10 kHz) | Digitize |
-| MCU | Digital filtering, R-peak detection |
-| Isolation barrier | Patient safety (IEC 60601-1) |
-| Right-leg drive (RLD) | Active common-mode rejection |
-
-**Modern Wearable ECG**:
-- Dry electrodes (Ti, Au, or conductive polymer) — no gel required
-- Single-lead Holter patch (ZIO patch, Zephyr)
-- 12-lead vest or belt systems
-- Smartwatch optical + electrical combination
-
-**AI ECG**: Neural networks now detect AFib, LVH, low ejection fraction, potassium level, age, sex, and sleep apnea from ECG alone.
-
-### Phase 2 — EEG (1924–present)
-**Core Physics**: Pyramidal neuron populations generate extracellular field potentials from synchronized postsynaptic currents. Dipole fields sum, attenuate through cerebrospinal fluid, skull (~40× attenuation), and scalp. Surface signals: 5–100 µV.
-
-**Frequency Bands**:
-| Band | Frequency | Brain State |
-|---|---|---|
-| Delta | 0.5–4 Hz | Deep sleep |
-| Theta | 4–8 Hz | Drowsiness, memory |
-| Alpha | 8–13 Hz | Relaxed, eyes closed |
-| Beta | 13–30 Hz | Active cognition |
-| Gamma | 30–100+ Hz | Binding, perception |
-
-**Hardware Stack**:
-| Component | Specification |
-|---|---|
-| Electrode array (10-20 system, 19–256 electrodes) | Ag/AgCl cup + gel |
-| Electrode impedance < 5 kΩ | Signal quality requirement |
-| Instrumentation amplifier | 10,000–100,000× gain |
-| Anti-aliasing filter | 0.5–70 Hz typical bandwidth |
-| Isolation amplifier | Patient safety |
-| 24-bit ADC | Microvolt resolution |
-| Signal processing (ICA, BSS) | Artifact removal |
-
-**Dry-Electrode EEG**: Spring-loaded dry electrodes (Au, TiN, conductive polymer) allow headset deployment without gel. Higher impedance but viable for consumer/field use.
-
-### Phase 3 — EMG (1929–present)
-**Surface EMG**: Electrode pairs detect summed motor unit action potentials through skin. Amplitude: 0.1–10 mV. Bandwidth: 10 Hz–1 kHz (surface), 10 Hz–10 kHz (needle).
-
-**Applications**: Rehabilitation, prosthetic control, gesture interfaces, exoskeleton control, sports science.
-
-**Needle EMG**: Intramuscular electrode records individual or small clusters of motor units. Used clinically to diagnose neuromuscular disease.
-
-### Phase 4 — Invasive Neural Sensing
-**ECoG** (Electrocorticography): Electrode grid on brain surface beneath dura. Signals 100–1000× stronger than EEG. Better spatial resolution (1–5 mm vs. 3–5 cm for EEG).
-
-**Intracortical Recording**: Microelectrodes penetrate cortex to record individual unit activity.
-
-**Utah Array**: 10×10 grid of 1–1.5 mm silicon needles, 400 µm spacing. Each electrode records 1–5 neurons. 96 electrodes standard.
-
-**Neuropixels**: 960 recording sites on a 70 µm × 10 mm silicon shank. Simultaneous recording across cortical layers.
-
-**Signal Chain**: Neuron fires → extracellular voltage transient (100–500 µV, 0.5–2 ms) → electrode detects → LNA amplifies → ADC (30 kHz sampling) → spike sorting (template matching, PCA, kilosort) → single-unit or multi-unit activity
-
-### Phase 5 — Brain-Computer Interfaces
-**Goal**: Decode neural activity into commands (motor, speech, cognitive) and/or deliver sensory stimulation.
-
-**Current clinical BCIs**:
-- BrainGate: Utah array recording → cursor control, robotic arm
-- Stentrode (Synchron): endovascular electrode array, no open brain surgery
-- Neuralink N1: 64 threads × 1024 electrodes, wireless telemetry
-
-**Challenges**: Signal instability (glial scarring), power delivery, biocompatibility, decoding generalization.
-
----
-
-## 5.5 Implantable / Closed-Loop Systems
-
-### Core Architecture
-All implantable systems follow this fundamental loop:
-
-`Sense → Condition → Interpret → Decide → Actuate → Physiological response → Sense again`
-
-### Pacemakers (1958–present)
-**Sensing**: Intracardiac electrogram (IEGM) from tip electrode
-**Stimulation**: 1–5V pulse, 0.5–2 ms duration, 60–200 bpm rate
-**Modern pacemaker battery**: Li-SVO, 5–15 year life at 5 µJ/pulse
-**Modern features**: Accelerometer for rate-response, far-field RF (409 MHz or BLE) telemetry, MRI conditional designs
-**Leadless pacemaker** (Medtronic Micra): 0.8 cc capsule, delivered via femoral catheter, 25.9 mm × 6.7 mm
-
-### Cochlear Implants (1978–present)
-**External**: Microphone array → DSP (filterbank, 12–22 channels) → RF transmitter coil
-**Internal**: Receiver coil → decoder → electrode array in cochlea (scala tympani) → auditory nerve stimulation
-**Electrode spacing**: 2–3 mm apart, 22 electrodes (Cochlear) or 16 (MED-EL)
-**Frequency mapping**: Base = high freq, apex = low freq (tonotopy)
-
-### Deep Brain Stimulation (1987–present)
-**Target nuclei**: STN, GPi (Parkinson's), Vim (tremor), ANT (epilepsy), cg25 (depression research)
-**Stimulation parameters**: 60–180 µs pulse width, 60–180 Hz, 1–5V, monopolar or bipolar
-**Adaptive DBS**: Records LFP (local field potential) from same electrodes → beta power (13–30 Hz) inversely correlates with Parkinson's motor state → amplitude adjusts automatically
-
-### Artificial Pancreas (Closed-Loop Insulin Delivery)
-**Components**: CGM (Dexcom G6/G7) + Insulin pump (Omnipod, MiniMed) + Control algorithm (Model Predictive Control, PID, Fuzzy Logic)
-**Control loop**: Glucose reading every 5 min → algorithm predicts 30-min glucose → dose insulin or suspend delivery
-**Open-source systems**: OpenAPS, Loop, Android APS — community-built closed-loop using off-label CGM + pump combinations
-
-### Retinal Implants (2002–present)
-**Epiretinal** (Argus II, Second Sight): External camera → video processor → RF link → implant → 60-electrode array on retinal surface → optic nerve stimulation
-**Subretinal** (Alpha IMS, Retina Implant): Photosensitive microchip subretinally converts light to stimulation directly
-
----
-
-## 5.6 Cellular / Microscopic Sensing
-
-### Flow Cytometry (1967–present)
-**Core Physics**: Cells in suspension flow single-file through a laser. Forward scatter (FSC) → cell size. Side scatter (SSC) → granularity. Fluorescent antibodies bound to cell surface markers → fluorescence intensity → quantify expression.
-
-**Hardware Stack**:
-| Component | Function |
-|---|---|
-| Sheath fluid pump | Focus cells into single file |
-| Laser (488 nm, 532 nm, 640 nm) | Excitation |
-| Dichroic mirrors + bandpass filters | Wavelength sorting |
-| PMT/avalanche photodiode | Fluorescence detection |
-| High-speed ADC | Capture per-cell data |
-| Computer | Cell classification |
-
-**Throughput**: 10,000–100,000 cells/second
-**Miniaturization**: Acoustic focusing replaces hydrodynamic focusing. Microfluidic chips. LED instead of laser. Result: portable cytometers (CytoFLEX S at 14 kg, still not pocket-scale).
-
-### Digital Pathology (1990s–present)
-Whole-slide imaging: motorized stage + high-resolution camera + stitching = gigapixel slides. AI: automated grading, mitosis counting, tumor border detection, biomarker quantification.
-
-### Live Cell Imaging
-Timelapse microscopy tracks cell behavior over hours-days. Phase contrast, DIC, fluorescence. Microfluidic chambers maintain cells under physiological conditions during imaging.
-
----
-
-## 5.7 Dynamic Physiological Monitoring
-
-**Cardiovascular**: Continuous blood pressure (photoplethysmography, arterial line), cardiac output (thermodilution, bio-impedance), pulse wave velocity.
-
-**Respiratory**: Capnography (EtCO2), spirometry, respiratory inductance plethysmography (RIP), polysomnography.
-
-**Body Temperature**: Infrared tympanic, forehead temporal, continuous core temperature capsule (ingestible thermometer pill), skin patch NTC thermistor.
-
-**Motion and Posture**: IMU (accelerometer + gyroscope + magnetometer), gait analysis insoles, posture-correcting wearables.
-
-**Sleep**: Polysomnography (PSG) — EEG + EOG + EMG + ECG + SpO2 + respiratory effort. Consumer sleep trackers: optical HRV + accelerometry-based staging.
-
----
-
-## 5.8 Multi-Modal Convergence Systems
-
-**Digital Twin Medicine**: A computational patient model continuously updated from all sensing modalities. Current state: research/ICU monitoring integration. Near future: ambulatory digital twin.
-
-**PET-CT**: Metabolic function (PET) + anatomical structure (CT) co-registered. Absolute gold standard for oncologic staging.
-
-**PET-MRI**: Simultaneous functional metabolic and soft-tissue anatomical imaging. Emerging in pediatric oncology.
-
-**Cardiac MRI + ECG gating**: ECG triggers MRI acquisition per cardiac cycle. Combines anatomical and functional cardiac data.
-
-**Future convergence direction**:
-`Continuous EEG + ECG + CGM + SpO2 + motion + breath + wearable chemistry + episodic sequencing + imaging → AI-integrated living physiological model`
-
----
-
-# 6. Open-Source Portable Hardware Ecosystem
-
-## 6.1 Philosophy and Mandate
-
-Every domain of biological sensing began with large, expensive, proprietary infrastructure. In each case, the path to portability followed the same pattern:
-
-1. Physical sensing principle identified
-2. Large infrastructure required initially (optics, precision mechanics, high power)
-3. Key enabling miniaturization technology emerges (semiconductor integration, MEMS, better algorithms, DSP)
-4. First commercial portable version released — often still expensive and closed-source
-5. **Open-source community replicates core function at fraction of cost**
-
-OpenPCR did this for thermocyclers. Open-source EEG systems (OpenBCI) did this for brain sensing. The NanoFlowSIM hardware ecosystem does this across **all** domains simultaneously.
-
-### Design Mandates for All Devices
-- **Portable**: battery-operable, fits in a bag, or wearable
-- **Open-source hardware**: full KiCad schematics, Gerbers, BOM, STEP files published
-- **Open firmware**: full embedded firmware source published (C/C++/Rust)
-- **Open protocol**: standardized JSON data format, BLE/USB, documented API
-- **NanoFlowSIM-native**: data streams directly into NanoFlowSIM patient profile
-- **Reproducible**: manufacturable from commodity components, JLCPCB/PCBWay compatible
-- **Field-deployable**: operates in field conditions (0–45°C, humid environments)
-- **Affordable**: component cost target <$500 per device for most variants, <$100 for consumables where possible
-
-### Device Naming Convention
-`NFSIM-[DOMAIN]-[NUMBER]`
-- PCR: polymerase chain reaction
-- SEQ: sequencer
-- CRISPR: CRISPR diagnostic
-- dPCR: digital PCR
-- GELEC: gel electrophoresis
-- US: ultrasound
-- MRI: magnetic resonance imaging
-- XRAY: X-ray
-- OCT: optical coherence tomography
-- CGM: continuous glucose monitor
-- SWEAT: sweat chemistry
-- CHEM: blood chemistry
-- OXY: oxygenation
-- BREATH: breath analysis
-- ECG: electrocardiogram
-- EEG: electroencephalogram
-- EMG: electromyogram
-- NEURAL: neural recording
-- CAP: capsule (ingestible)
-- FLOW: flow cytometry
-- ENV: environmental sensing
-- MICRO: microscopy
-
----
-
-## 6.2 Molecular / Genomic Hardware Variants
-
-### A. Portable PCR Variants
-
-**NFSIM-PCR-01**: Portable individual PCR unit (see full spec §7.1)
-**NFSIM-PCR-02**: Micro gel-slip strip reader (see full spec §7.2)
-**NFSIM-PCR-03**: Loop-mediated isothermal amplification (LAMP) reader — no thermocycling, 65°C isothermal, simpler hardware
-**NFSIM-PCR-04**: Recombinase polymerase amplification (RPA) reader — room temperature amplification, fastest time to result
-**NFSIM-PCR-05**: Helicase-dependent amplification (HDA) reader — isothermal, near room temperature, high specificity
-**NFSIM-PCR-06**: Digital droplet PCR (ddPCR) field unit — droplet generation microfluidics, fluorescence counting
-
-### B. Sequencing Variants
-
-**NFSIM-SEQ-01**: Open nanopore sequencer, biological pore (gel membrane format, see §7.3)
-**NFSIM-SEQ-02**: Solid-state nanopore research board (see §7.4)
-**NFSIM-SEQ-03**: Microfluidic Sanger sequencing cartridge reader — capillary electrophoresis chip-based, shorter reads but high accuracy
-**NFSIM-SEQ-04**: Nanopore array research development kit — bare flow cell substrate holder, external ASIC eval board
-
-### C. CRISPR Diagnostic Variants
-
-**NFSIM-CRISPR-01**: Lateral flow CRISPR reader (see §7.5)
-**NFSIM-CRISPR-02**: Fluorescence CRISPR reader — SHERLOCK/DETECTR-compatible, real-time fluorescence quantification
-**NFSIM-CRISPR-03**: Electrochemical CRISPR detector — no optics, electrical signal only, lowest power
-
-### D. Gel Electrophoresis Variant
-
-**NFSIM-GELEC-01**: Portable gel electrophoresis system (see §7.7)
-**NFSIM-GELEC-02**: Chip-based capillary electrophoresis reader — uses microfluidic chips instead of agarose gels
-
----
-
-## 6.3 Structural Imaging Hardware Variants
-
-### A. Ultrasound Variants
-
-**NFSIM-US-01**: Portable USB-C ultrasound probe (see §7.8)
-**NFSIM-US-02**: Wearable ultrasound patch array (see §7.9)
-**NFSIM-US-03**: Ingestible capsule ultrasound (see §7.10)
-**NFSIM-US-04**: High-frequency dermal ultrasound probe (25–50 MHz) — skin layer imaging, wound depth assessment
-**NFSIM-US-05**: Doppler blood flow sensor — wearable wristband for radial artery continuous flow
-**NFSIM-US-06**: Transcranial Doppler (TCD) headband — bilateral temple probes for cerebral blood flow velocity
-**NFSIM-US-07**: Endocavity ultrasound probe — transrectal/transvaginal, for gynecologic/urologic field screening
-**NFSIM-US-08**: Fetal portable Doppler — handheld, single crystal, fetal heart rate and movement
-**NFSIM-US-09**: Guided needle portal — real-time ultrasound needle guidance jig for aspiration/injection
-
-### B. Low-Field MRI Variant
-
-**NFSIM-MRI-01**: Low-field portable MRI, permanent magnet (see §7.11)
-**NFSIM-MRI-02**: Earth's field NMR relaxometry — measures T1/T2 in biological fluids. No magnet needed, uses Earth's 50 µT field + pre-polarization pulse.
-
-### C. X-Ray Variant
-
-**NFSIM-XRAY-01**: Low-dose portable X-ray panel (see §7.12)
-**NFSIM-XRAY-02**: Fluorescence X-ray analyzer — identifies elemental composition (e.g., lead in blood from spot exposure)
-
-### D. Optical Imaging Variants
-
-**NFSIM-OCT-01**: Portable OCT probe (see §7.13)
-**NFSIM-OCT-02**: Fiber-probe OCT for endoscopic/catheter use — 2 mm diameter fiber probe for GI or coronary imaging
-**NFSIM-MICRO-01**: Portable digital microscope, pathology grade (see §7.30)
-**NFSIM-MICRO-02**: Lensless holographic microscope — no objective lens, computational reconstruction, ultra-low cost
-
----
-
-## 6.4 Chemical / Metabolic Sensing Hardware Variants
-
-**NFSIM-CGM-01**: Open CGM sensor platform (see §7.14)
-**NFSIM-SWEAT-01**: Wearable sweat chemistry patch (see §7.15)
-**NFSIM-CHEM-01**: Portable blood chemistry analyzer (see §7.16)
-**NFSIM-OXY-01**: Multi-site tissue oxygenation array (see §7.17)
-**NFSIM-BREATH-01**: Portable breath metabolomics (see §7.18)
-**NFSIM-CHEM-02**: Saliva chemistry reader — strip-based or microfluidic, for uric acid, cortisol, glucose, amylase
-**NFSIM-CHEM-03**: Urine chemistry panel reader — multi-analyte urine strips with optical reading
-**NFSIM-CHEM-04**: Lipid panel microfluidic chip reader — cholesterol, HDL, LDL, triglycerides from fingerstick
-**NFSIM-CHEM-05**: Lactate analyzer — sports/critical care fingerstick, enzymatic amperometric
-**NFSIM-CHEM-06**: Ketone monitor — breath acetone or blood BHB strip reader
-**NFSIM-CHEM-07**: Cortisol wearable — sweat-based continuous immunoassay patch
-**NFSIM-CHEM-08**: Continuous lactate implant — subcutaneous wire sensor, 7-day wear, BLE
-
----
-
-## 6.5 Electrical / Bioelectric Sensing Hardware Variants
-
-**NFSIM-ECG-01**: Open single-lead ECG patch (see §7.19)
-**NFSIM-ECG-02**: 12-lead portable ECG vest (see §7.20)
-**NFSIM-ECG-03**: 3-lead Holter monitor patch — 30-day continuous recording
-**NFSIM-EEG-01**: Dry-electrode open EEG headset (see §7.21)
-**NFSIM-EEG-02**: Research-grade 64-channel wet EEG system — portable amplifier box, standard cap
-**NFSIM-EEG-03**: Around-ear EEG (cEEGrid / earEEG) — discreet behind-ear electrode array
-**NFSIM-EMG-01**: Multi-channel surface EMG armband (see §7.22)
-**NFSIM-EMG-02**: Single-channel EMG patch — muscle fatigue monitoring, prosthetic control
-**NFSIM-NEURAL-01**: Open high-density ECoG research array (see §7.23)
-**NFSIM-NEURAL-02**: Open intracortical recording headstage — compatible with Utah array or custom microelectrodes
-**NFSIM-EOG-01**: Electrooculography glasses — tracks eye movement from periorbital electrodes
-**NFSIM-EDA-01**: Electrodermal activity (skin conductance) wrist sensor — sympathetic arousal, stress, pain
-
----
-
-## 6.6 Ingestible / Capsule Sensor Variants
-
-Ingestible capsules represent a new frontier: a sensor that traverses the GI tract (30–36 hours typical transit), reporting data from stomach, small intestine (duodenum, jejunum, ileum), and large intestine (colon). The capsule tracks its own position using pressure signatures, peristaltic pattern recognition, and external magnetic field sensing or RF triangulation.
-
-**NFSIM-CAP-01**: Ingestible imaging + chemical capsule (see §7.24)
-**NFSIM-CAP-02**: GI ultrasound capsule (see §7.25)
-**NFSIM-CAP-03**: DNA/RNA capture capsule (see §7.26)
-**NFSIM-CAP-04**: Full multi-modal research capsule (see §7.27)
-**NFSIM-CAP-05**: Temperature mapping capsule — core body temperature logging during transit, passive, 48h logging
-**NFSIM-CAP-06**: pH / pressure / motility capsule (SmartPill-equivalent) — GI pH mapping, pressure waveforms, transit time
-**NFSIM-CAP-07**: Microbiome sampling capsule — sterile chamber opens in colon, captures contents, reseals, passed and retrieved for sequencing
-**NFSIM-CAP-08**: Drug delivery verification capsule — logs GI conditions and reports when/whether it opens
-**NFSIM-CAP-09**: Oxygen mapping capsule — measures dissolved O2 (GI hypoxia mapping)
-**NFSIM-CAP-10**: Bleeding detection capsule — spectrometric detection of hemoglobin in GI fluid
-
----
-
-## 6.7 Wearable Patch and Implant Variants
-
-**NFSIM-PATCH-01**: Biopotential + motion multi-sensor patch — ECG + accelerometer + skin temperature in one adhesive
-**NFSIM-PATCH-02**: Wound healing monitor patch — local oxygen, pH, temperature, exudate chemistry over wound
-**NFSIM-PATCH-03**: Transdermal drug delivery controller — iontophoresis patch with controlled drug flux, BLE-programmable rate
-**NFSIM-IMPLANT-01**: Open subcutaneous sensor node — titanium capsule, ~10 mm × 5 mm, sensor-swappable, NFC-powered, passive
-**NFSIM-IMPLANT-02**: Neural stimulation research platform — biphasic current stimulator, 16-channel, wireless, research-grade chronic implant
-
----
-
-## 6.8 Field / Environmental Sensing Variants
-
-**NFSIM-ENV-01**: Environmental bio-aerosol sampler (see §7.29)
-**NFSIM-ENV-02**: Water pathogen PCR station — automated water sampling, LAMP amplification, pathogen detection (E. coli, Salmonella, Cryptosporidium)
-**NFSIM-ENV-03**: Soil microbiome sampler — DNA extraction cartridge + LAMP or sequencing for agricultural/field genomics
-**NFSIM-ENV-04**: Air quality biomonitor — VOC sensors + PM2.5 + CO2 + temperature/humidity for respiratory exposure assessment
-**NFSIM-ENV-05**: Field mosquito/vector trap + genomics — light trap, kill chamber, PCR ID of species and pathogens (Dengue, Malaria, Zika)
-
----
-
-# 7. Full Hardware Specifications — All Devices
-
----
-
-## 7.1 NFSIM-PCR-01 — Portable Individual PCR Unit
-
-**Concept**: Single-person portable PCR thermocycler designed for field diagnostics, DIYbio, and personal genomics sample preparation. Battery-operable. Compatible with standard 0.2 mL PCR tubes or 8-strip format.
-
-### Specifications
-
-| Parameter | Value |
-|---|---|
-| Sample format | 8 × 0.2 mL strip or 1 individual tube |
-| Sample volume | 10–50 µL |
-| Temperature range | 4°C–98°C |
-| Temperature accuracy | ±0.1°C |
-| Ramp rate (heating) | 5°C/s |
-| Ramp rate (cooling) | 3°C/s |
-| Cycle capacity | 1–60 cycles programmable |
-| Run time (40 cycles) | ~45–60 min |
-| Connectivity | USB-C, BLE 5.0 |
-| Power source | 4S Li-Ion battery (14.8V, 5000 mAh) OR USB-C PD 45W |
-| Battery life | 6–8 PCR runs per charge |
-| Dimensions | 160 mm × 80 mm × 70 mm |
-| Weight | 650 g |
-| Display | 2.8" color TFT touchscreen |
-| IP rating | IP54 (splash-resistant) |
-| Operating temperature | 0°C–40°C ambient |
-
-### Hardware Architecture
-
-**Thermal System**:
-| Component | Selection | Notes |
-|---|---|---|
-| Thermal block | CNC-machined aluminum 6061 | 8 conical wells, 0.2 mL format |
-| Peltier module (TEC) | TEC1-12710, 10A, 12V | Bidirectional heat pump |
-| TEC driver | DRV8876 or L298N + custom PWM | H-bridge for polarity reversal |
-| Thermistor | NTC 10kΩ B=3950K (×2, block + ambient) | Embedded in block center and edge |
-| PID controller | Software PID, 100 Hz update rate on STM32 | Gain-scheduled for heat/cool |
-| Fan | 30×30×10mm, 12V, 6 CFM | Active Peltier cool side dissipation |
-| Heat sink | Copper vapor chamber + finned aluminum | Cold side of Peltier |
-| Thermal paste | Arctic Silver 5 | TEC-to-block and TEC-to-heat sink |
-| Heated lid | Nichrome wire resistive element, 103°C | Prevent condensation |
-| Lid thermistor | NTC 10kΩ | Lid temperature feedback |
-
-**Electronics**:
-| Component | Selection | Notes |
-|---|---|---|
-| Main MCU | STM32H743 | 480 MHz Cortex-M7, FPU for PID |
-| BLE SoC | nRF52840 (co-processor or integrated) | BLE 5.0, advertising + GATT server |
-| TFT display driver | ILI9341 | SPI interface, 320×240 |
-| Touch controller | XPT2046 | 4-wire resistive |
-| Battery management | BQ25895 | Li-Ion charger, USB-C PD negotiation |
-| Fuel gauge | MAX17048 | State of charge estimation |
-| Real-time clock | DS3231 | Timestamping |
-| Flash storage | W25Q128 (16 MB) | Protocol storage, run log |
-| USB-C controller | FUSB302 | PD negotiation |
-| Power regulation | LM2596 (12V), AMS1117-3.3 | Buck converter + LDO |
-
-**PCB Design**:
-- 4-layer PCB, 2 oz copper
-- Thermal isolation zones between power and analog sections
-- Dedicated ground plane beneath thermistor signal paths
-- Connectors: USB-C (charging + data), 2.54mm TEC connector, 1.25mm thermistor, JST-XH battery
-- All SMD components for automated assembly
-
-**Enclosure**:
-- PETG or ABS FDM-printable enclosure
-- Full STEP file for customization
-- Lid hinge mechanism for PCR tube access
-- Fan exhaust vents on bottom
-- Rubber feet + tripod mount (1/4-20 threaded insert)
-
-**Firmware Architecture**:
-- FreeRTOS real-time kernel
-- Tasks: PID control (highest priority, 10 ms period), BLE stack, display update, user input, data logging
-- Protocol storage: JSON-based PCR programs stored in SPI flash
-- BLE GATT services: Device Info, PCR Control, PCR Status, Temperature Stream
-
-**Software Interface**:
-- Desktop: electron app, real-time temperature graph, protocol editor, run log export
-- Mobile: BLE-connected app, monitor run progress, receive completion notification
-- CLI: serial command interface for automated testing / scripting
-
-**NanoFlowSIM Integration**:
-- Outputs JSON run report: protocol name, cycle parameters, temperature log, start/end time, sample ID
-- Anchors result to "Molecular Lab Sample" data type in patient profile
-- Pairs with downstream NFSIM-SEQ-01 or NFSIM-CRISPR-01 for result interpretation
-
-**BOM (Key Components)**:
-| Item | Qty | Est. Unit Cost |
-|---|---|---|
-| STM32H743VIT6 | 1 | $8 |
-| nRF52840-QIAA | 1 | $7 |
-| TEC1-12710 Peltier | 1 | $6 |
-| DRV8876 TEC driver | 1 | $3 |
-| Aluminum thermal block (machined) | 1 | $25 |
-| 2.8" TFT display | 1 | $8 |
-| BQ25895 battery charger | 1 | $2 |
-| Li-Ion 4S pack 5000 mAh | 1 | $35 |
-| NTC thermistors | 4 | $1 |
-| PCB (4-layer, JLC) | 1 | $15 |
-| Enclosure (PETG print) | 1 | $12 |
-| Fan 30mm | 1 | $3 |
-| Heat sink + vapor chamber | 1 | $8 |
-| Miscellaneous passives | — | $15 |
-| **Total BOM** | | **~$148** |
-
----
-
-## 7.2 NFSIM-PCR-02 — Micro Gel-Slip PCR Strip Reader
-
-**Concept**: Inspired by pregnancy test / lateral flow simplicity applied to gel electrophoresis. Pre-cast polymer gel strips (similar to Agilent RNA ScreenTape) loaded with DNA sample, inserted into a compact reader that applies voltage, images the result with a CMOS sensor under LED transillumination, and reports band presence/absence + approximate size to NanoFlowSIM.
-
-### Specifications
-
-| Parameter | Value |
-|---|---|
-| Gel format | Disposable polymer gel strip, 10 mm × 80 mm |
-| Lanes per strip | 1 sample + 1 ladder |
-| Separation range | 100 bp – 10 kb |
-| Resolution | ±5% fragment size |
-| Run time | 4–8 min at 200V |
-| Stain method | Pre-stained SYBR-Safe or EtBr (strip pre-loaded) |
-| Detection | 470 nm LED transilluminator + OV5647 CMOS (Raspberry Pi camera) |
-| Buffer | TAE or TBE pre-loaded in sealed cartridge |
-| Voltage output | 200V DC, 5 mA max |
-| Power source | USB-C 5V (internal boost converter to 200V) |
-| Dimensions | 120 mm × 60 mm × 40 mm |
-| Weight | 200 g |
-| Connectivity | USB-C, BLE |
-
-### Hardware Architecture
-
-**Electrophoresis System**:
-| Component | Selection |
-|---|---|
-| HV boost converter | MC34063 or custom flyback, 5V→200V, <5mA |
-| HV safety cutoff | Optocoupler-isolated crowbar circuit |
-| Platinum electrodes | Pt wire, 0.5 mm diameter, buffer reservoir contacts |
-| Gel strip dock | PTFE channel, press-fit strip insertion |
-| Buffer reservoir | Sealed polycarbonate wells, pre-filled on strip |
-
-**Imaging System**:
-| Component | Selection |
-|---|---|
-| LED transilluminator | 2× 470 nm LED, 500mW total, bottom-illumination |
-| Blue filter | 520 nm longpass emission filter above gel |
-| Camera | OV5647 (5 MP) or OV2640, 25 mm from gel |
-| Orange filter (SYBR Safe) | Acrylic optical filter sheet |
-| Image processor | Raspberry Pi Zero 2W or ESP32-S3 with camera interface |
-
-**Consumable Strip Design**:
-- Agarose/polymer gel pre-cast in polycarbonate strip housing
-- SYBR Safe pre-stained in gel during manufacture
-- Two wells: 1 ladder (pre-loaded with 1 kb ladder), 1 sample
-- Sealed with foil tab (peel to load sample)
-- Buffer wells pre-filled, sealed with separate tab
-- Shelf life: 12 months refrigerated, 6 months at room temperature
-
-**Software**:
-- Automated lane detection and band identification
-- Fragment size estimation from ladder interpolation
-- Reports: band detected (Y/N), estimated size (bp), image saved as PNG
-- NanoFlowSIM output: `{"type":"gel_electrophoresis","bands":[{"lane":1,"size_bp":500,"intensity":0.82}]}`
-
-**BOM (Key Components)**:
-| Item | Qty | Est. Unit Cost |
-|---|---|---|
-| HV boost converter module | 1 | $4 |
-| OV5647 camera module | 1 | $8 |
-| 470nm LED | 2 | $1 |
-| Optical filter (520 nm longpass) | 1 | $5 |
-| Raspberry Pi Zero 2W | 1 | $15 |
-| PTFE strip dock (machined) | 1 | $12 |
-| Enclosure (SLA print) | 1 | $20 |
-| PCB | 1 | $8 |
-| Passives, connectors | — | $10 |
-| **PCB + Electronics total** | | **~$83** |
-| **Gel strip (consumable, per 10)** | 10 | **~$30** |
-
----
-
-## 7.3 NFSIM-SEQ-01 — Open Nanopore Sequencer (Gel Membrane Variant)
-
-**Concept**: An open-source nanopore sequencing platform using biological nanopore proteins (α-hemolysin or MspA) reconstituted in an artificial lipid bilayer or supported gel membrane. Targets research-grade sequencing exploration, educational use, and field sequencing where a full MinION flow cell is inaccessible. Uses FPGA-based analog front-end signal acquisition with open-source basecaller.
-
-### Core Architecture
-
-This device replicates the physics of nanopore sequencing with commodity-accessible components:
-
-**Membrane chamber**: microfluidic PDMS or polycarbonate flow cell with a 20–50 µm diameter aperture in a thin (25 µm) Teflon membrane. Lipid bilayer or supported lipid membrane forms across aperture.
-
-**Nanopore insertion**: α-hemolysin (commercially available from Sigma-Aldrich) or MspA (resurgent open-source protein production) added to cis chamber. Spontaneously inserts into bilayer.
-
-**Ionic current measurement**: Ag/AgCl electrodes in cis (top) and trans (bottom) chamber. Voltage clamped at +100 to +180 mV. Current amplified by low-noise patch-clamp amplifier.
-
-**DNA threading**: dsDNA is prepared with a motor protein (phi29 DNA polymerase works as a DNA ratchet; commercially available). Motor protein ratchets ssDNA through pore at ~400 bases/second.
-
-### Specifications
-
-| Parameter | Value |
-|---|---|
-| Pore type | α-hemolysin (biological) or MspA |
-| Membrane type | Planar lipid bilayer or supported gel membrane |
-| Ionic current range | 0–500 pA |
-| Voltage clamp range | –200 to +200 mV |
-| Noise floor | <1 pA RMS (with careful shielding) |
-| Sampling rate | 10–50 kHz |
-| ADC resolution | 16-bit minimum |
-| Channels | 1 (research), expandable to 16 |
-| Temperature control | 18–40°C (Peltier-controlled chamber) |
-| Read length | Theoretically unlimited |
-| Raw accuracy | ~85–92% (requires training/calibration) |
-| Connectivity | USB 3.0 to host for data streaming |
-| Dimensions | 200 mm × 150 mm × 80 mm (amplifier + chamber unit) |
-| Power | USB or 12V DC |
-
-### Hardware Architecture
-
-**Low-Noise Patch Clamp Amplifier**:
-| Component | Selection | Notes |
-|---|---|---|
-| Input op-amp | AD8625 or OPA140 | Ultra-low noise, FET input |
-| Feedback resistor | 1–10 GΩ precision (metal film) | Determines sensitivity: I = V/Rf |
-| Shield | Copper Faraday cage, connected to guard | Eliminates cable capacitance |
-| Headstage PCB | Rogers 4350B high-frequency PCB | Low dielectric loss for pA signals |
-| Voltage clamp DAC | AD5791 (20-bit) | Precise command voltage |
-| ADC | ADS1256 (24-bit, 30 kSPS) or AD7177 | High resolution digitization |
-| Noise filter | Bessel 4-pole, 5 kHz bandwidth | Anti-alias + signal band |
-
-**Flow Cell**:
-| Component | Material/Selection |
-|---|---|
-| Chamber body | Polycarbonate CNC-machined or SLA printed |
-| Teflon membrane (25 µm) | Goodfellow, heat-thinned to aperture |
-| Ag/AgCl electrodes | Ag wire chlorinated in bleach |
-| Lipid solution | DPhPC in decane, 5 mg/mL |
-| Perfusion ports | PEEK tubing, 0.5 mm ID |
-| Faraday shield enclosure | Aluminum box, ground to amplifier |
-
-**FPGA Interface**:
-| Component | Selection |
-|---|---|
-| FPGA dev board | Lattice iCE40HX8K or Xilinx Artix-7 |
-| Real-time processing | Threshold detection, event capture, data streaming |
-| USB interface | FT232H (USB-UART bridge) or USB3 FIFO |
-| Host software | Python acquisition, C++ real-time daemon |
-
-**Signal Chain**:
-`DNA in cis chamber → motor protein ratcheting → pore translocation → ionic current change (pA) → headstage amplifier → 16/24-bit ADC → FPGA decimation filter → USB stream → host basecaller`
-
-**Open-Source Basecaller** (NFSIM Basecaller Project):
-- PyTorch/TensorFlow-based convolutional recurrent neural network (CRNN)
-- Trained on public ONT squiggle data (R9.4, R10 models in public domain from academic papers)
-- CTC (Connectionist Temporal Classification) decoding
-- Outputs FASTQ format
-
-**Key Challenges Acknowledged**:
-- Membrane stability: bilayers rupture. Solution: gel-supported lipid bilayers (agarose-DPhPC hybrids) are more robust
-- Pore lifetime: channel blockade events. Solution: voltage reversal protocol to clear blockage
-- Motor protein sourcing: phi29 DNAP commercially available, expensive. Open-source protein expression protocol published alongside hardware
-- Noise: 1/f flicker noise dominates below 1 kHz. Careful shielding and PCB layout essential.
-
-**BOM (Key Components)**:
-| Item | Qty | Est. Unit Cost |
-|---|---|---|
-| AD8625 op-amp | 2 | $8 |
-| 1GΩ feedback resistor | 4 | $15 |
-| AD5791 DAC | 1 | $35 |
-| ADS1256 ADC | 1 | $18 |
-| Lattice iCE40 FPGA board | 1 | $45 |
-| Polycarbonate flow cell (machined) | 1 | $40 |
-| Teflon membrane (sheet) | 1 | $20 |
-| Ag wire for electrodes | 1 | $10 |
-| Rogers 4350B headstage PCB | 1 | $30 |
-| Aluminum Faraday shield | 1 | $25 |
-| α-hemolysin (20 µg) | 1 | $80 |
-| DPhPC lipid (5 mg) | 1 | $50 |
-| Phi29 DNA polymerase (500 U) | 1 | $120 |
-| Miscellaneous | — | $40 |
-| **Total BOM** | | **~$536** |
-
----
-
-## 7.4 NFSIM-SEQ-02 — Solid-State Nanopore Research Board
-
-**Concept**: A research development platform for solid-state nanopore fabrication and testing. Solid-state nanopores are drilled or etched in silicon nitride (SiN) or molybdenum disulfide (MoS₂) membranes using focused ion beam (FIB) or TEM. This board provides the electrical infrastructure (amplifier, voltage clamp, data acquisition) to interface with custom-fabricated solid-state nanopore chips.
-
-### Specifications
-
-| Parameter | Value |
-|---|---|
-| Membrane compatibility | SiN (10–50 nm), MoS₂, Al₂O₃, HfO₂ on Si substrate |
-| Pore diameter range | 1–20 nm (varies by fabrication) |
-| Chip format | 5 mm × 5 mm substrate with fluidic gasket |
-| Voltage clamp | ±1V, 1 mV resolution |
-| Current range | 1 pA – 10 nA |
-| Bandwidth | DC to 100 kHz |
-| Sampling rate | 500 kHz (16-bit) |
-| Noise floor | <3 pA RMS at 10 kHz |
-| Channels | 4 independent channels |
-| Interface | USB 3.0 + SPI (for FPGA extension) |
-| Software | Python API, real-time event detection |
-
-### Hardware Architecture
-
-**Multi-Channel Patch Clamp Amplifier**:
-- 4× independent low-noise transimpedance amplifier (TIA) channels
-- Feedback resistors: 500 MΩ (high sensitivity) / 50 MΩ (high bandwidth) switchable per channel
-- Differential voltage clamp per channel (independent control)
-- Cross-talk isolation: >80 dB between channels
-
-**FPGA-Based Acquisition**:
-- Xilinx Artix-7 FPGA
-- 4× 16-bit 500 kSPS ADC (ADS8860 or similar)
-- Real-time threshold crossing event detection
-- Dwell time and blockade depth extraction in hardware
-- USB3 bulk transfer to host
-
-**Chip Interface**:
-- PDMS gasket-sealed flow cell for chip mounting
-- Two-chamber design (cis/trans) with microfluidic ports
-- Ag/AgCl electrode contact pins spring-loaded onto chip
-- Peltier temperature control: 10–60°C
-
----
-
-## 7.5 NFSIM-CRISPR-01 — Portable CRISPR Diagnostic Device
-
-**Concept**: A portable device for running SHERLOCK (Specific High Sensitivity Enzymatic Reporter UnLOCKing) or DETECTR assays. These use CRISPR-Cas13 (SHERLOCK) or CRISPR-Cas12 (DETECTR) with a fluorescent reporter to detect specific nucleic acid sequences (viral RNA, bacterial DNA, genetic variants) without sequencing.
-
-**Key advantage over PCR**: SHERLOCK/DETECTR can run isothermally at 37–42°C. No thermocycler required for the CRISPR step (though sample typically requires isothermal amplification first via RPA/LAMP, which runs at 37–42°C as well). Entire assay: room temperature-capable with modest heating.
-
-### Specifications
-
-| Parameter | Value |
-|---|---|
-| Assay type | SHERLOCK (Cas13a/b), DETECTR (Cas12a) |
-| Amplification | RPA (37°C) or LAMP (65°C) pre-step |
-| Reaction temperature | 37°C (SHERLOCK) or 37°C (DETECTR) |
-| Detection mode | Fluorescence (FAM/Texas Red) AND/OR lateral flow strip |
-| Fluorescence excitation | 470 nm (FAM), 530 nm (Texas Red) |
-| Emission detection | 520 nm (FAM), 610 nm (Texas Red) |
-| Dynamic range | 1 aM – 1 µM (SHERLOCK) |
-| Sensitivity | Single molecule (with pre-amplification) |
-| Time to result | 30–60 min (amplification) + 30 min (CRISPR) |
-| Heating zones | 2 independent (37°C CRISPR + 65°C LAMP option) |
-| Sample wells | 8 |
-| Power | USB-C 5V |
-| Connectivity | BLE, USB-C |
-| Dimensions | 150 mm × 90 mm × 50 mm |
-
-### Hardware Architecture
-
-**Thermal Control**:
-| Component | Specification |
-|---|---|
-| Heating zone 1 (LAMP): | TEC or resistive, 65°C ±0.5°C |
-| Heating zone 2 (CRISPR): | Resistive heater, 37°C ±0.5°C |
-| Temperature sensors: | NTC thermistor, 10kΩ, ±0.1°C |
-| PID controller: | STM32F4 software PID |
-
-**Fluorescence Detection**:
-| Component | Specification |
-|---|---|
-| Excitation LED 1 | 470 nm, 5mW, SMD |
-| Excitation LED 2 | 530 nm, 5mW, SMD |
-| Emission filter 1 | 520/35 nm bandpass (FAM) |
-| Emission filter 2 | 610/40 nm bandpass (Texas Red) |
-| Photodetector | SiPM (MicroFC-10035) or OPT101 |
-| Lock-in detection | LED chopped at 1 kHz, synchronous demodulation |
-| Optical path | Perpendicular excitation/emission, light-tight chamber |
-
-**Lateral Flow Reader** (optional module):
-- CMOS camera (OV5640) images test and control lines
-- Background-subtracted line intensity quantification
-- Pass/Fail determination + confidence score
-
-**Reagent Handling**:
-- Lyophilized reagent tubes (freeze-dried Cas13a/Cas12a + guide RNA + reporter)
-- Pre-loaded or user-loaded cartridges
-- Room-temperature stable: 6 months (lyophilized)
-
-**BOM (Key Components)**:
-| Item | Qty | Est. Unit Cost |
-|---|---|---|
-| STM32F411 MCU | 1 | $4 |
-| nRF52840 BLE SoC | 1 | $7 |
-| Resistive heater elements | 2 | $4 |
-| NTC thermistors | 4 | $2 |
-| 470 nm LED SMD | 2 | $1 |
-| 530 nm LED SMD | 2 | $1 |
-| SiPM detector | 2 | $12 |
-| Optical bandpass filters | 4 | $20 |
-| OV5640 camera (LF module) | 1 | $8 |
-| PCB (4-layer) | 1 | $12 |
-| Enclosure (SLA) | 1 | $25 |
-| **Total BOM** | | **~$96** |
-| **Reagent cartridge (per 8 tests)** | | **~$40–80** |
-
----
-
-## 7.6 NFSIM-dPCR-01 — Portable Digital PCR (Droplet)
-
-**Concept**: Digital PCR partitions a sample into thousands of nano-volume compartments (droplets or microwells) before PCR. Each compartment either contains target DNA (and amplifies) or doesn't. Endpoint fluorescence reading counts positive vs. negative partitions → absolute copy number (Poisson statistics).
-
-### Specifications
-
-| Parameter | Value |
-|---|---|
-| Partition method | Droplet generation (oil-aqueous emulsion) |
-| Droplet volume | ~1 nL |
-| Droplets per run | 10,000–20,000 |
-| Reaction volume | 20 µL |
-| Thermocycling | Same as NFSIM-PCR-01 |
-| Detection | Endpoint fluorescence imaging |
-| Dynamic range | 1–100,000 copies/µL |
-| Sensitivity | 1 copy per 20 µL reaction |
-| Duplexing | 2-color (FAM + HEX/VIC) |
-| Run time | 90–120 min |
-| Connectivity | USB-C, BLE |
-| Power | 12V DC or battery |
-
-### Hardware Architecture
-
-**Droplet Generator**:
-- Microfluidic chip: PDMS soft-lithography or injection-molded polycarbonate
-- T-junction geometry: aqueous sample + oil + surfactant → droplet formation
-- Oil: Mineral oil + 1% Span-80 surfactant
-- Flow control: pneumatic pressure (small 5V diaphragm pump) or syringe pump
-- Droplet size control: pressure ratio determines droplet volume
-
-**Droplet Imaging**:
-- After PCR, droplets sediment in imaging chamber
-- High-resolution CMOS camera (OV5640, 5MP) with 10× macro lens
-- Green/blue LED excitation
-- FAM (520 nm) and HEX (556 nm) emission filters
-- Image analysis: watershed segmentation, per-droplet intensity extraction
-- Classification: threshold-based positive/negative call per droplet
-- Poisson correction → copies per µL
-
----
-
-## 7.7 NFSIM-GELEC-01 — Portable Gel Electrophoresis System
-
-**Concept**: A full portable agarose gel electrophoresis system. Pours real agarose gels (or uses pre-cast gels). Runs at 100–150V. Images with built-in UV transilluminator (302 nm or 365 nm UV LED) + UV-blocking filter. Suitable for complete gel runs in field environments.
-
-### Specifications
-
-| Parameter | Value |
-|---|---|
-| Gel dimensions | 70 mm × 60 mm (mini gel) |
-| Lane count | 6–10 lanes |
-| Voltage output | 50–150V DC, adjustable |
-| Current limit | 0–500 mA |
-| Run time | 15–45 min |
-| UV source | 302 nm or 365 nm UV LED array |
-| Emission filter | Orange acrylic (for EtBr / SYBR Gold) |
-| Buffer | TAE or TBE, 1× |
-| Camera | OV5647, 8 MP |
-| Power | USB-C (internal HV boost) |
-| Dimensions | 200 mm × 160 mm × 90 mm |
-| Weight | 800 g |
-
-### Hardware Architecture
-
-**Electrophoresis Tank**:
-- UV-transparent polycarbonate casting tray
-- Carbon electrode plates (corrosion-resistant)
-- Integrated lid with UV-blocking window
-- Buffer level indicator
-
-**High Voltage Power Supply**:
-| Component | Selection |
-|---|---|
-| HV boost converter | Flyback converter, 5V→200V |
-| HV regulation | Voltage feedback, ±2V |
-| Current monitoring | Inline sense resistor + ADC |
-| Safety cutoff | Current limit, auto-shutoff on lid open |
-| Polarity control | DPDT relay |
-
-**Imaging System**:
-- UV LED array (302 nm or 365 nm), 12× LED in array
-- Longpass emission filter: 520 nm for SYBR, 590 nm for EtBr
-- Raspberry Pi Zero 2W + HQ camera module
-- Image capture on run completion
-- Automated band detection software
-
-**Safety**:
-- Lid interlock: HV disabled when lid open
-- UV shutoff when camera not engaged
-- Earthed chassis
-
----
-
-## 7.8 NFSIM-US-01 — Portable Ultrasound Probe (USB-C)
-
-**Concept**: A handheld ultrasound probe that connects via USB-C to a smartphone, tablet, or laptop. Comparable to Butterfly iQ but fully open-source hardware. Uses CMUT (Capacitive Micromachined Ultrasonic Transducer) array for compact, semiconductor-fabricated transducer, or a conventional PZT linear array if CMUT is not accessible.
-
-### Specifications
-
-| Parameter | Value |
-|---|---|
-| Transducer type | Linear array (64 elements) or CMUT array |
-| Frequency | 3–12 MHz (software-selectable) |
-| Imaging modes | B-mode, M-mode, Color Doppler, PW Doppler |
-| Field of view | 38 mm wide, 80 mm depth |
-| Frame rate | 30–60 fps |
-| Axial resolution | 0.2–0.5 mm |
-| Lateral resolution | 1–3 mm |
-| Interface | USB-C 3.1 (power + data) |
-| Power draw | 5V, 3A max (USB-C PD) |
-| Dimensions | 28 mm × 155 mm (probe body) |
-| Weight | 180 g |
-| IP rating | IPX7 (washable, no immersion sequencing) |
-| On-probe processing | Digital beamformer ASIC or FPGA |
-
-### Hardware Architecture
-
-**Transducer Array (PZT variant)**:
-| Component | Specification |
-|---|---|
-| PZT-5H element array | 64 elements, 0.3 mm pitch, 15 mm elevation focus |
-| Backing layer | High-attenuation epoxy (sound absorption) |
-| Matching layers | 1–2 layers, quarter-wave impedance matching |
-| Ground shield | Copper foil, bonded to array housing |
-| Flex interconnect | 64-conductor FPC cable |
-| Lens | Silicone acoustic lens (fixed elevation focus) |
-
-**Electronics**:
-| Component | Specification |
-|---|---|
-| TX beamformer | Programmable delay lines, 64-channel, high-voltage pulser (±50–100V) |
-| HV pulser | STHV800 (8-channel, stackable to 64) or equivalent |
-| T/R switch | TX810 or custom MOSFET array |
-| LNA | Ultra-low noise, 20–30 dB gain, 64-channel |
-| TGC (time gain compensation) | Programmable gain, 64-channel |
-| RX beamformer FPGA | Xilinx Artix-7 or Lattice ECP5, delay-and-sum in hardware |
-| ADC | 12-bit, 40 MSPS, 64-channel (multiple ADS52J90 or similar) |
-| USB3 controller | FT601 or custom USB3 FIFO |
-| Power management | 5V in → HV (for TX), +3.3V, +1.8V, analog supply |
-
-**Beamforming Signal Path**:
-`TX: Host → FPGA → Delay lines → HV pulsers → transducer array`
-`RX: Transducer array → LNA → TGC → ADC → FPGA beamformer (delay and sum) → envelope detection → log compression → scan convert → USB3 stream → host`
-
-**Host Software**:
-- OpenGL/Vulkan real-time B-mode rendering
-- Scan converter (polar to rectangular)
-- Doppler processing: autocorrelation, color flow mapping
-- DICOM output
-- NanoFlowSIM region anchor: user tags imaged anatomy during scan
-
-**BOM (Key Components)**:
-| Item | Qty | Est. Unit Cost |
-|---|---|---|
-| PZT array (custom fab) | 1 | $80 |
-| STHV800 HV pulser (×8) | 8 | $60 |
-| TX810 T/R switch (×8) | 8 | $24 |
-| LNA array (custom PCB) | 1 | $40 |
-| ADS52J90 ADC | 2 | $50 |
-| Artix-7 FPGA | 1 | $90 |
-| FT601 USB3 | 1 | $12 |
-| Flex PCB + interconnect | 1 | $35 |
-| Probe housing (machined aluminum) | 1 | $45 |
-| Acoustic lens (silicone) | 1 | $15 |
-| Cables, connectors | — | $20 |
-| **Total BOM** | | **~$471** |
-
----
-
-## 7.9 NFSIM-US-02 — Wearable Ultrasound Patch Array
-
-**Concept**: A flexible adhesive ultrasound patch worn on the skin surface. Contains a 2D CMUT or piezo-polymer (PVDF) element array conforming to the skin. Designed for continuous or periodic imaging of underlying anatomy: cardiac (parasternal), lung (pleural effusion), DVT screening (leg veins), or tissue mechanical properties. Wireless (BLE or UWB) to a wearable compute unit.
-
-### Specifications
-
-| Parameter | Value |
-|---|---|
-| Patch dimensions | 60 mm × 60 mm |
-| Transducer elements | 8×8 = 64 element PVDF or CMUT array |
-| Frequency | 2–7 MHz |
-| Imaging mode | B-mode, M-mode, tissue Doppler |
-| Penetration depth | 10–150 mm |
-| Frame rate | 5–15 fps (limited by wireless bandwidth) |
-| Wear duration | 24–72 hours (disposable patch + reusable electronics module) |
-| Connectivity | BLE 5.0 or UWB |
-| Power | 300 mAh flexible LiPo, 12–24h life |
-| IP rating | IPX4 (sweat and splash) |
-| Patch thickness | <5 mm (electronics pod) + 0.5 mm array |
-
-### Hardware Architecture
-
-**Flexible Transducer Array**:
-- PVDF (polyvinylidene fluoride) piezo-polymer: thin, flexible, biocompatible
-- Screen-printed silver electrodes on PVDF film
-- 64 addressable elements with individual row/column addressing
-- Acoustic coupling: medical ultrasound gel layer or hydrogel pad
-- Backing: flexible acoustic absorber foam
-
-**Electronics (reusable pod)**:
-- miniaturized beamformer ASIC or small FPGA
-- Low-power pulsers (40V)
-- Analog front end: LNA + TGC + ADC at 40 MSPS
-- Wireless SoC (nRF5340 for BLE, or DW3000 for UWB)
-- Flexible LiPo + wireless charging (Qi)
-- Snap-connect to disposable array patch
-
-**Key Innovation — Continuous Cardiac/Pulmonary Monitoring**:
-Patient wears patch in parasternal position → continuous M-mode cardiac imaging → extract: ejection fraction trend, pericardial effusion detection, lung sliding (pneumothorax), B-lines (pulmonary edema). AI interprets each frame and streams physiological parameters rather than raw image.
-
----
-
-## 7.10 NFSIM-US-03 — Pill Capsule Ultrasound (Ingestible)
-
-**Concept**: A swallowable capsule containing a miniaturized ultrasound transducer array that images the GI tract walls from the inside. Tracks its own position via intestinal pressure signatures and RF localization. Transmits images wirelessly to an external receiver/wearable belt. Passes naturally within 24–36 hours.
-
-### Specifications
-
-| Parameter | Value |
-|---|---|
-| Capsule dimensions | 26 mm × 11 mm (standard endoscopy capsule size) |
-| Transducer type | CMUT ring array, circumferential |
-| Imaging geometry | 360° circumferential cross-section of GI lumen |
-| Frequency | 5–20 MHz |
-| Penetration depth | 5–30 mm (GI wall, adjacent organs) |
-| Image resolution | 0.1–0.5 mm |
-| Frame rate | 2–5 fps |
-| Wireless protocol | 434 MHz or 915 MHz FSK (body penetration), range 1–2 m |
-| Wireless data rate | 1–5 Mbps (compressed image stream) |
-| Battery | Silver oxide or Li-SO₂Cl₂ primary, 250–300 mAh |
-| Battery life | 24–36 hours (GI transit time) |
-| Biocompatible shell | Medical-grade polycarbonate or Ultem |
-| Position tracking | Accelerometer + gyroscope + pressure sensor combination |
-| Data storage | 128 MB onboard NAND flash (backup if wireless fails) |
-
-### Hardware Architecture
-
-**Ultrasound Subsystem**:
-| Component | Selection |
-|---|---|
-| CMUT ring array | Custom MEMS fab, 64 elements in ring, 10 mm diameter |
-| Pulser/receiver ASIC | Custom silicon (Si, GaAs) or repurposed hearing aid chip |
-| Acoustic coupling | Aqueous saline internal reservoir (transmits US through polycarbonate wall) |
-| Image processing SoC | Ultra-low-power ARM Cortex-M4 |
-| Image compression | JPEG 2000 hardware encoder |
-
-**Position Tracking**:
-- 3-axis accelerometer (BMA456): capsule orientation and motion
-- 3-axis gyroscope (BMI088): rotation tracking
-- Absolute pressure sensor (BMP581): GI pressure waveforms distinguish anatomical location (stomach: irregular high pressure; small intestine: peristaltic 10–30 mmHg waves; colon: lower pressure, longer interval)
-- RF triangulation using external belt antenna array (optional, for enhanced location accuracy)
-
-**Anatomical Position Estimation Algorithm**:
-```
-Position = f(elapsed_time, pressure_signature, peristaltic_pattern, capsule_orientation, pH_if_equipped)
-
-Zones:
-  0–30 min after swallow:    Esophagus → Stomach entry
-  30 min – 4 hours:          Stomach (high pressure, churning motion signature)
-  4–8 hours:                 Small intestine (peristaltic wave pattern ~3/min)
-  8–36 hours:                Large intestine (haustral contraction signature)
-```
-
-**Wireless Transmission**:
-- Body-penetrating RF at 434 MHz (MICS band medical device approved in many regions)
-- External wearable belt: 4–8 antenna patches distributed around abdomen
-- Received signals combined (diversity) to ensure coverage regardless of capsule orientation
-- Lossless/near-lossless image compression before transmission
-
-**External Receiver Belt**:
-- 6× patch antennas, flexible
-- RF frontend + ADC
-- nRF5340 or ESP32-S3 for packet assembly
-- BLE relay to phone/NanoFlowSIM app
-- Disposable antenna patches, reusable electronics module
-
-**Regulatory Path**: Device falls under ingestible medical device regulations (FDA 510(k) predicate: Capsule Endoscopy). Open-source design intended for research / IRB-approved studies initially.
-
----
-
-## 7.11 NFSIM-MRI-01 — Low-Field Portable MRI (Permanent Magnet)
-
-**Concept**: A benchtop MRI system using permanent magnets instead of superconducting electromagnets. Low field (50–100 mT) compromises SNR relative to 1.5T clinical MRI, but AI reconstruction algorithms compensate. No cryogenics. No shielding room required. Suitable for extremity imaging (hand, wrist, foot, ankle, brain in small form factor). Inspired by Hyperfine Swoop, but fully open-source.
-
-### Specifications
-
-| Parameter | Value |
-|---|---|
-| Field strength | 64 mT (permanent magnet) |
-| Magnet type | NdFeB permanent magnets in Halbach array |
-| Bore diameter | 320 mm (head) or 120 mm (extremity variant) |
-| RF frequency | 2.7 MHz (64 mT proton resonance) |
-| SNR | Low (compensated by signal averaging + AI recon) |
-| Resolution (AI-enhanced) | 1.5 mm isotropic (brain) |
-| Scan time | 5–15 min |
-| Weight (head system) | 35–50 kg |
-| Weight (extremity system) | 8–12 kg |
-| Power | 120/240V, 1.5 kW peak |
-| Gradient coils | 3-axis, air-core, ~50 A peak |
-| RF coil | Surface coil or birdcage coil, volume |
-| Shielding | Passive: aluminum cage sufficient at 2.7 MHz |
-| Sequences | SE, GRE, FLAIR, DWI (simplified) |
-
-### Hardware Architecture
-
-**Permanent Magnet System**:
-| Component | Specification |
-|---|---|
-| Magnet material | NdFeB grade N52, permanent |
-| Array geometry | Halbach dipole or C-shape dipole |
-| Field homogeneity | ±50 ppm over 20 cm DSV (shimmed) |
-| Passive shim set | Iron shim plates, iteratively positioned |
-| Active shim (optional) | Room-temperature resistive shim coils, ±1 A |
-
-**Gradient Coil Set**:
-- Air-core resistive gradient coils (no iron core at low field)
-- Maxwell coils (Z-axis), Golay coils (X,Y)
-- Peak gradient strength: 10–30 mT/m
-- Slew rate: 10–50 T/m/s
-- Driver: H-bridge amplifier, 48V, 30–50A peak
-
-**RF System**:
-| Component | Specification |
-|---|---|
-| RF excitation | Birdcage coil or surface coil, transmit/receive |
-| Transmit power | <100W (low field requires low RF power) |
-| RF amplifier | Linear 100W RF amp at 2.7 MHz |
-| Duplexer | T/R switch (low-field: passive LC circuit) |
-| Receive chain | Low-noise pre-amp, 2.7 MHz center, 10 kHz BW |
-| ADC | 24-bit, 1 MSPS, coherent with gradient timing |
-
-**Reconstruction**:
-- Open-source MRI reconstruction: Bart (Berkeley Advanced Reconstruction Toolbox)
-- AI super-resolution: trained on paired low-field / high-field datasets (public: FASTMRI challenge data)
-- Output: NIfTI or DICOM format
-
----
-
-## 7.12 NFSIM-XRAY-01 — Low-Dose Portable X-Ray Panel
-
-**Concept**: A portable digital X-ray system comprising a battery-powered X-ray generator (briefcase-sized) and a wireless flat-panel detector. Targets field medicine, dental, veterinary, and point-of-care bone/chest imaging. Designed to be fully open-source with dose-minimizing pulsed technique.
-
-### Specifications
-
-| Parameter | Value |
-|---|---|
-| Generator type | Battery-powered, portable |
-| Tube voltage | 40–90 kVp |
-| Tube current | 1–100 mA |
-| Exposure time | 1–500 ms |
-| Dose per chest PA | <0.02 mSv (comparable to screen-film) |
-| Detector size | 35 cm × 43 cm (standard) or 24 cm × 30 cm |
-| Detector type | CsI scintillator + amorphous silicon TFT |
-| Pixel pitch | 139 µm |
-| Wireless protocol | Wi-Fi 802.11ac (detector → acquisition station) |
-| Image resolution | 2520 × 3072 pixels (35×43 detector) |
-| Bit depth | 14-bit grayscale |
-| Battery life (generator) | 300 exposures per charge |
-| Generator weight | 4.5 kg |
-| Detector weight | 2.8 kg |
-| Generator dimensions | 280 mm × 200 mm × 120 mm |
-
-### Hardware Architecture
-
-**X-Ray Generator**:
-| Component | Specification |
-|---|---|
-| X-ray tube | Rotating anode, focal spot 0.6/1.2 mm |
-| High voltage module | Resonant inverter, 40–90 kVp, ±1% regulation |
-| mA control | Filament current PID control |
-| Exposure timer | 1 ms resolution hardware timer |
-| Battery | 48V Li-Ion, 20 Ah |
-| Collimator | Manual leaf blades, laser alignment |
-| Tube stand | Carbon fiber monopod, height-adjustable |
-
-**Flat Panel Detector**:
-| Component | Specification |
-|---|---|
-| Scintillator | CsI:Tl (structured), 500 µm thick |
-| TFT array | α-Si TFT, 139 µm pixel pitch |
-| Readout ASIC | Charge-integrating mode |
-| ADC | 14-bit per pixel |
-| Frame memory | DRAM buffer |
-| Wireless | Wi-Fi 802.11ac module |
-| Battery | 3.7V Li-Ion, 5000 mAh (8h use) |
-| Housing | Carbon fiber + foam padding |
-
-**Software**:
-- DICOM output compliant
-- Automated AEC (automatic exposure control) algorithm
-- AI: automatic bone/soft tissue segmentation
-- NanoFlowSIM: DICOM import → 3D anchor to imaged body region
-
----
-
-## 7.13 NFSIM-OCT-01 — Portable OCT Probe
-
-**Concept**: A portable swept-source or spectral-domain OCT probe for ophthalmic (retinal and corneal), dermatologic, or intraoperative imaging. OCT provides micron-scale cross-sectional images to 2–3 mm depth without contact in most configurations.
-
-### Specifications
-
-| Parameter | Value |
-|---|---|
-| OCT type | Spectral-domain (SD-OCT) |
-| Light source | SLD (superluminescent diode), 840 nm, 50 nm bandwidth |
-| Axial resolution | 6–7 µm in tissue |
-| Lateral resolution | 15–25 µm |
-| Scan depth | 1.5–2 mm |
-| A-scan rate | 20,000–70,000 A-scans/sec |
-| Field of view | 6 mm × 6 mm (retinal) |
-| Spectrometer | 2048-pixel line scan CCD/CMOS |
-| Probe connectivity | Fiber optic + USB3 |
-| Processing | GPU-based FFT reconstruction |
-| Output | Volume OCT data (DICOM, HDF5) |
-| Dimensions | Handheld probe 120 mm × 30 mm; electronics box 200 mm × 150 mm × 80 mm |
-
-### Hardware Architecture
-
-**Optical Engine**:
-| Component | Specification |
-|---|---|
-| SLD light source | EXS8510-1021, 840 nm, 50 nm FWHM |
-| Fiber coupler (50:50) | Single-mode fiber beamsplitter |
-| Reference arm | Retro-reflector + dispersion compensation glass |
-| Sample arm | Handheld galvo scanner probe |
-| Galvo mirrors | 2-axis, 8mm aperture, resonant + linear |
-| Objective lens | 50mm focal length achromatic doublet |
-| Spectrometer | 1200 lines/mm diffraction grating + F-theta lens + Basler spL4096-140km line scan |
-
-**Electronics**:
-| Component | Specification |
-|---|---|
-| Line scan camera driver | CameraLink interface, 140 kHz line rate |
-| Frame grabber | PCIe or USB3 capture card |
-| GPU | GTX 1650 or AMD RX 6500 XT for FFT |
-| Galvo controller | Sine/ramp waveform DAC, 100 kSPS |
-| Trigger synchronization | FPGA (Lattice ICE40) for precise timing |
-
----
-
-## 7.14 NFSIM-CGM-01 — Open CGM Sensor Platform
-
-**Concept**: An open-source continuous glucose monitor with both an enzymatic sensor filament and a reader/transmitter unit. Designed to enable DIYbio, research modification, and NanoFlowSIM-native continuous glucose streaming. Compatible with OpenAPS / Loop closed-loop insulin systems.
-
-### Specifications
-
-| Parameter | Value |
-|---|---|
-| Sensing method | Enzymatic amperometric (glucose oxidase) |
-| Insertion depth | 8–10 mm subcutaneous |
-| Filament diameter | 280 µm (25G equivalent) |
-| Wear duration | 10–14 days |
-| Measurement range | 40–400 mg/dL (2.2–22.2 mmol/L) |
-| Accuracy (MARD) | <10% target |
-| Sampling rate | Every 5 min |
-| Warm-up time | 1–2 hours |
-| Connectivity | NFC + BLE 5.0 |
-| Alert capability | High glucose, low glucose, rate-of-change |
-| App output | mg/dL, mmol/L, trend arrow, 24h graph |
-| Waterproof | IPX8 (1m, 30 min) |
-| Transmitter dimensions | 38 mm × 28 mm × 8 mm |
-
-### Hardware Architecture
-
-**Sensor Filament**:
-| Layer | Material / Function |
-|---|---|
-| Core wire | Platinum wire, 127 µm diameter |
-| Glucose oxidase layer | GOx crosslinked in BSA + glutaraldehyde |
-| Interference membrane | Cellulose acetate (50–100 nm) |
-| Biocompatibility layer | Polyurethane outer membrane |
-| Reference electrode | Ag/AgCl on secondary track |
-
-**Transmitter Electronics**:
-| Component | Specification |
-|---|---|
-| Potentiostat ASIC | MAX30001 (biopotential + ECG, adaptable) or AFE4300 | 3-electrode potentiostat mode |
-| Analog front end | 3-electrode, nA current, 24-bit ADC |
-| MCU | nRF52840 (BLE 5.0 + NFC integrated) |
-| NFC | ISO 15693, passive power from phone tap |
-| BLE | GATT Glucose Profile (GLP) |
-| Battery | CR2032 coin cell (NFC powered) or CR2477 (14-day BLE) |
-| Flash | 4 MB SPI NOR (2 week data log) |
-| Applicator | Spring-loaded single-use insertion mechanism |
-
-**Calibration**:
-- Factory calibration coefficients in sensor EEPROM (NFC-readable)
-- Optional fingerstick calibration at 12h intervals for improved accuracy
-- Temperature compensation from onboard NTC thermistor
-
-**Open Firmware**:
-- nRF5 SDK or Zephyr RTOS
-- GATT CGM service (blood glucose measurement characteristic)
-- NanoFlowSIM NFS-GATT extension for rich metadata (meal tags, insulin events, sensor ID)
-
----
-
-## 7.15 NFSIM-SWEAT-01 — Wearable Sweat Chemistry Patch
-
-**Concept**: A flexible adhesive patch worn on the forearm or chest that uses microfluidic channels to route sweat from eccrine glands to an electrochemical sensor array. Measures Na⁺, K⁺, pH, lactate, and optionally glucose, cortisol, or uric acid continuously during exercise or under resting conditions.
-
-### Specifications
-
-| Parameter | Value |
-|---|---|
-| Analytes | Na⁺, K⁺, pH, lactate, glucose (optional), cortisol (optional) |
-| Sweat collection | Passive microfluidics, 5–20 µL/h fill rate |
-| Detection | Potentiometric ISE (Na⁺, K⁺, pH) + amperometric (lactate, glucose) |
-| Na⁺ range | 10–200 mmol/L |
-| K⁺ range | 1–30 mmol/L |
-| Lactate range | 0–30 mmol/L |
-| pH range | 4.5–8.0 |
-| Sample refresh | Passive flow via capillary channels |
-| Wireless | BLE 5.0 |
-| Battery | 20 mAh thin-film LiPo |
-| Battery life | 6–12 hours continuous |
-| Patch wear time | Single-use, 24h max |
-| Waterproof | IPX5 |
-| Dimensions | 60 mm × 40 mm × 3 mm |
-
-### Hardware Architecture
-
-**Microfluidic Layer (PDMS)**:
-- Serpentine channel: routes sweat from inlet pores → sensor array → waste reservoir
-- Air-displacement vent: allows channel priming without bubbles
-- Volume: 5 µL active sensor chamber, 50 µL total
-
-**Sensor Array (Flexible PCB)**:
-| Sensor | Type | Electrode Material |
-|---|---|---|
-| Na⁺ ISE | Potentiometric | Sodium ionophore on polyaniline |
-| K⁺ ISE | Potentiometric | Valinomycin-doped PVC membrane |
-| pH electrode | Potentiometric | PEDOT:PSS or IrOx |
-| Reference | Ag/AgCl | Printed Ag/AgCl ink |
-| Lactate | Amperometric | Lactate oxidase on carbon paste |
-| Glucose (opt.) | Amperometric | Glucose oxidase on carbon paste |
-
-**Electronics (reusable module)**:
-| Component | Specification |
-|---|---|
-| Potentiostat ASIC | LMP91000 (3-electrode, programmable) |
-| Multiplexer | ADG708 (8-channel analog mux) |
-| ADC | ADS1220 (24-bit, SPI) |
-| MCU | nRF52833 (BLE 5.0) |
-| Thin-film battery | 20 mAh LiPo + wireless Qi charging |
-| Connector | Magnetic pogo pins to disposable patch |
-
----
-
-## 7.16 NFSIM-CHEM-01 — Portable Blood Chemistry Analyzer
-
-**Concept**: A handheld blood chemistry analyzer operating on 10–50 µL fingerstick blood. Uses a disposable microfluidic cartridge containing dried reagent zones. Reads electrochemically and/or photometrically. Target analytes: glucose, creatinine, BUN, sodium, potassium, chloride, ALT, AST, total protein, albumin, bilirubin, hemoglobin, INR.
-
-### Specifications
-
-| Parameter | Value |
-|---|---|
-| Sample type | Capillary whole blood (fingerstick) |
-| Sample volume | 15–50 µL |
-| Cartridge type | Single-use disposable, bar-coded |
-| Analyte panels | Basic Metabolic, Liver, Renal, CBC proxy |
-| TTFR | 2–4 min |
-| Accuracy | ±10% (electrochemical), ±15% (optical) vs. lab reference |
-| Detection | Multi-modal: ISE (ions), amperometric (enzymes), photometric (bilirubin, Hgb) |
-| Reference standard | Ag/AgCl, pre-printed |
-| Display | 3.5" color TFT |
-| Connectivity | BLE, USB-C |
-| Battery | 3000 mAh Li-Ion |
-| Dimensions | 140 mm × 70 mm × 30 mm |
-| Weight | 350 g |
-| Operating temperature | 15–40°C |
-
-### Hardware Architecture
-
-**Cartridge**:
-- Microfluidic polycarbonate card (85 mm × 54 mm × 2 mm)
-- Sample inlet, capillary distribution channels
-- Dried reagent pads per analyte zone
-- Pre-printed carbon + Ag/AgCl electrodes for electrochemical zones
-- Clear window for optical zones
-
-**Reader Electronics**:
-| Component | Specification |
-|---|---|
-| Potentiostat array | 8-channel LMP91000 array |
-| Spectrophotometer | White LED + photodiode array, 3 wavelengths (450, 550, 620 nm) |
-| Incubation heater | Resistive heater, 37°C ±0.5°C |
-| Barcode scanner | 1D CCD linear scanner (cartridge lot, analyte encoding) |
-| MCU | STM32H7 |
-| BLE | nRF52840 |
-| Display | ILI9486, 320×480 |
-| Battery management | BQ25895 |
-
----
-
-## 7.17 NFSIM-OXY-01 — Multi-Site Tissue Oxygenation Array
-
-**Concept**: Near-infrared spectroscopy (NIRS) system that places multiple optodes across the body surface and continuously monitors regional tissue oxygen saturation (rSO₂) in underlying tissues. Unlike pulse oximetry (single arterial SpO₂), NIRS reports mixed venous-arterial tissue oxygenation, reflecting regional metabolic balance. Used in cardiac surgery monitoring (cerebral NIRS), muscle physiology, and sports science.
-
-### Specifications
-
-| Parameter | Value |
-|---|---|
-| Optode count | 4–8 independent channels |
-| Wavelengths | 730 nm and 850 nm (±2 nm) |
-| Measurement depth | 10–25 mm (brain/muscle) |
-| Source-detector separation | 30–40 mm (deep tissue) + 10–15 mm (shallow reference) |
-| Output | rSO₂ %, HbO₂ and HHb concentrations (µM·mm) |
-| Sampling rate | 1 Hz per channel |
-| Wireless | BLE 5.0 |
-| Battery | 1000 mAh per optode module |
-| Wireless range | 10 m |
-| Dimensions | 35 mm × 15 mm per optode module |
-| Waterproof | IPX4 |
-
-### Hardware Architecture
-
-**Optode Module**:
-| Component | Specification |
-|---|---|
-| LED 1 | 730 nm, 5 mW, SMD |
-| LED 2 | 850 nm, 5 mW, SMD |
-| Photodiode | Si avalanche photodiode or OPT101 |
-| LED modulation | 1 kHz chopping frequency, lock-in detection |
-| Transimpedance amplifier | OPA2134, 10 MΩ feedback |
-| Synchronous demodulator | AD630 or digital lock-in on MCU |
-| MCU | STM32L4 (low power) |
-| BLE radio | nRF52811 |
-| Battery | CR2032 or 50 mAh LiPo |
-| Adhesive base | Dual-layer: optically opaque outer, foam spacer, optode face |
-
-**Modified Beer-Lambert Law Computation**:
-`ΔHbO₂ = ε_HHb(λ₂)·ΔA(λ₁) - ε_HHb(λ₁)·ΔA(λ₂) / [ε_HbO₂(λ₁)·ε_HHb(λ₂) - ε_HbO₂(λ₂)·ε_HHb(λ₁)]·DPF·d`
-
-Differential pathlength factor (DPF) applied per tissue type (brain ~6, muscle ~4).
-
----
-
-## 7.18 NFSIM-BREATH-01 — Portable Breath Metabolomics Device
-
-**Concept**: A handheld breath analysis device that captures exhaled breath condensate and/or VOCs and reports biomarker concentrations. Using an e-nose array of chemiresistors + photoacoustic spectroscopy for specific analytes (acetone, isoprene, ammonia, NOx). Designed for ketosis monitoring, metabolic health tracking, early infection detection, and asthma monitoring.
-
-### Specifications
-
-| Parameter | Value |
-|---|---|
-| Sampling mode | Single breath (5 sec exhale into device) |
-| Primary analytes | Acetone, isoprene, ethanol, ammonia, H₂, CO, NOx |
-| Detection technology | Photoacoustic spectroscopy (specific) + metal oxide chemiresistor array (broad) |
-| Acetone range | 0.1–1000 ppm |
-| Isoprene range | 10–2000 ppb |
-| NH₃ range | 0.1–100 ppm |
-| Sampling interval | On-demand |
-| Warm-up time | 30 seconds |
-| Connectivity | BLE, USB-C |
-| Battery | 1200 mAh |
-| Battery life | 200 measurements per charge |
-| Dimensions | 100 mm × 55 mm × 30 mm |
-| Weight | 180 g |
-
-### Hardware Architecture
-
-**Photoacoustic Spectroscopy Cell** (acetone-specific):
-| Component | Specification |
-|---|---|
-| QCL or LED source | 3.4 µm (CH bond, ketone) or 8–9 µm (acetone absorption) |
-| Acoustic cell | Helmholtz resonator, Q=50 |
-| Microphone | MEMS, 60 dB SNR |
-| Lock-in detection | Amplitude-modulated light source + synchronous demodulation |
-| Gas cell | 10 mL volume, gold-lined reflection cell |
-
-**Metal Oxide Sensor Array (broad-spectrum)**:
-- 8× MOX sensors: SnO₂, ZnO, WO₃, TiO₂ variants
-- Different dopants give different selectivity profiles
-- Principal component analysis (PCA) → pattern recognition
-- Pre-trained neural network (TinyML on MCU) → multi-analyte classification
-
-**Sample Handling**:
-- Hydrophobic Nafion membrane dehumidifier (removes water vapor which interferes with MOX)
-- Micro-pump: 50 mL/min, diaphragm, draws breath through sensors
-- Calibration gas capsule (CO₂/N₂ reference, sealed, good for 1000 measurements)
-
----
-
-## 7.19 NFSIM-ECG-01 — Open Single-Lead ECG Patch
-
-**Concept**: A chest-worn adhesive ECG patch providing continuous single-lead (modified Lead II) ECG recording for up to 30 days. Dry or hydrogel electrodes. BLE streaming to phone. Open firmware with AI arrhythmia detection running on-device or in cloud.
-
-### Specifications
-
-| Parameter | Value |
-|---|---|
-| Lead configuration | Single-lead (modified Lead II) |
-| Electrode type | Dry AgZn or Ag/AgCl hydrogel |
-| ADC resolution | 24-bit |
-| Sampling rate | 256 or 512 Hz |
-| Bandwidth | 0.05–150 Hz |
-| CMRR | >100 dB |
-| Input impedance | >10 MΩ |
-| Wear duration | 14–30 days |
-| Battery | 150 mAh LiPo |
-| Connectivity | BLE 5.0 (streaming) + onboard 8 GB flash (logging) |
-| Dimensions | 75 mm × 35 mm × 7 mm |
-| Weight | 12 g |
-| IP rating | IPX7 |
-| AI on-device | AFib detection (sensitivity >97%), pause detection, bradycardia/tachycardia |
-
-### Hardware Architecture
-
-| Component | Specification |
-|---|---|
-| ECG AFE | ADS1291 (Texas Instruments), 24-bit, integrated lead-off detection |
-| MCU | nRF52840 (BLE 5.0 + 64 MHz Cortex-M4F) |
-| AI inference | TensorFlow Lite Micro (RR-interval AFib classifier, on-device) |
-| Flash | W25Q64 (8 MB, 2-week continuous log at 256 Hz) |
-| Battery | 150 mAh LiPo (21-day life at 1 Hz BLE advertising) |
-| Charger | MCP73831, USB-C |
-| RLD | Right leg drive via third electrode or software reference |
-| Electrodes | Integrated AgZn dry electrodes on PCB surface + hydrogel pads |
-| Housing | Flexible TPU overmold |
-| NFC tag | For patient ID programming + passive data dump |
-
----
-
-## 7.20 NFSIM-ECG-02 — 12-Lead Portable ECG Vest
-
-**Concept**: A washable garment (vest or shirt) with embedded textile electrodes providing full 12-lead ECG equivalent. Designed for 24–48h ambulatory recording, sports physiology, and telemedicine. Electrode positions mapped to standard 12-lead anatomy.
-
-### Specifications
-
-| Parameter | Value |
-|---|---|
-| Leads | 12-lead equivalent (Wilson central terminal reference) |
-| Electrode material | Silver-coated textile, conductive silicone pads |
-| ADC | 24-bit, 8-channel |
-| Sampling rate | 500 Hz |
-| Electrode impedance | <200 kΩ (dry textile) |
-| Recording module | Detachable electronics pod (waist clip) |
-| Battery | 500 mAh |
-| Battery life | 24–48h continuous |
-| Storage | 32 GB microSD |
-| Connectivity | BLE, USB-C |
-| Garment sizes | XS–XXXL, male/female variants |
-| Washable | Yes (remove electronics pod before washing) |
-
-### Hardware Architecture
-
-**Garment**:
-- Medical-grade compression fabric base
-- Silver-coated textile electrode pads at all 10 standard ECG positions (RA, LA, RL, LL, V1–V6)
-- Snap connectors from textile electrodes to lead wires
-- Lead wires: thin silver-coated nylon, routed inside fabric channels
-
-**Electronics Pod**:
-| Component | Specification |
-|---|---|
-| ECG AFE | ADS1298 (8-channel, 24-bit, for all limb + precordial leads simultaneously) |
-| Drive circuit | Wilson central terminal + RLD |
-| MCU | STM32H7 |
-| BLE | nRF52840 coprocessor |
-| Storage | 32 GB microSD |
-| Battery | 500 mAh LiPo |
-| Charger | USB-C, 5V |
-
----
-
-## 7.21 NFSIM-EEG-01 — Dry-Electrode Open EEG Headset
-
-**Concept**: A wearable EEG headset with dry electrodes (no conductive gel required). 8–16 channels in standard 10-20 positions. Open-source based on OpenBCI Cyton architecture. Suitable for neurofeedback, BCI research, sleep staging, and meditation monitoring.
-
-### Specifications
-
-| Parameter | Value |
-|---|---|
-| Electrode count | 8 or 16 channels |
-| Electrode type | Spring-loaded gold-tipped dry electrodes |
-| Electrode impedance | <50 kΩ (acceptable for dry) |
-| ADC resolution | 24-bit |
-| Sampling rate | 250 or 500 Hz |
-| Bandwidth | 0.5–100 Hz |
-| CMRR | >100 dB |
-| Reference | Ear clip or CZ |
-| Wireless | BLE + 2.4 GHz proprietary (OpenBCI-compatible dongle) |
-| Battery | 500 mAh |
-| Battery life | 6–8 hours |
-| Compatible software | OpenBCI GUI, BrainFlow SDK, Neurosity, EEGLAB |
-| Dimensions | Standard EEG cap (various sizes 54–60 cm) |
-| Weight | 180 g |
-
-### Hardware Architecture
-
-| Component | Specification |
-|---|---|
-| EEG AFE | ADS1299 (8-channel, 24-bit, PGA, matched to OpenBCI Cyton) |
-| Electrode drive | Bias drive for active electrodes |
-| MCU | PIC32MX (OpenBCI Cyton compatible) or STM32 variant |
-| Wireless | RFduino (OpenBCI Cyton) or nRF52840 |
-| Battery | 500 mAh LiPo |
-| Expansion | Daisy module connector (×2 boards = 16 channels) |
-| Electrode design | Gold-plated spring pins, 20 mm length, adjustable headset arms |
-
----
-
-## 7.22 NFSIM-EMG-01 — Multi-Channel Surface EMG Armband
-
-**Concept**: An 8-channel surface EMG armband worn around the forearm. Designed for gesture recognition (prosthetic control, HCI), muscle fatigue monitoring, and rehabilitation feedback. Inspired by the Myo armband, but fully open-source.
-
-### Specifications
-
-| Parameter | Value |
-|---|---|
-| Channels | 8 bipolar EMG channels |
-| Electrode spacing | 45° radial, evenly distributed around forearm |
-| Electrode type | Dry Ag or conductive silicone |
-| ADC resolution | 16-bit |
-| Sampling rate | 1000 Hz |
-| Bandwidth | 20–500 Hz |
-| Gain | 60–80 dB |
-| IMU | 9-axis (3-axis accel + gyro + mag) |
-| Wireless | BLE 5.0 |
-| Battery | 150 mAh |
-| Battery life | 8 hours continuous |
-| Gesture recognition | 6+ standard gestures, TinyML on-device |
-| Armband size | Adjustable, 200–400 mm circumference |
-| Weight | 90 g |
-
-### Hardware Architecture
-
-| Component | Specification |
-|---|---|
-| EMG AFE | ADS1298 (8-channel, 24-bit, internal PGA 1–12×) |
-| Band-pass filter | 20–500 Hz hardware Butterworth |
-| MCU | nRF52840 (Cortex-M4F, TensorFlow Lite Micro) |
-| IMU | LSM9DS1 or BNO055 |
-| Gesture ML | Lightweight 1D CNN, trained on NinaPro dataset |
-| Battery | 150 mAh LiPo |
-| Charger | USB-C, wireless Qi option |
-| Housing | Flexible TPU band with rigid electrode pods |
-
----
-
-## 7.23 NFSIM-NEURAL-01 — Open High-Density ECoG Research Array
-
-**Concept**: An open-source high-density electrocorticography (ECoG) array designed for research use (acute animal, chronic NHP, or human intraoperative under neurosurgeon supervision). Provides 64–256 channels of cortical surface recording with high spatial resolution (1–5 mm inter-electrode spacing).
-
-### Specifications
-
-| Parameter | Value |
-|---|---|
-| Electrode count | 64–256 |
-| Array geometry | Flexible 8×8, 16×8, or custom grid |
-| Electrode material | Platinum-iridium or PEDOT-coated |
-| Electrode diameter | 1–3 mm |
-| Inter-electrode spacing | 2–5 mm |
-| Substrate | Parylene-C flexible film, 5–15 µm thick |
-| ADC resolution | 16-bit |
-| Sampling rate | 30,000 Hz (spike band) or 1000 Hz (LFP band) |
-| Bandwidth | 0.3 Hz – 10 kHz |
-| CMRR | >80 dB |
-| Data interface | SPI or LVDS to acquisition system |
-| Acquisition system | Open Ephys compatible (Intan RHD2000 series) |
-| Sterilization | EtO or autoclave (flexible array) |
-
-### Hardware Architecture
-
-**Flexible Array**:
-- Parylene-C base substrate (biocompatible, MRI-compatible)
-- Electrodeposited Pt-Ir or sputtered TiN electrodes
-- PEDOT:PSS electroplating option (lowers impedance, improves biocompatibility)
-- Gold trace interconnects in Parylene
-- ZIF (Zero Insertion Force) connector to rigid PCB interface
-
-**Acquisition Headstage**:
-| Component | Specification |
-|---|---|
-| Amplifier ASIC | Intan RHD2132 (32-ch, 16-bit, SPI) × 8 = 256 channels |
-| ADC | Integrated in RHD2132 (24.4 kSPS per channel) |
-| Multiplexer | 256-to-256 routing matrix |
-| FPGA | Xilinx Spartan-7 (data aggregation + SPI → USB) |
-| Connector to array | 256-pin ZIF, 0.3 mm pitch |
-| Power | ±2.5V analog, 3.3V digital |
-
-**Software**:
-- Open Ephys plugin (native compatibility)
-- Spike sorting: Kilosort 2/3 (open source)
-- LFP analysis: MNE-Python compatible output
-
----
-
-## 7.24 NFSIM-CAP-01 — Capsule: Ingestible Imaging + Chemical Sensor
-
-**Concept**: A swallowable capsule combining:
-1. Optical imaging (white-light camera, similar to PillCam)
-2. Chemical sensing (pH, temperature, dissolved O₂)
-3. GI position tracking
-
-The capsule images at 2–4 fps, continuously logs chemistry, and transmits wirelessly to an external recorder belt. All data streams into NanoFlowSIM anchored to GI anatomy by position estimate.
-
-### Specifications
-
-| Parameter | Value |
-|---|---|
-| Dimensions | 26 mm × 11 mm |
-| Camera | OV7251 (1/7" CMOS), 640×480, wide-angle (170°) |
-| Frame rate | 2–4 fps (dual-head: anterior + posterior) |
-| Illumination | White LED array (4× SMD LEDs) |
-| pH sensor | ISFET (Ion-Sensitive FET), range 1–9 |
-| Temperature | NTC thermistor, ±0.1°C |
-| Dissolved O₂ | Optical luminescence quenching (ruthenium dye) |
-| Wireless | 434 MHz or 915 MHz FSK |
-| Battery | Silver oxide SR44, 150 mAh |
-| Battery life | 8–12 hours (full GI transit) |
-| Data rate | 1 Mbps image stream |
-| Position estimate | Pressure + accelerometer + time-elapsed algorithm |
-| Biocompatible shell | PEEK or Ultem 9085 |
-| Transit time | 24–36 hours (natural) |
-
-### Hardware Architecture
-
-**Optical Subsystem**:
-| Component | Specification |
-|---|---|
-| Image sensor | OV7251, MIPI interface, 1/7" format |
-| Lens | 1.7mm FL, 170° FOV, F2.0, fixed focus |
-| Illumination | 4× PLCC2 white LED, 120 mW total |
-| Image compression | JPEG hardware encoder (on-chip or ASIC) |
-| Dual-head option | 2× camera PCBs (head + tail) for bidirectional view |
-
-**Chemical Sensors**:
-| Sensor | Technology |
-|---|---|
-| pH ISFET | Si-based ISFET with SiO₂/Si₃N₄ gate |
-| Temperature | NTC 10kΩ thermistor |
-| Dissolved O₂ | Optical luminescence quenching (Ru(II) complex dye) with blue LED + photodetector |
-
-**System MCU**:
-- Ultra-low-power ARM Cortex-M0+ (STM32L0 or SAMD21)
-- Deep sleep between frames: duty cycle 95%+ sleep
-- Task sequencing: wake → capture image → read sensors → compress → transmit → sleep
-
-**Wireless Transmission**:
-- 434 MHz FSK, 500 kbps
-- Omnidirectional ceramic chip antenna
-- RSSI-based position refinement (multiple external antennas on belt)
-
-**External Receiver**:
-- 8-channel antenna belt (disposable patches)
-- SDR-based receiver (RTL-SDR or CC1101) → USB → laptop/phone
-- NanoFlowSIM NFS-CAP data format: `{timestamp, position_zone, frame_jpg_b64, pH, temp_C, DO_pct}`
-
----
-
-## 7.25 NFSIM-CAP-02 — Capsule: GI Ultrasound Capsule
-
-**Concept**: Ingestible capsule with radially-firing CMUT ultrasound array. Images GI wall cross-sections (360° radial scan) at each position during transit, providing acoustic cross-sections of the intestinal wall layers (mucosa, submucosa, muscularis, serosa/adventitia) and nearby organs. This is mini-endoscopic ultrasound (mini-EUS) without a scope.
-
-### Specifications
-
-| Parameter | Value |
-|---|---|
-| Dimensions | 32 mm × 13 mm |
-| Transducer | CMUT ring array, 64 elements, circumferential |
-| Frequency | 10–20 MHz |
-| Imaging geometry | 360° radial cross-section |
-| Wall penetration | 5–30 mm |
-| Axial resolution | 75–150 µm |
-| Frame rate | 1 frame/position (triggered by motion) |
-| Acoustic coupling | Saline-filled balloon (silicone, inflated on capsule) |
-| Wireless | 434 MHz, compressed scan data |
-| Battery | 300 mAh primary lithium |
-| Battery life | 24 hours |
-| Biocompatibility | ISO 10993 compliant materials |
-
-### Hardware Architecture
-
-**Acoustic System**:
-| Component | Specification |
-|---|---|
-| CMUT array | 64-element ring, 10 mm diameter, MEMS-fabricated on Si |
-| Coupling balloon | Medical silicone balloon, saline-filled by swallowing with water |
-| Pulser | Miniaturized HV pulser ASIC, ±30V, 64-channel |
-| Receiver | Low-noise TIA, 64-channel multiplexed readout |
-| Beam reconstruction | Delay-and-sum in FPGA for radial reconstruction |
-
-**Position Correlation**:
-As capsule traverses GI tract:
-- Accelerometer records motion profile
-- Each ultrasound frame tagged with position estimate
-- External position tracking via RF belt refines estimate
-- NanoFlowSIM anchors each cross-sectional frame to GI anatomical zone (duodenum, ileum, etc.)
-
----
-
-## 7.26 NFSIM-CAP-03 — Capsule: DNA/RNA Capture Capsule
-
-**Concept**: A capsule designed to traverse the GI tract and capture luminal DNA/RNA from specific segments (small intestine mucosal shedding, colonic microbiome). The capsule opens a sterile chamber in a target zone (triggered by pH, temperature, or time-elapsed logic), fills with luminal contents, reseals, and is retrieved after natural passage. Captured sample undergoes metagenomic sequencing on the NFSIM-SEQ-01 or sent to a sequencing lab.
-
-### Specifications
-
-| Parameter | Value |
-|---|---|
-| Dimensions | 26 mm × 11 mm (closed) |
-| Capture volume | 0.1–1 mL luminal fluid |
-| Opening trigger | pH-triggered (pH >6.5 → small intestine) OR time-elapsed OR manual RF command |
-| Sealing mechanism | Wax-plug thermal resealing (nichrome wire melt) OR snap-close spring |
-| Sample preservation | RNAlater-equivalent stabilizer pre-loaded in chamber |
-| Wireless | 434 MHz (TX-only: position + status, confirms open/close events) |
-| Battery | SR44 silver oxide (passive operation, minimal) |
-| Temperature log | NTC thermistor during transit (cold chain verification) |
-| Retrieval | Natural passage; stool retrieval via strainer/bag kit |
-| Sterility | Pre-sterilized by EtO gas |
-
-### Hardware Architecture
-
-**Capture Chamber**:
-| Component | Specification |
-|---|---|
-| Chamber material | Medical-grade PEEK |
-| Inlet filter | 20 µm pore nylon mesh (blocks food particles) |
-| Wax plug | n-eicosane (melts at 36.7°C) behind nichrome wire trigger |
-| Actuator | 10 mA nichrome wire (melt-open); shape-memory alloy wire (mechanical close) |
-| Stabilizer | Pre-loaded dried RNAlater (reconstitutes with luminal fluid) |
-
-**pH Trigger Circuit**:
-- Sacrificial pH-sensitive polymer coating on inlet port
-- Dissolves at pH >6.5 (proximal small intestine) — passive, no power required
-- Optional: ISFET pH sensor + microcontroller-controlled valve actuator
-
-**Target Applications**:
-- GI microbiome profiling (site-specific: duodenum vs. colon)
-- Mucosal gene expression (shed epithelial cell RNA)
-- GI infection pathogen identification
-- Celiac disease, IBD, IBS biomarker discovery
-
----
-
-## 7.27 NFSIM-CAP-04 — Capsule: Full Multi-Modal Research Capsule
-
-**Concept**: A research-grade ingestible capsule combining ALL sensing modalities in a single 32 mm × 13 mm form factor:
-- Optical imaging (dual-head white light cameras)
-- Ultrasound (radial CMUT array)
-- Chemical sensing (pH, DO₂, temperature, glucose)
-- Electrical (contact bioimpedance of GI wall)
-- Position tracking (pressure, IMU, RF)
-- DNA/RNA capture (triggered capture chamber)
-- Drug release (programmable payload delivery)
-
-### Specifications
-
-| Parameter | Value |
-|---|---|
-| Dimensions | 32 mm × 13 mm |
-| Cameras | 2× OV7251 (anterior + posterior) |
-| Ultrasound | CMUT 64-element ring, 15 MHz |
-| Chemical sensors | pH ISFET, NTC, O₂ optical, glucose enzymatic |
-| Bioimpedance | 4-electrode, 1 kHz–1 MHz sweep |
-| IMU | BMA456 + BMI088 |
-| Capture chamber | 0.5 mL, pH-triggered opening |
-| Drug payload | 100 µL reservoir, pressure-triggered or RF-triggered release |
-| Wireless | 434 MHz + 2.4 GHz dual-radio |
-| Battery | 300 mAh primary Li-MnO₂ |
-| Battery life | 36 hours |
-| Data onboard | 256 MB NAND flash backup |
-| Biocompatibility | Full ISO 10993 |
-
-This capsule is the most complex variant and intended for:
-- Research into GI disease
-- Drug delivery verification studies
-- Comprehensive GI physiological mapping
-- AI training dataset generation for GI diagnostics
-
----
-
-## 7.28 NFSIM-FLOW-01 — Portable Cytometry / Cell Counter
-
-**Concept**: A portable flow cytometer capable of counting and classifying blood cells (CBC proxy) and optionally detecting specific surface markers (2–3 fluorescence channels) from a 10 µL blood sample. Uses acoustic cell focusing (eliminates sheath fluid) and LED + photodiode detection.
-
-### Specifications
-
-| Parameter | Value |
-|---|---|
-| Sample type | Whole blood or PBS-diluted cell suspension |
-| Sample volume | 10–50 µL |
-| Cell throughput | 1000–5000 cells/sec |
-| Focusing method | Acoustic (piezoelectric actuator) |
-| Laser/LED | 405 nm + 488 nm + 638 nm LEDs |
-| Fluorescence channels | 2–3 (FITC, PE, APC or equivalent) |
-| Forward/side scatter | Yes |
-| CBC output | WBC, RBC, Hgb (proxy), PLT estimate |
-| Time to result | 3–5 min |
-| Connectivity | USB-C, BLE |
-| Battery | 2000 mAh |
-| Dimensions | 150 mm × 80 mm × 60 mm |
-| Weight | 400 g |
-| Disposable | Microfluidic chip cartridge, single-use |
-
-### Hardware Architecture
-
-**Fluidics**:
-| Component | Specification |
-|---|---|
-| Microfluidic chip | PDMS or polycarbonate, 50 µm × 50 µm channel |
-| Acoustic focuser | Piezo actuator at side of chip (bulk acoustic wave) |
-| Micro-pump | Peristaltic or syringe, 5–50 µL/min |
-| Waste collection | Onboard reservoir |
-
-**Optical Detection**:
-| Component | Specification |
-|---|---|
-| LEDs (×3) | 405, 488, 638 nm |
-| Beam collimation | Aspheric collimating lens |
-| Interrogation point | 50 µm focused spot on flow channel |
-| FSC detector | Si PIN photodiode |
-| SSC detector | Si PIN photodiode, 90° |
-| FL detectors (×3) | PMT or SiPM, bandpass filter per channel |
-
-**Signal Processing**:
-- Pulse detection per event (FSC threshold trigger)
-- Pulse height, width, area extracted per channel
-- On-device cell classification: decision tree + KNN model for CBC
-- Reports: scatter plot, histogram, CBC with differential
-
----
-
-## 7.29 NFSIM-ENV-01 — Environmental Bio-Aerosol Sampler
-
-**Concept**: A portable device that continuously samples ambient air, collects bio-aerosols (airborne bacteria, viruses, pollen, fungal spores), concentrates them onto a collection substrate, and prepares them for on-site LAMP/PCR or sequencing analysis. Deployable for environmental surveillance, outbreak response, or air quality genomics.
-
-### Specifications
-
-| Parameter | Value |
-|---|---|
-| Air flow rate | 100–500 L/min |
-| Collection method | Cyclone separator + wet scrubber or impinger |
-| Collection efficiency | >90% for particles >1 µm |
-| Collection time | 15 min – 8 hours (continuous) |
-| Eluent volume | 1–5 mL |
-| Downstream analysis | LAMP (NFSIM-PCR-03) or nanopore (NFSIM-SEQ-01) |
-| Power | 12V DC (car socket, solar, or wall) |
-| Battery backup | 4h at full flow |
-| Connectivity | BLE (operation) + USB (eluent volume log) |
-| Dimensions | 300 mm × 200 mm × 150 mm |
-| Weight | 2.5 kg |
-
-### Hardware Architecture
-
-**Aerosol Collection**:
-| Component | Specification |
-|---|---|
-| Inlet | Omnidirectional rain-shielded probe |
-| PM10 impactor | Removes particles >10 µm |
-| Cyclone concentrator | Wet wall, 1 L aqueous buffer |
-| Circulation pump | 300 L/min brushless motor |
-| Filter backup | 0.1 µm PTFE (if wet collection fails) |
-| UV-C sterilization | Pre/post chamber options |
-
-**Monitoring + Control**:
-- CO₂ sensor (Sensirion SCD40)
-- PM2.5 OPC (Sensirion SPS30)
-- Temperature/humidity/pressure (BME280)
-- MCU: STM32 for flow control + BLE data logging
-- Autosampler: transfers eluent to PCR tube at programmable interval
-
----
-
-## 7.30 NFSIM-MICRO-01 — Portable Digital Microscope (Pathology)
-
-**Concept**: A portable compound brightfield/fluorescence microscope producing pathology-quality images. Uses a high-resolution CMOS sensor, LED illumination with filter cube turret (brightfield + FITC + TRITC), motorized focus, and AI-assisted cell counting/classification. Outputs TIFF/SVS format for NanoFlowSIM import.
-
-### Specifications
-
-| Parameter | Value |
-|---|---|
-| Optical magnification | 10×, 20×, 40× objectives |
-| Digital magnification | 0.5×–4× digital zoom |
-| Image sensor | IMX477 (12.3 MP, 1/2.3") |
-| Effective resolution | 0.25 µm/px at 40× |
-| FOV at 40× | 0.5 mm × 0.4 mm |
-| Illumination | Köhler LED (brightfield), 470 nm + 530 nm LEDs (fluorescence) |
-| Filter turret | 4-position: BF, FITC, TRITC, empty |
-| Focus drive | Stepper motor, 0.1 µm step size |
-| Stage | Manual XY with scale bar; motorized option |
-| Connectivity | USB-C 3.1 |
-| Whole slide option | Motorized XY + Z auto-focus tiling |
-| AI | Cell counting, mitosis detection, WBC differential, parasite ID |
-| Power | USB-C or 12V DC |
-| Dimensions | 280 mm × 180 mm × 350 mm |
-| Weight | 3.5 kg |
-
-### Hardware Architecture
-
-| Component | Specification |
-|---|---|
-| IMX477 camera | 12.3 MP, 1.55 µm pixel, CSI-2 interface |
-| Camera driver | Raspberry Pi HQ camera module compatible |
-| Compute | Raspberry Pi 4B or Jetson Nano (AI inference) |
-| LED driver | Constant current, PWM intensity control |
-| Filter cube | Chroma or Edmund Optics standard epi-fluorescence cubes |
-| Z-focus stepper | NEMA8, 200 step/rev, 0.5 mm lead screw |
-| Stepper driver | A4988 or TMC2209 |
-| Brightfield condenser | Abbe condenser, NA 0.9 |
-| Objective turret | 3-position manual turret |
-| Stage | 120 mm × 80 mm travel |
-| Housing | Aluminum extrusion frame |
-
----
-
-# 8. Communication Protocol Specification
-
-All NanoFlowSIM hardware devices share a common data format to ensure interoperability.
-
-## 8.1 Physical Layer Options
-
-| Layer | Protocol | When Used |
-|---|---|---|
-| Wireless (primary) | BLE 5.0 GATT | Wearables, patches, portable devices |
-| Wireless (high-BW) | Wi-Fi 802.11ac | Ultrasound, OCT, large imaging streams |
-| Wireless (body-area) | 434 MHz FSK | Ingestible capsules (body penetration) |
-| Wired | USB-C 3.1 | Lab devices, sequencers, ultrasound probe |
-| Short-range | NFC (ISO 15693) | CGM passive readout, implant configuration |
-
-## 8.2 BLE GATT Services (NFS Profile)
-
-### Device Information Service (0x180A)
-Standard BLE Device Info:
-- Manufacturer Name: "NanoFlowSIM"
-- Model Number: e.g., "NFSIM-ECG-01"
-- Hardware Revision
-- Firmware Revision
-- Serial Number
-
-### NFS Device Control Service (UUID: 4a6e-1000-...)
-| Characteristic | UUID Suffix | Properties | Description |
-|---|---|---|---|
-| Device State | ...0001 | Read/Notify | Enum: Idle, Measuring, Error, Calibrating |
-| Command | ...0002 | Write | Start, Stop, Calibrate, Reset, Configure |
-| Configuration | ...0003 | Read/Write | JSON blob, device parameters |
-| Error Status | ...0004 | Read/Notify | Error code + description |
-
-### NFS Data Stream Service (UUID: 4a6e-2000-...)
-| Characteristic | UUID Suffix | Properties | Description |
-|---|---|---|---|
-| Primary Stream | ...0001 | Notify | Main data (ECG samples, glucose, etc.) |
-| Secondary Stream | ...0002 | Notify | Secondary data (temperature, accelerometer) |
-| Batch Upload | ...0003 | Indicate | Historical data dump (large blocks) |
-| Stream Config | ...0004 | Write | Sample rate, channel selection |
-
-### NFS Metadata Service (UUID: 4a6e-3000-...)
-| Characteristic | UUID Suffix | Properties | Description |
-|---|---|---|---|
-| Patient ID | ...0001 | Write | Link device to patient profile |
-| Anatomical Tag | ...0002 | Write | UBERON body region code |
-| Session ID | ...0003 | Read/Write | UUID for this recording session |
-| Timestamp Sync | ...0004 | Write | Unix timestamp for synchronization |
-
-## 8.3 Data Packet Format
-
-All data transmitted by NFS devices uses JSON-encoded payloads:
-
-### Generic Packet Structure
-```json
-{
-  "nfs_version": "1.0",
-  "device_id": "NFSIM-ECG-01-A3F2",
-  "session_id": "uuid-...",
-  "patient_id": "hashed-patient-id",
-  "timestamp_unix": 1700000000.123,
-  "sequence": 4201,
-  "anatomy_region": "UBERON:0000948",
-  "data_type": "ecg_waveform",
-  "data": { ... },
-  "quality": 0.97,
-  "device_status": "measuring",
-  "battery_pct": 82
-}
-```
-
-### Domain-Specific Data Payloads
-
-**ECG**:
-```json
-"data": {
-  "lead": "II",
-  "sample_rate_hz": 256,
-  "samples_mv": [0.12, 0.14, 0.87, 1.23, ...],
-  "rr_intervals_ms": [812, 815, 810],
-  "hr_bpm": 73,
-  "afib_probability": 0.02
-}
-```
-
-**Glucose (CGM)**:
-```json
-"data": {
-  "glucose_mg_dl": 112,
-  "glucose_mmol": 6.2,
-  "trend": "stable",
-  "rate_of_change_mg_dl_per_min": -0.2,
-  "sensor_temperature_c": 36.8,
-  "calibration_age_h": 2.3
-}
-```
-
-**Sequencing (nanopore)**:
-```json
-"data": {
-  "run_id": "uuid-...",
-  "read_id": "uuid-...",
-  "channel": 142,
-  "start_time": 1700000000.0,
-  "raw_signal_pA": [85.2, 84.9, 100.3, ...],
-  "basecall_status": "complete",
-  "sequence": "ATCGATCG...",
-  "quality_phred": [30, 28, 35, ...]
-}
-```
-
-**Capsule Position + Chemistry**:
-```json
-"data": {
-  "position_zone": "small_intestine_jejunum",
-  "position_confidence": 0.78,
-  "transit_time_min": 185,
-  "pH": 7.2,
-  "temperature_c": 37.1,
-  "dissolved_o2_pct": 12.3,
-  "pressure_mmhg": 18.4,
-  "image_frame_id": "uuid-..."
-}
-```
-
-## 8.4 USB Command Set (for USB-C devices)
-
-Devices expose a virtual serial port (USB CDC-ACM, 115200 baud or USB bulk for high-speed):
-
-| Command | Parameters | Response |
-|---|---|---|
-| `NFS:PING` | — | `NFS:PONG:NFSIM-PCR-01:v1.2.0` |
-| `NFS:START` | session_id, patient_id | `NFS:OK` |
-| `NFS:STOP` | — | `NFS:OK:SESSION_SAVED` |
-| `NFS:CONFIGURE` | JSON config blob | `NFS:OK` or `NFS:ERR:...` |
-| `NFS:STATUS` | — | JSON status packet |
-| `NFS:CALIBRATE` | calibrant_id | `NFS:CALIBRATING` + streaming status |
-| `NFS:DUMP` | start_time, end_time | Binary stream of historical data |
-| `NFS:UPDATE` | — | Initiates OTA firmware update mode |
-
----
-
-# 9. Firmware Architecture — Universal
-
-All NFS devices share the following architectural patterns regardless of domain.
-
-## 9.1 RTOS Selection
-
-| Device Class | RTOS / Runtime |
-|---|---|
-| Resource-constrained (nRF52, STM32L4) | FreeRTOS or Zephyr RTOS |
-| Mid-power (STM32F4, STM32H7) | FreeRTOS |
-| High-compute (FPGA + ARM) | Bare-metal FPGA + FreeRTOS on ARM |
-| Linux-capable (Raspberry Pi, Jetson) | Buildroot Linux + systemd services |
-
-## 9.2 Universal Task Architecture
-
-```
-┌─────────────────────────────────────────────────┐
-│                  NFS Firmware                   │
-├───────────────┬─────────────────────────────────┤
-│  Sensor Task  │  Priority: HIGHEST              │
-│               │  Rate: domain-specific          │
-│               │  Function: raw data acquisition │
-├───────────────┼─────────────────────────────────┤
-│  Process Task │  Priority: HIGH                 │
-│               │  Rate: per data batch           │
-│               │  Function: filtering, feature   │
-│               │  extraction, on-device AI       │
-├───────────────┼─────────────────────────────────┤
-│  Comms Task   │  Priority: MEDIUM               │
-│               │  Rate: triggered or periodic    │
-│               │  Function: BLE/USB/RF TX/RX     │
-├───────────────┼─────────────────────────────────┤
-│  Storage Task │  Priority: MEDIUM-LOW           │
-│               │  Rate: triggered by buffer full │
-│               │  Function: flash write          │
-├───────────────┼─────────────────────────────────┤
-│  System Task  │  Priority: LOW                  │
-│               │  Rate: 1 Hz                     │
-│               │  Function: battery, temp,       │
-│               │  watchdog, status               │
-├───────────────┼─────────────────────────────────┤
-│  OTA Task     │  Priority: LOWEST               │
-│               │  Rate: triggered                │
-│               │  Function: firmware update      │
-└───────────────┴─────────────────────────────────┘
-```
-
-## 9.3 Memory Map (Example: STM32H743)
-
-| Region | Size | Content |
-|---|---|---|
-| FLASH Sector 0 | 128 KB | Bootloader |
-| FLASH Sectors 1–6 | 768 KB | Application firmware |
-| FLASH Sector 7 | 128 KB | OTA staging area |
-| RAM1 (512 KB) | 512 KB | Main RAM (stack, heap, FreeRTOS) |
-| RAM2 (128 KB) | 128 KB | DMA buffers, sensor ring buffer |
-| SPI Flash (external) | 16 MB | Configuration, session log, protocols |
-
-## 9.4 Bootloader
-
-All NFS devices implement a two-stage boot:
-1. **Stage 1** (16 KB, ROM-resident): checks Stage 2 signature, enters DFU if button held
-2. **Stage 2** (bootloader, 112 KB flash): validates application CRC, supports USB DFU and BLE OTA update
-
-## 9.5 Configuration Storage (NVS)
-
-All device configuration stored as JSON in SPI NOR flash, organized as:
-```json
-{
-  "device_serial": "NFSIM-ECG-01-A3F2",
-  "patient_id": null,
-  "sample_rate_hz": 256,
-  "ble_name": "NFSIM-ECG-A3F2",
-  "calibration": { "gain": 1.0, "offset": 0.0, "last_cal_unix": 0 },
-  "power_mode": "normal",
-  "alert_thresholds": { "hr_high": 150, "hr_low": 40 }
-}
-```
-
-## 9.6 On-Device AI (TinyML)
-
-Several NFS devices run inference on-device:
-- **NFSIM-ECG-01**: AFib detection (5-minute RR interval feature classifier, ~20 KB model)
-- **NFSIM-EEG-01**: Sleep stage classifier (EEG band power features, 30-second epoch, ~40 KB model)
-- **NFSIM-EMG-01**: Gesture classifier (6-class 1D CNN, ~50 KB model)
-- **NFSIM-BREATH-01**: VOC pattern classifier (e-nose PCA + neural net, ~30 KB model)
-- **NFSIM-CRISPR-01**: Fluorescence curve classification (amplification curve shape, ~15 KB model)
-
-Framework: TensorFlow Lite Micro (no dynamic allocation)
-Quantization: INT8 post-training quantization
-
----
-
-# 10. Software Architecture
-
-## 10.1 Desktop Application
-
-### Technology Stack
-- Framework: Electron 28 (Chromium + Node.js)
-- Frontend: React 18 + TypeScript + Tailwind CSS
-- 3D rendering: Three.js or Babylon.js (WebGL)
-- State management: Zustand
-- Database: SQLite (via better-sqlite3) for local data
-- BLE: noble-winrt (Windows) / noble (macOS/Linux)
-- USB serial: serialport npm package
-- DICOM: cornerstone.js + dicom-parser
-- FHIR: @medplum/fhirkit
+## 3. Simulation Framework
 
 ### Architecture
 
 ```
-/desktop
-├── /src
-│   ├── /main              # Electron main process
-│   │   ├── main.ts        # App entry, window management
-│   │   ├── preload.ts     # Secure contextBridge IPC
-│   │   ├── ble.ts         # BLE device management
-│   │   ├── usb.ts         # USB device management
-│   │   ├── store.ts       # electron-store (settings)
-│   │   └── updater.ts     # Auto-updater (electron-updater)
-│   ├── /renderer          # React frontend
-│   │   ├── /components
-│   │   │   ├── BodyMap3D.tsx         # Three.js 3D body
-│   │   │   ├── RegionPanel.tsx       # Region detail overlay
-│   │   │   ├── LiveFeed.tsx          # Real-time sensor data
-│   │   │   ├── Timeline.tsx          # Historical scrubber
-│   │   │   ├── SimulationPanel.tsx   # NanoFlowSIM launcher
-│   │   │   ├── GenomicsBrowser.tsx   # Variant viewer
-│   │   │   ├── DicomViewer.tsx       # DICOM display
-│   │   │   └── DevicePanel.tsx       # Connected devices
-│   │   ├── /views
-│   │   │   ├── ConsumerDashboard.tsx
-│   │   │   ├── ProfessionalDashboard.tsx
-│   │   │   ├── SimulationWorkspace.tsx
-│   │   │   └── Settings.tsx
-│   │   ├── /store         # Zustand slices
-│   │   ├── /hooks         # Custom React hooks
-│   │   └── /utils
-├── /assets                # Icons, 3D body mesh (GLTF)
-├── package.json
-└── electron-builder.json
+nanoflowsim-simulation/        (Rust workspace)
+├── nfsim-core/                 Shared types, physics constants, UBERON codes
+├── nfsim-molecular/            Ligand-receptor kinetics, CRISPR modeling
+├── nfsim-cellular/             Endocytosis, trafficking, release models
+├── nfsim-tissue/               Permeability, immune, heterogeneity
+├── nfsim-systemic/             PK/PD, circulation, clearance
+├── nfsim-ml/                   Therapy combination ranking, prediction
+├── nfsim-backtesting/          Clinical data comparison, validation
+├── nfsim-visualization/        3D trajectory output, heatmap generation
+├── nfsim-grpc/                 gRPC API for frontend communication
+└── nfsim-cli/                  Command-line simulation runner
 ```
 
-### 3D Body Model
-- Base mesh: Open-source human anatomy (MBLabstudio, CC0 licensed)
-- Format: GLTF 2.0 with morph targets for body shape variants
-- Anatomical annotation: UBERON ontology region IDs mapped to mesh face groups
-- Rendering: PBR materials, subsurface scattering for skin realism
-- Interaction: Raycasting from mouse click to UBERON region identification
+### Molecular Layer — Core Models
 
-### DICOM Processing Pipeline
-1. User drops DICOM folder
-2. DicomParser extracts series/studies/metadata
-3. Cornerstone.js renders 2D slices
-4. Optional: call Python subprocess (ITK-SNAP / SimpleITK) for 3D reconstruction
-5. Output: NIfTI volume or surface mesh (STL/OBJ) for Three.js rendering
-6. Auto-tag region from DICOM BodyPartExamined + PatientPosition tags
+**Receptor-Ligand Binding Kinetics**
 
-## 10.2 Mobile Application
+Uses a stochastic Gillespie algorithm to model:
+- Association rate constant (k_on): ligand-receptor binding events
+- Dissociation rate constant (k_off): unbinding probability
+- Effective affinity (K_D = k_off / k_on)
+- Surface density effects (multivalent binding cooperativity)
+- Receptor internalization following binding
 
-### Technology Stack
-- Framework: React Native 0.73 + Expo SDK 50
-- Navigation: Expo Router (file-based)
-- 3D: React Native Three Fiber (Three.js on RN)
-- BLE: react-native-ble-plx
-- NFC: react-native-nfc-manager
-- Camera: expo-camera (for barcode / QR scanning of reagent cartridges)
-- Storage: expo-secure-store (sensitive), AsyncStorage (general)
-- Push notifications: expo-notifications
-
-### Key Features
-- BLE device scanner and management
-- NFC tap-to-read CGM or implant NFC
-- Camera: scan QR on reagent cartridges to import lot info
-- 3D body map (simplified mesh, touch-to-select region)
-- Live sensor graphs
-- Alert and notification center
-- Offline data logging (syncs to desktop or cloud when available)
-- AR overlay (ARKit/ARCore): project body map on camera feed
-
-## 10.3 Web Dashboard
-
-- Framework: React 18 + TypeScript (Create React App)
-- Purpose: Cloud-accessible patient portal, research interface, multi-patient cohort view
-- Authentication: Auth0 or Keycloak (OAuth2 + OIDC)
-- Backend: Django 5 REST API (DRF) + Celery + PostgreSQL + Redis
-- FHIR server: HAPI FHIR or Medplum embedded
-- Real-time: Django Channels (WebSocket) for live sensor relay
-- File storage: MinIO (DICOM, FASTQ, large files)
-
-### API Endpoints
-
-```
-/api/v1/patients/                    GET, POST
-/api/v1/patients/{id}/               GET, PATCH, DELETE
-/api/v1/patients/{id}/data/          GET (all data, filterable)
-/api/v1/patients/{id}/regions/       GET (regions with data)
-/api/v1/patients/{id}/regions/{uberon}/ GET (region-specific data)
-/api/v1/patients/{id}/simulations/   GET, POST
-/api/v1/patients/{id}/import/fhir/   POST (FHIR bundle)
-/api/v1/patients/{id}/import/dicom/  POST (DICOM files)
-/api/v1/patients/{id}/import/vcf/    POST (genomic VCF)
-/api/v1/devices/                     GET (authorized devices)
-/api/v1/devices/{id}/stream/         WS (live data stream)
-/api/v1/simulations/                 GET, POST
-/api/v1/simulations/{id}/results/    GET
-/api/v1/research/cohort/             GET (aggregate, de-identified)
+Key parameters:
+```toml
+[ligand_config]
+ligand_type = "anti-HER2 antibody fragment"
+density_per_nm2 = 0.15
+k_on_M_per_s = 1.2e5
+k_off_per_s = 1.1e-4
+receptor_expression_level = "high"  # from patient proteomic data
 ```
 
-## 10.4 SDK
+**CRISPR Activation Modeling**
 
-Published as open-source libraries:
+Models CRISPR-Cas9 / CRISPR-Cas12a / CRISPR-Cas13 delivery and activity:
+- Guide RNA binding efficiency at target locus (based on GC content, secondary structure)
+- Off-target site scoring (using patient genome VCF input)
+- Cas protein expression timeline post-delivery
+- Gene editing efficiency distribution (probabilistic)
+- Immune recognition probability of Cas protein
 
-**Python SDK** (`nfsim-sdk`):
-```python
-from nfsim import NFSIMClient, Patient, Device, Region
+**Payload Encapsulation Stability**
 
-client = NFSIMClient(api_key="...", server="https://api.nfsim.io")
-patient = client.get_patient("patient-id")
-data = patient.get_region_data(region="UBERON:0000948", 
-                               data_types=["ecg", "lab"],
-                               start="2024-01-01", 
-                               end="2024-12-31")
-device = Device.connect_ble("NFSIM-ECG-01-A3F2")
-device.start_stream(callback=lambda pkt: patient.ingest(pkt))
+Simulates payload retention under physiological conditions:
+- pH-triggered release (lysosomal pH ~4.5–5.0)
+- Enzymatic cleavage release (cathepsin B, matrix metalloproteinases)
+- Temperature-responsive release
+- Oxidative stress-triggered release
+- Payload degradation rate under each condition
+
+### Cellular Layer — Core Models
+
+**Endocytosis Model**
+
+Pathway probabilities depending on nanoparticle size and surface:
+- Clathrin-mediated endocytosis: optimal for 120–200 nm, positively charged
+- Caveolae-mediated: 60–80 nm
+- Macropinocytosis: >500 nm or fluid-phase uptake
+- Direct membrane penetration: <10 nm, cell-penetrating peptides
+
+**Endosomal Escape Model**
+
+Critical bottleneck for therapeutic delivery:
+- Proton sponge effect (polyethylenimine, chloroquine analogs)
+- Membrane destabilization probability at pH 4.5–5.5
+- Fusogenic lipid activation timing
+- Payload release fraction following escape
+
+**Intracellular Distribution**
+
+Tracks payload after endosomal escape:
+- Nuclear localization signal (NLS) efficiency for gene therapy payloads
+- Cytoplasmic retention probability
+- Organelle-specific delivery (mitochondria, ER) for specialized therapeutics
+
+### Tissue Layer — Core Models
+
+**Enhanced Permeability and Retention (EPR) Effect**
+
+Models nanoparticle accumulation in tumor tissue:
+- Vascular pore size distribution (tumor-specific, patient-derived from imaging)
+- Interstitial fluid pressure modeling (barrier to delivery)
+- Lymphatic drainage deficiency in tumors
+- Active targeting contribution vs. passive EPR
+
+**Tissue Permeability Matrix**
+
+```
+tissue_type: liver, tumor, muscle, brain, lymph_node, bone_marrow
+properties:
+  vascular_pore_size_nm: [10-100]
+  blood_flow_ml_per_g_per_min: [tissue-specific]
+  interstitial_pH: [6.5-7.4]
+  immune_cell_density: [cells/mm3]
+  matrix_density: [g/cm3]
 ```
 
-**Node.js SDK** (`@nfsim/sdk`):
-```javascript
-import { NFSIMClient } from '@nfsim/sdk';
-const client = new NFSIMClient({ apiKey: '...' });
-const stream = await client.device('NFSIM-ECG-01-A3F2').connect();
-stream.on('data', async (packet) => {
-  await client.patient('patient-id').ingest(packet);
-});
-```
+**Blood-Brain Barrier Model**
 
-**Rust SDK** (`nfsim-client`):
-```rust
-let client = NfsimClient::new("https://api.nfsim.io", api_key);
-let stream = client.device("NFSIM-ECG-01-A3F2").ble_connect().await?;
-stream.subscribe(|packet| client.patient(pid).ingest(packet)).await;
-```
+Specialized model for CNS drug delivery:
+- Tight junction permeability modeling
+- Receptor-mediated transcytosis pathways (transferrin receptor, LRP1)
+- Efflux pump expression (P-glycoprotein)
+- Surface modifications that enhance BBB crossing
 
-## 10.5 AI/ML Layer
+### Systemic Layer — Core Models
 
-### On-Device (TinyML)
-- Runs on device MCU/FPGA
-- Models: <100 KB, INT8 quantized
-- Tasks: anomaly detection, alert triggering, gesture recognition, arrhythmia detection
+**Pharmacokinetic Model**
 
-### Edge (Desktop/Local)
-- Runs on patient's local machine
-- Models: up to 500 MB
-- Tasks: basecalling (nanopore), DICOM segmentation, genomic variant annotation
-- Framework: PyTorch (local), ONNX Runtime
+Two-compartment PK model:
+- Central compartment: blood plasma
+- Peripheral compartment: tissue distribution
+- Clearance: hepatic (kupffer cell uptake), renal (size-dependent filtration)
+- Half-life calculation based on surface modification (PEGylation, zwitterionic coating)
 
-### Cloud (Optional, Privacy-Preserving)
-- Federated learning: model training on local data, gradients only shared
-- Differential privacy: Gaussian noise addition to gradients
-- Tasks: population-level pattern discovery, simulation optimization
+**Immune Clearance Model**
 
-### NanoFlowSIM Simulation Engine (Rust Backend)
-- Core simulation: Monte Carlo + agent-based + pharmacokinetic modeling
-- API: gRPC for internal communication, REST for frontend
-- Scaling: single process to HPC cluster
-- Output: JSON results + 3D trajectory data (Protobuf binary)
-- Visualization: particle data exported to Three.js / Babylon.js renderers
+Mononuclear phagocyte system (MPS) modeling:
+- Opsonization probability (IgG, complement protein adsorption)
+- Kupffer cell uptake rate (liver)
+- Splenic filtration (rigid particles >200 nm)
+- Pre-existing anti-PEG antibody effect (patient-specific)
+- Protein corona formation kinetics
+
+### Machine Learning Integration
+
+**Therapy Combination Ranking**
+
+Input: patient genomic profile + tumor transcriptomics + current drug panel
+Output: ranked list of therapy combinations with predicted efficacy scores
+
+Model architecture:
+- Gradient-boosted tree ensemble (XGBoost base) for tabular patient features
+- Ordinal output with confidence intervals
+- Trained on aggregated clinical trial outcomes + published literature
+- Continuously updated as new validation data enters platform
+
+**Nanoparticle Design Optimizer**
+
+Bayesian optimization loop over:
+- Size (10–500 nm)
+- Surface charge (zeta potential)
+- Ligand type and density
+- Payload type and loading efficiency
+- Surface coating chemistry
+
+Objective: maximize targeting efficiency while minimizing immune clearance and off-target toxicity.
+
+### Back-Testing System
+
+When clinical outcome data is available:
+1. Load simulation parameters that produced a historical treatment plan
+2. Re-run simulation with same inputs
+3. Compare predicted vs. actual outcomes
+4. Automatically adjust model parameters to reduce prediction error
+5. Update model weights in production pipeline
 
 ---
 
-# 11. Monorepo Directory Structure — Complete
+## 4. Patient Data Architecture & Living Body Map
+
+### Core Design Philosophy
+
+Every piece of biological data a person generates — from a one-time genome sequencing to a continuous 14-day ECG patch to a single hospital visit CBC — attaches to an anatomical region of their 3D body model.
+
+The body is the universal anchor. Not folders. Not tables. Not departments.
+
+When a user clicks on their heart in the 3D view, they see:
+- Historical ECG recordings (episodic)
+- Continuous ECG patch data (if active)
+- Blood biomarkers relevant to cardiac function (troponin, BNP, cholesterol)
+- Genomic variants associated with cardiac risk (BRCA, LQTS genes, etc.)
+- Any nanoparticle simulation runs that targeted cardiac tissue
+- Ultrasound/imaging data of the heart (if uploaded)
+- Medication history affecting cardiac function
+
+### UBERON Anatomical Tagging System
+
+All data is tagged with UBERON ontology codes. Examples:
+
+| UBERON Code | Anatomical Region | Relevant Data Types |
+|---|---|---|
+| UBERON:0000948 | Heart | ECG, cardiac enzymes, echo, coronary imaging |
+| UBERON:0002048 | Lung | SpO2, spirometry, chest X-ray, breath analysis |
+| UBERON:0002107 | Liver | LFTs, hepatic imaging, drug metabolism SNPs |
+| UBERON:0001987 | Placenta | Maternal-fetal monitoring (pregnancy mode) |
+| UBERON:0001017 | Central nervous system | EEG, MRI brain, cognitive markers |
+| UBERON:0002113 | Kidney | Creatinine, GFR, renal imaging |
+| UBERON:0000178 | Blood | CBC, metabolic panels, cfDNA, SNPs |
+| UBERON:0001416 | Skin | Temperature, sweat sensors, dermatology imaging |
+| UBERON:0004537 | Bloodstream (systemic) | Default anchor for lab values without organ specificity |
+
+**Systemic/Blood Data Anchoring Logic:**
+
+Lab values that don't map cleanly to one organ (e.g., cholesterol, HbA1c, inflammatory markers) are:
+1. Anchored to bloodstream overlay by default (UBERON:0004537)
+2. AI suggests a primary organ anchor based on clinical context
+3. User can override and assign additional region tags
+4. The data displays in both the bloodstream view AND the suggested organ view
+
+### Data Model
+
+```
+PatientProfile {
+  patient_id: UUID (patient-generated, locally derived)
+  created_at: ISO8601
+  anthropometrics: { height_cm, weight_kg, age, biological_sex, ethnicity }
+  body_map_level: 0..4
+
+  DataRecord[] {
+    record_id: UUID
+    timestamp: ISO8601
+    source_device: DeviceID | "manual_entry" | "hospital_import" | "wearable_sync"
+    data_type: enum DataType
+    uberon_primary: UBERON code
+    uberon_secondary: [UBERON codes]  // multi-region data
+    is_continuous: bool
+    continuous_session_id: UUID | null
+    raw_data: JSON | binary blob
+    processed_data: JSON
+    quality_score: 0.0..1.0
+    notes: string
+    attachments: [FileRef]
+    simulation_linked: [SimulationRunID]
+  }
+
+  ActiveSessions[] {
+    session_id: UUID
+    device_id: DeviceID
+    started_at: ISO8601
+    data_type: DataType
+    sampling_rate_hz: f32
+    uberon_region: UBERON code
+    stream_endpoint: WebSocket URL | BLE characteristic UUID
+  }
+
+  SimulationRuns[] {
+    run_id: UUID
+    created_at: ISO8601
+    nanoparticle_config: JSON
+    therapy_config: JSON
+    patient_data_snapshot_id: UUID
+    results: SimulationResults
+    status: Queued | Running | Complete | Failed
+  }
+}
+```
+
+### Data Storage Architecture
+
+**Client-side (local-first):**
+- SQLite database (desktop: Electron + better-sqlite3, mobile: expo-sqlite)
+- MinIO-compatible local object storage for binary data (DICOM, FASTQ, FCS)
+- Encrypted at rest using platform keychain
+- Full offline capability for all core features
+
+**Sync architecture:**
+- Optional cloud sync to patient-controlled server
+- Self-hosted option: Docker compose (Django + PostgreSQL + MinIO + Redis)
+- Federated option: DID-based identity, BitTorrent-style data seeding
+- FHIR R4 compliant data exchange for hospital integrations
+- End-to-end encrypted when syncing
+
+**Hospital Record Integration:**
+- FHIR R4 REST API client
+- HL7 v2 parser for legacy hospital exports
+- DICOM receiver for imaging imports
+- PDF parser (AI-assisted) for scanned records
+- Direct integration hooks for Epic, Cerner, Allscripts via FHIR
+
+---
+
+## 5. UI/UX Specification — Consumer & Professional
+
+### Design Principles
+
+1. **The body is the interface.** Not menus. Not categories. The 3D human body is the primary navigation element.
+2. **Data capture first, AI second.** Every feature that captures data takes visual priority over AI insights.
+3. **Two modes, same data.** Consumer view and Professional view show identical underlying data with different visualization depth.
+4. **Live and historical coexist.** Active sensor streams glow/pulse in real-time. Historical data is always accessible by scrubbing a timeline. Both views are always simultaneously available.
+5. **Click to add, click to view.** Any region of the body can be clicked to see existing data OR to add new data. Empty regions invite data entry.
+
+### The 3D Body Map Interface
+
+**Rendering:** Three.js scene (desktop/web) or ARKit/ARCore scene (mobile). Two mesh variants:
+- Male reference mesh (SMPL model or equivalent open-source anatomical mesh)
+- Female reference mesh
+- Pregnancy overlay mode (maternity variant)
+- Pediatric scaling mode
+
+**Layer System (toggleable):**
+
+```
+Layer 0: Surface skin mesh (external anatomy)
+Layer 1: Skeletal mesh (bones, joints)
+Layer 2: Vascular mesh (major arteries, veins, heart)
+Layer 3: Organ mesh (liver, lungs, kidneys, brain, stomach, etc.)
+Layer 4: Neural overlay (brain, spinal cord, peripheral nerves)
+Layer 5: Lymphatic overlay
+Layer 6: Data heatmap overlay (sensor data visualized as colored regions)
+Layer 7: Nanoparticle trajectory overlay (simulation output)
+Layer 8: Genomic variant overlay (regions with known variants highlighted)
+```
+
+**Interaction Model:**
+
+- **Hover:** Region label appears, data count badge shows (e.g., "Heart — 47 records")
+- **Click:** Side panel opens with region detail view
+- **Long press / right click:** Context menu — "Add data", "View history", "Run simulation here", "Export region data"
+- **Pinch/zoom:** Navigate between full-body view and organ-level zoom
+- **Timeline scrubber:** Drag to see body state at any historical moment (data heatmap updates to show state at that time)
+
+**Data Visualization on Body:**
+
+| Data Type | Visual Representation |
+|---|---|
+| Active continuous sensor | Pulsing glow in sensor color (blue=ECG, green=glucose, orange=SpO2, purple=EEG) |
+| Recent episodic data (<30 days) | Solid region highlight |
+| Old data (>30 days) | Faint ring around region |
+| No data for region | Neutral mesh color, faint "+" icon on hover |
+| Alert/anomaly | Red pulse animation |
+| Nanoparticle simulation active | Particle stream animation following vascular paths |
+
+### Consumer Mode — Interface Layout
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│  NanoFlowSIM                                    [⚙ Settings] [👤 Profile] │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                           │
+│   ┌──────────────────────┐    ┌───────────────────────────────────────┐  │
+│   │                      │    │  REGION DETAIL: Heart                  │  │
+│   │    [3D Body View]    │    │  ─────────────────────────────────    │  │
+│   │                      │    │  📡 LIVE: ECG Patch (2 days remaining) │  │
+│   │   [rotating human    │    │  ┌─────────────────────────────────┐  │  │
+│   │    anatomy mesh]     │    │  │  ~~~heartbeat waveform~~~       │  │  │
+│   │                      │    │  └─────────────────────────────────┘  │  │
+│   │   ● Heart (live)     │    │  HR: 68 bpm  HRV: 42ms  Rhythm: NSR  │  │
+│   │   ● Glucose (live)   │    │                                        │  │
+│   │   ○ Brain (47 recs)  │    │  📋 HISTORY                           │  │
+│   │                      │    │  • 2026-05-20: 12-lead ECG — Normal   │  │
+│   │                      │    │  • 2026-04-15: Echo — EF 62%          │  │
+│   │                      │    │  • 2026-03-01: Troponin — <0.01 ng/mL │  │
+│   │                      │    │  • 2025-11-10: Cholesterol panel       │  │
+│   │                      │    │  [View all 23 cardiac records →]       │  │
+│   │                      │    │                                        │  │
+│   │                      │    │  🧬 GENOMICS (2 variants)             │  │
+│   │                      │    │  • SCN5A rs7626962 — ↑ LQT risk       │  │
+│   │                      │    │  [View details →]                      │  │
+│   │                      │    │                                        │  │
+│   │                      │    │  [+ Add Data]  [🔬 Run Simulation]    │  │
+│   └──────────────────────┘    └───────────────────────────────────────┘  │
+│                                                                           │
+│   [Timeline] ──────────────────────────────────────● Now                  │
+│              2023                2024               2025     2026          │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+**Consumer Mode Features:**
+- Simplified language (no medical jargon by default, toggle for clinical terms)
+- AI Health Summary: one-paragraph plain-English summary of what the body's data shows
+- Trend indicators: is X going up, down, or stable over selected time window
+- Device connection wizard: step-by-step pairing for NFS hardware
+- Hospital record import: guided FHIR connection or PDF upload
+- Export my data: full JSON/FHIR export of all personal records
+- Emergency data card: QR-code-accessible emergency medical summary
+
+### Professional Mode — Interface Layout
+
+All consumer features plus:
+
+**Left Panel — Region Navigator:**
+Full UBERON ontology tree browsable, with record counts per organ system. Supports multi-select for comparative analysis.
+
+**Center — 3D View with Clinical Layers:**
+Additional layer toggles for:
+- Vascular anatomy with blood flow simulation overlay
+- Tumor microenvironment model (if oncology data present)
+- Nanoparticle distribution heatmap from simulation runs
+- Multi-timepoint comparison (ghost mesh of body state at past timestamp vs. current)
+
+**Right Panel — Clinical Data Viewer:**
+
+Tabbed interface:
+1. **Vitals & Monitoring:** All time-series data with full-resolution waveform viewer (ECG scrollable at 25mm/s standard, EEG spectrogram, glucose 7-day AGP)
+2. **Lab Results:** Structured table of all blood/urine/genetic lab values with reference ranges, trend arrows, and delta-from-last-value display
+3. **Imaging:** DICOM viewer (Cornerstone.js) embedded inline with 3D segmentation overlay
+4. **Genomics:** Variant browser with clinical classification (pathogenic / likely pathogenic / VUS / benign), pathway enrichment viewer, pharmacogenomics table
+5. **Simulation:** Nanoparticle simulation launcher with parameter configuration, real-time progress, and output visualization
+6. **Research Cohort:** (Institution accounts) De-identified population comparisons, aggregated outcome data
+
+**Professional Mode Additional Features:**
+- Full DICOM import and viewing with measurement tools
+- VCF/FASTQ file import and variant annotation
+- FCS file import for flow cytometry data
+- FHIR R4 full read/write access
+- API key management for programmatic access
+- Audit log of all data access
+- Multi-patient dashboard (clinic/hospital accounts)
+- Direct NanoFlowSIM simulation launcher from any data region
+- mzML import for metabolomics/proteomics
+- Pharmacogenomics drug interaction checker (using patient CYP variant data)
+
+### Data Entry Flows
+
+**Manual Entry — Blood Test Results:**
+```
+1. Tap region OR tap "+" → "Add Lab Result"
+2. Select test type from searchable list (ICD-10 / LOINC code lookup)
+3. Enter value + units (auto-suggested units for selected test)
+4. Enter date/source (hospital name, self-collected)
+5. Optional: upload PDF/image of original report
+6. System auto-assigns UBERON codes and creates record
+7. Record appears immediately on body map + history timeline
+```
+
+**Hospital Import:**
+```
+1. Tap "Import Records" → "Connect to Hospital"
+2. Enter hospital name (searches FHIR directory) OR upload export file
+3. FHIR OAuth2 authorization with hospital MyChart / patient portal
+4. System fetches available records: labs, notes, imaging, medications
+5. Preview + approve import (user controls what to import)
+6. All records parsed, UBERON-tagged, and added to body map
+7. DICOM images stored in local MinIO, accessible in DICOM viewer
+```
+
+**NFS Device Connection:**
+```
+1. Tap "+" on body region OR tap device icon in toolbar
+2. Select device type from list (or scan QR code on device)
+3. BLE pairing wizard (or USB-C cable detection)
+4. Device calibration / patient ID assignment
+5. Session starts, data streams in real-time
+6. Body map region glows live with streaming data
+7. Session ends: all data saved, processed, archived
+```
+
+### Mobile-Specific UX
+
+React Native / Expo implementation:
+
+- **Home screen widget:** Glanceable current vitals (glucose, HR, SpO2, steps) without opening app
+- **AR overlay mode:** Point phone camera at body → AR overlay shows live sensor data on corresponding body region
+- **Notification system:** Configurable alerts for threshold breaches (glucose too high/low, arrhythmia detected, medication reminder)
+- **Offline mode:** Full data viewing and manual entry works offline; syncs when connection restored
+- **Health app sync:** Apple Health / Google Health Connect bidirectional sync for steps, sleep, HR data from native health apps
+- **Camera capture:** Photograph medical documents, prescriptions, test results for OCR-assisted import
+- **Voice entry:** Dictate symptoms, notes, medication changes into the record
+
+---
+
+## 6. Data Integration — Full Loop (Current + Future)
+
+### Non-Continuous Data Sources (Current, Supported Now)
+
+| Format | Data Type | Integration Method |
+|---|---|---|
+| VCF (Variant Call Format) | SNPs, genomic variants | Direct import, annotation via VEP |
+| FASTQ | Raw sequencing reads | NFSIM-SEQ-01 output, 3rd-party upload |
+| DICOM | CT, MRI, X-ray, ultrasound | DICOM receiver + Cornerstone.js viewer |
+| FHIR R4 JSON/XML | Hospital records, labs, medications | FHIR client with OAuth2 |
+| HL7 v2 | Legacy hospital data | HL7 parser |
+| PDF | Scanned lab reports, imaging reports | OCR + AI-assisted structured extraction |
+| FCS (Flow Cytometry Standard) | Flow cytometry events | NFSIM-FLOW-01 output, direct import |
+| mzML | Mass spectrometry data | Proteomics/metabolomics import |
+| CSV / Excel | Self-reported data, wearable exports | Structured import wizard |
+| JPEG/PNG | Pathology slide scans, dermatology photos | Image attachment with AI annotation |
+| 23andMe / AncestryDNA raw | Consumer genomics | Raw file import, LIFTOVER to GRCh38 |
+
+### Continuous Data Sources (Current, Supported Now)
+
+| Device / Source | Data Type | Integration |
+|---|---|---|
+| NFSIM-ECG-01 patch | Single-lead ECG continuous | BLE GATT NFS profile |
+| NFSIM-ECG-02 vest | 12-lead ECG 24h | BLE GATT NFS profile |
+| NFSIM-EEG-01 headset | EEG 8-16ch | BLE GATT NFS profile |
+| NFSIM-CGM-01 | Glucose interstitial | NFC + BLE NFS profile |
+| NFSIM-SWEAT-01 | Sweat electrolytes | BLE NFS profile |
+| Dexcom G7 | Glucose (via Dexcom API) | OAuth REST API integration |
+| Abbott FreeStyle Libre | Glucose (via LibreView API) | OAuth REST API |
+| Apple Watch | HR, SpO2, sleep, HRV, ECG | Apple Health HealthKit API |
+| Fitbit / Garmin / Polar | HR, HRV, sleep, GPS | OAuth REST APIs |
+| Oura Ring | Sleep, HRV, temperature | Oura REST API |
+| WHOOP | Recovery, strain, sleep | WHOOP REST API |
+| Withings BP monitor | Blood pressure | Withings OAuth API |
+| Generic BLE HR monitor | Heart rate | BLE GATT HRS profile |
+| Dräger / Masimo SpO2 | Pulse oximetry | BLE GATT custom profile |
+
+### Continuous Data Sources (Future, Architecture Pre-Built)
+
+The data model, storage schema, and API endpoints are designed today to accept these future data types without schema migration:
+
+| Future Device / Technology | Data Type | Current Status |
+|---|---|---|
+| cfDNA liquid biopsy monitor | Circulating tumor DNA, cell-free DNA fragments | Experimental |
+| Continuous proteomics patch | Real-time protein expression markers | Research |
+| Continuous nanopore | Real-time genomic surveillance | NFSIM-SEQ-01 moves toward this |
+| Ingestible continuous capsule | GI tract continuous chemistry, microbiome | NFSIM-CAP series |
+| Wearable NIRS metabolomics | Real-time tissue metabolites | NFSIM-OXY-01 moves toward this |
+| Aptamer-based hormone sensor | Cortisol, insulin, estrogen continuous | Research |
+| Neural implant data stream | Intracortical neural firing patterns | BCI research |
+| Epigenetic methylation monitor | DNA methylation state changes | Experimental |
+| Microfluidic real-time CBC | Continuous blood cell counts | Research |
+| Sweat-based cfDNA | DNA fragments in sweat | Emerging research |
+
+### Data Pipeline Architecture
+
+```
+[NFS Device] ──BLE/USB──→ [NFS Client App]
+[Hospital FHIR] ─────────→ [FHIR Importer]     → [Ingest Layer]
+[3rd-party Wearable API] → [OAuth Poller]              │
+[Manual Entry] ──────────→ [Entry Form]                │
+                                                        ▼
+                                             [UBERON Tagger]
+                                                   (auto-assign anatomical codes)
+                                                        │
+                                                        ▼
+                                             [Quality Scorer]
+                                                   (signal quality, completeness)
+                                                        │
+                                                        ▼
+                                             [Local SQLite + MinIO]
+                                                        │
+                                            ┌───────────┴───────────┐
+                                            ▼                       ▼
+                                    [3D Body Map]          [Simulation Engine]
+                                    (visualization)        (Pillar 1 input)
+                                            │
+                                            ▼
+                                    [Optional: Cloud Sync]
+                                    (patient-controlled, E2E encrypted)
+```
+
+---
+
+## 7. Biological Sensing Domain Encyclopedia
+
+This section documents the complete engineering evolution of each biological sensing domain — from historical origins through the portable era — specifically to inform the design of each NanoFlowSIM hardware device and to explain *why* each design choice was made.
+
+### 7.1 Domain: Molecular / Genomic Sensing
+
+**What It Measures:** DNA, RNA, proteins, pathogens, mutations, epigenetic marks, microbial genomes, cell-free nucleic acids.
+
+**Why It Matters for NanoFlowSIM:** Genomic data is the highest-information layer of patient biology. SNPs, somatic mutations, and gene expression profiles directly drive nanoparticle targeting parameters, CRISPR payload design, and therapy combination selection.
+
+#### Phase 0 — Pre-Molecular Era (Pre-1950s)
+Biology was purely observational. Disease was studied through symptoms, anatomy, and cell morphology under light microscopes. The information layer of DNA was completely invisible.
+
+#### Phase 1 — DNA Discovery Era (1950s–1970s)
+Watson and Crick elucidated DNA's double-helix structure in 1953. The genetic code was cracked through the 1960s. For the first time, biologists needed instruments capable of handling, separating, and visualizing DNA.
+
+**Technology: Gel Electrophoresis**
+
+Core physics: DNA carries a uniform negative charge-to-mass ratio. In an electric field through a porous gel matrix, smaller DNA fragments migrate faster than larger ones.
+
+Hardware stack:
+```
+- Gel casting tray: borosilicate glass or acrylic, 10×14 cm standard
+- Agarose gel: 0.5–2.0% concentration (higher = resolves smaller fragments)
+- TBE or TAE buffer: ionic conductor (Tris-Borate-EDTA or Tris-Acetate-EDTA)
+- Electrodes: platinum wire (non-reactive)
+- Power supply: 50–150V DC, 10–500 mA capacity
+- DNA stain: ethidium bromide (intercalating, original) → SYBR Safe (safer modern alt)
+- UV transilluminator: 302nm UV excites EtBr/SYBR → visible orange fluorescence
+- Polaroid/CCD camera: capture gel image
+```
+
+Signal chain:
+```
+DNA sample + loading dye
+→ pipetted into wells
+→ 60–120 min electrophoresis
+→ ethidium bromide or SYBR staining
+→ UV illumination
+→ fluorescence emission at 590nm
+→ band pattern = size estimation
+```
+
+Limitations: qualitative, slow, manual, radiation hazard (UV + EtBr), no sequencing.
+
+**NanoFlowSIM derivative: NFSIM-GELEC-01** — see Section 8.
+
+#### Phase 2 — PCR Revolution (1980s)
+Kary Mullis invented Polymerase Chain Reaction in 1983 (Nobel Prize 1993). This was arguably the most important tool invention in molecular biology.
+
+Core principle: Exponential amplification of a specific DNA target region. Starting from 1 molecule, 35 PCR cycles theoretically yield 2³⁵ = 34 billion copies.
+
+Three-stage thermal cycle:
+```
+1. Denaturation: 94–98°C for 20–30s
+   → hydrogen bonds between strands break
+   → double-stranded DNA → single-stranded DNA
+
+2. Annealing: 50–65°C for 20–40s (primer-specific, calculated as Tm - 5°C)
+   → custom oligonucleotide primers bind to their complementary sequences
+   → primers define the region to be amplified
+
+3. Extension: 72°C for 1 min/kb (Taq polymerase optimum)
+   → DNA polymerase extends from primer, synthesizing new strand
+   → doubling of target region per cycle
+```
+
+Original PCR hardware stack:
+```
+- Thermal block: aluminum, drilled for 0.2mL or 0.5mL PCR tubes, 96-well, or 384-well
+- Resistive heaters: embedded in block, nichrome wire, 200–500W
+- Peltier coolers: paired with heaters for active cooling
+- Thermistors/RTDs: ±0.1°C accuracy sensors embedded in block
+- Heat lid: prevents condensation on tube caps (typically 105°C)
+- Microcontroller: PID control loop for temperature ramp rate
+- Power electronics: MOSFETs driving heaters, H-bridge for Peltier direction
+- User interface: LCD display + keypad for protocol programming
+- PC connectivity: RS-232 or USB for protocol upload
+```
+
+Why early PCR machines were large:
+- Thermal mass of aluminum block required powerful heating
+- Multiple tube wells needed uniform temperature (thermal gradient <0.5°C block-to-block)
+- Cooling required forced air or liquid cooling systems
+- 96-well format = high thermal load
+
+**Evolution to portable PCR:**
+
+| Generation | Size | Power | Key Technology |
+|---|---|---|---|
+| Lab thermocycler (1990s) | Desktop, 5–15 kg | 200–500W | Resistive heating, forced air |
+| Compact thermocycler (2000s) | 2–5 kg | 80–200W | Better Peltier efficiency |
+| OpenPCR (2012) | 1.5 kg | ~50W | Arduino, exposed design, open source |
+| Portable qPCR (2015+) | 0.5–1 kg | 20–50W | Battery, microfluidics, smartphone readout |
+| Hand-held PCR (2020+) | <200g | 5–15W | MEMS chambers, ultra-thin Peltier, coin battery |
+| Individual-tube PCR (near future) | <50g | 2–5W | Nanoliter chambers, IR heating |
+
+**qPCR (Quantitative PCR) additions:**
+Standard PCR tells you "is target present (yes/no)." qPCR adds real-time fluorescence detection to quantify DNA amount during amplification.
+
+Additional hardware for qPCR:
+```
+- Excitation source: LED array (blue 470nm, white) or solid-state laser
+- Optical filters: bandpass filters per fluorophore channel (FAM, HEX, ROX, Cy5)
+- Photodiode or CMOS sensor: measures fluorescence intensity per cycle
+- ADC: converts photodiode current to digital value
+- DSP: background subtraction, baseline correction
+- Ct calculation: cycle at which fluorescence exceeds threshold = quantification
+```
+
+**Digital PCR:**
+DNA partitioned into tens of thousands of nanoliter droplets (ddPCR) or nanoliter wells. Each partition contains ≤1 DNA molecule. After amplification, count positive wells. Poisson statistics give absolute molecule count — no standard curve needed. Extreme sensitivity for rare mutations (e.g., circulating tumor DNA at 0.01% variant allele frequency).
+
+**NanoFlowSIM derivatives: NFSIM-PCR-01 through PCR-04, NFSIM-dPCR-01**
+
+#### Phase 3 — DNA Sequencing (1970s–2000s)
+
+**Sanger Sequencing (First Generation, 1977)**
+
+Chain-termination method (ddNTP incorporation). Fluorescently labeled dideoxy nucleotides randomly terminate synthesis. Fragment sizes reveal sequence.
+
+Hardware stack:
+```
+- Capillary array: 48–96 capillaries of polymer-filled fused silica
+- High-voltage power supply: 10–15 kV for capillary electrophoresis
+- Laser: 488nm argon-ion laser excitation
+- Four-color detection: CCD or PMT array per fluorophore (FAM, JOE, TAMRA, ROX)
+- Thermal control for capillary: maintains polyacrylamide denaturing conditions
+- Robotic sample loader: automated injection of prepared samples
+- Compute workstation: basecalling software, trace interpretation
+```
+
+Read length: 600–1000 bp. Accuracy: 99.99%. Throughput: very low (~1 Mb/day per instrument). Cost: ~$1/bp initially.
+
+**Next-Generation Sequencing — Illumina (2000s–present)**
+
+Massively parallel sequencing by synthesis. Millions of DNA clusters on a flow cell read simultaneously.
+
+Hardware stack (HiSeq/NovaSeq class):
+```
+Physical systems:
+- Flow cell: glass slide with patterned nanowells; DNA clusters form by bridge amplification
+- Fluidics system: 16+ reagent bottles, precision pumps, valves, tubing
+- Temperature control: ±0.1°C across entire flow cell
+- Four-laser system: 532nm, 638nm, 658nm, 785nm (for 4-channel sequencing)
+- Scientific CMOS cameras: 2–4, 100 megapixel class, for simultaneous imaging all clusters
+- Vibration isolation: active damping table required
+- Compute servers: real-time image processing, basecalling, quality scoring
+- Cooling system: chilled water or refrigerated air for electronics
+- UPS: power conditioning, prevents data loss during sequencing run
+```
+
+Run time: 1–3 days. Output: 200 Gb–6 Tb per run. Read length: 2×150 bp (paired end). Accuracy: 99.9%+. Cost: $0.001/bp and falling.
+
+Why these machines are huge: optical imaging requires vibration isolation, precision optics, multiple lasers, large-format cameras, and cooling. Every run generates terabytes of raw image data.
+
+**Third-Generation Sequencing — Oxford Nanopore MinION (2015–present)**
+
+Revolutionary removal of the optical detection stack. DNA translocates through protein nanopores; ionic current changes are measured electrically.
+
+Core physics:
+```
+- Engineered protein nanopore (MspA or CsgG variant) inserted into lipid bilayer membrane
+- Applied voltage: ~120–180 mV across membrane
+- Open-pore current: ~100–300 pA (depends on pore species)
+- DNA translocates at ~400 bases/second (motor protein controlled)
+- Each k-mer (group of ~5 bases) creates characteristic current signature
+- Current deviation from open pore: ~10–20 pA per k-mer context
+- Signal digitized at 3–5 kHz, then downsampled
+- Deep learning basecaller (Guppy → Dorado) converts raw current trace to sequence
+```
+
+Hardware stack (MinION):
+```
+Flow cell (consumable, $500–900 each):
+- Lipid bilayer membrane: synthetic lipid mixture, cast across array
+- 512 individually addressable nanopore wells (R9/R10 series)
+- Electrode grid: silver chloride, per well
+- Microfluidics: top reservoir for sample loading
+- Protein nanopores: CsgG octamers or MspA pores inserted into bilayer
+- Motor enzyme: helicase controls DNA threading speed
+
+MinION reader (reusable):
+- ASIC: Oxford Nanopore custom chip (Mk1C has integrated FPGA+ARM)
+- Analog front end: per-channel low-noise transimpedance amplifier
+- ADC: 12-bit, 25kHz sampling per channel (512 channels parallel)
+- Digital multiplexer: reads all 512 channels
+- USB 3.0 controller: streams data to laptop
+- LED indicators
+- Dimensions: 10.5 × 3.3 × 2.3 cm, 87g
+- Power: 5V via USB, peak 500mA
+```
+
+Signal chain:
+```
+DNA in library prep buffer
+→ motor enzyme attaches, controls threading speed
+→ single-stranded DNA enters nanopore
+→ each base position modulates ionic current
+→ analog amplifier (per channel)
+→ 12-bit ADC
+→ raw squiggle signal streamed over USB
+→ Dorado neural network basecaller (LSTM/transformer architecture)
+→ FASTQ sequence output with quality scores
+→ Minimap2 alignment to reference genome
+→ variant calling (medaka or PEPPER-DeepVariant)
+```
+
+Advantages over Illumina:
+- No optical components → portable, pocket-sized reader
+- Ultra-long reads (N50 >50kb, up to Mb for ultra-long reads) → whole genome phasing, structural variant detection, repeat regions
+- Direct RNA sequencing (no cDNA conversion) → true transcript reading, native modifications
+- Direct DNA methylation detection → epigenomics without bisulfite treatment
+- Real-time streaming → results in hours not days
+- Cost: $1000 device, $500–900 per flow cell
+
+Limitations:
+- Raw accuracy lower than Illumina (Q20 per read, improving with R10 pore)
+- Flow cell consumables expensive
+- Sensitive to pore degradation, membrane rupture
+- Computationally intensive basecalling
+- Library prep still complex (though improving toward simpler native prep)
+
+Why MinION is not fully open-source:
+- Pore protein engineering (MspA, CsgG variants) — proprietary, patented
+- ASIC design — proprietary
+- Motor enzyme selection and coupling chemistry — trade secret
+- Basecaller neural network weights — partially closed
+- Flow cell manufacturing (bilayer casting at scale) — proprietary process
+
+**NanoFlowSIM derivative: NFSIM-SEQ-01 (open nanopore sequencer)** — addresses each of these gaps with open alternatives.
+
+**LAMP (Loop-Mediated Isothermal Amplification):**
+Isothermal alternative to PCR — amplifies DNA at constant 65°C using 4–6 primers. Extremely fast (15–30 min) and sensitive. Works with simple heat block, no thermal cycling. LAMP-compatible colorimetric or turbidity readout eliminates need for optical detection in some applications.
+
+**RPA (Recombinase Polymerase Amplification):**
+Room-temperature isothermal amplification (37–42°C, or even ambient). Uses recombinase enzymes to thread primers onto target, then extends. Results in 10–20 min. Even simpler hardware requirements than LAMP. Lateral flow strip readout possible.
+
+**CRISPR Diagnostics (SHERLOCK, DETECTR):**
+CRISPR Cas12/Cas13 proteins have collateral cleavage activity — after detecting target nucleic acid, they non-specifically cleave fluorescent reporter molecules. Readout: fluorescence or lateral flow strip. Extreme sensitivity (attomolar detection). Can be combined with LAMP or RPA for sample pre-amplification.
+
+### 7.2 Domain: Structural / Anatomical Imaging
+
+**What It Measures:** Physical anatomy — tissue density, organ geometry, vascular structure, lesion morphology, bone integrity, internal motion.
+
+**Why It Matters for NanoFlowSIM:** DICOM imaging data defines the physical map of the patient — where the tumor is, its geometry, vascular supply, tissue characteristics. This directly parameterizes the tissue-layer simulation model and the 3D body map at Level 2 resolution.
+
+#### X-Ray (1895)
+Röntgen discovered X-rays November 8, 1895. Within months, radiographs were being taken in hospitals worldwide.
+
+Core physics: Bremsstrahlung radiation. Electrons accelerated through 40–150 kV strike tungsten anode → rapid deceleration → X-ray photon emission. Photon energy spectrum: 30–150 keV.
+
+Hardware stack:
+```
+X-ray tube:
+- Cathode: tungsten filament, ~2–4mm effective focal spot
+- Rotating anode: tungsten-rhenium alloy disk, 90–200mm diameter, 3000–9000 RPM
+- Vacuum: <10⁻⁶ torr
+- High voltage generator: DC inverter, 50–150 kVp, 100–1000 mA capability
+- Beam collimator: lead shutters defining field size
+- Glass/beryllium window: X-ray exit
+
+Detector (modern):
+- Flat-panel detector (FPD): 43×43 cm cesium iodide (CsI) scintillator + amorphous silicon TFT array
+- Spatial resolution: 2–4 line pairs/mm
+- DQE (Detective Quantum Efficiency): 60–70%
+- Digital output: 14-bit DICOM image
+```
+
+**CT Scanner (1970s):**
+
+Rotating X-ray source + curved detector array. Hundreds of projections per revolution → filtered back projection or iterative reconstruction → volumetric data.
+
+Hardware stack:
+```
+Gantry:
+- Rotating assembly: X-ray tube + detector, 400–700 kg, rotation speed 0.25–0.5s/rev
+- Slip rings: allow continuous rotation while passing high voltage + data
+- Counterweights and precision bearings
+
+X-ray system:
+- 60–140 kVp, 50–800 mA, rotating anode tube
+- Bowtie filter: compensates for patient shape (more filtration at periphery)
+- Beam collimator: defines slice thickness
+
+Detector array:
+- Solid-state scintillator: GOS (gadolinium oxysulfide), 64–320 rows
+- Photodiode array bonded to scintillator
+- 800–1000 individual elements per row
+- 64–320 parallel data acquisition channels
+
+Data acquisition:
+- ADC: 20-bit per channel
+- DAS (Data Acquisition System): ~10 Gb/s raw data rate
+- Gantry-to-workstation data transfer via fiber optical slip ring or wireless
+
+Compute:
+- Reconstruction: GPU cluster, FBP + MBIR algorithms
+- CT dose modulation: real-time tube current adjustment
+- AI reconstruction: vendor-specific deep learning (GE TrueFidelity, Siemens ClearIQ)
+```
+
+Typical CT: 16-, 64-, 128-, 256-, 320-slice systems. Each slice: 0.5–1.25mm thickness.
+
+**MRI (1970s–present):**
+
+No ionizing radiation. Nuclear magnetic resonance of hydrogen protons.
+
+Core physics:
+```
+- Main magnet aligns proton spins (parallel or antiparallel to B0)
+- Net magnetization M0 along B0 field direction
+- 90° RF pulse tips M0 into transverse plane
+- Protons precess at Larmor frequency: f = γ × B0
+  (for ¹H: f = 42.58 MHz/T)
+- Gradient coils spatially encode precession frequency/phase
+- Protons relax: T1 (longitudinal), T2 (transverse)
+- FID (Free Induction Decay) signal detected in RF coil
+- 2D/3D Fourier transform → spatial image
+```
+
+Hardware stack:
+```
+Superconducting magnet:
+- Niobium-titanium (NbTi) wire coils cooled by liquid helium to 4K
+- Field strength: 1.5T (clinical standard), 3T (high-field), 7T (research)
+- Homogeneity: <2 ppm over 50cm DSV (diameter of spherical volume)
+- Fringe field: 5 Gauss line extends several meters
+- Weight: 4,000–10,000 kg
+
+Gradient coils:
+- X, Y, Z gradient: up to 80 mT/m amplitude, 200 T/m/s slew rate
+- Creates loud acoustic noise (up to 130 dB SPL) from Lorentz forces
+- Actively shielded to reduce eddy currents in magnet bore
+
+RF system:
+- Body coil: built into bore, transmit + receive
+- Surface coils: 4–32 channel arrays for specific anatomy
+- Digital receivers: direct digitization, 10–100 MHz bandwidth per channel
+
+Shimming:
+- Passive shims: iron pieces placed inside bore for coarse correction
+- Active shims: additional coils for fine correction
+
+Compute:
+- k-space reconstruction: FFT-based, GPU-accelerated
+- Parallel imaging: GRAPPA, SENSE for undersampled k-space
+- Compressed sensing: randomized k-space sampling + iterative reconstruction
+- AI super-resolution: vendor-specific (GE AIR, Siemens Deep Resolve)
+```
+
+**Portable/Low-Field MRI (emerging):**
+
+Key innovations enabling portable MRI:
+- Permanent magnet arrays (Halbach configuration): no cryogenics, 50–100 mT field
+- AI reconstruction compensates for lower SNR at reduced field
+- Shielding not required at low fields (no 5-Gauss line problem)
+- Power: runs on standard outlet, or battery for point-of-care
+
+**Ultrasound (1950s–present):**
+
+Core physics: piezoelectric elements generate pressure waves at 1–40 MHz. Waves reflect at tissue interfaces (impedance mismatches). Round-trip time → depth. Amplitude → tissue reflectivity.
+
+Why ultrasound became most portable:
+- No ionizing radiation
+- No large magnets
+- Acoustic power levels safe at standard diagnostic levels (ISPTA < 720 mW/cm²)
+- Electronic beam steering eliminates mechanical scanning
+- Digital beamforming → fits on ASIC
+
+Hardware stack (modern portable):
+```
+Transducer:
+- Piezoelectric element array: 128–256 elements, PZT or cMUT (capacitive micromachined)
+- Matching layers: quarter-wave acoustic matching to tissue impedance
+- Backing material: tungsten-loaded epoxy (acoustic attenuation)
+- Lens: acoustic focusing lens for fixed focus or electronic focus
+- Frequencies: 2–5 MHz (abdominal), 7–15 MHz (superficial), 20–40 MHz (high-res)
+
+Electronics:
+- TX beamformer: nanosecond timing, high-voltage pulsers (50–100V) per element
+- RX beamformer: low-noise amplifiers, dynamic receive focusing
+- ADC: 10–14 bit, 50–100 MSPS per channel
+- DSP: envelope detection, log compression, scan conversion
+- Doppler processing: FFT-based for spectral Doppler, autocorrelation for color Doppler
+- Wireless: WiFi 802.11ac or USB-C to phone/tablet for display
+
+Power: 1–10W depending on mode (B-mode vs. color Doppler vs. 3D)
+```
+
+**OCT (Optical Coherence Tomography):**
+
+Near-infrared interferometry. Resolution: 1–15 μm axial, 5–20 μm lateral. Penetration: 1–3 mm in tissue. Widely used in ophthalmology (retinal imaging), cardiology (coronary OCT), and dermatology.
+
+Physics: Michelson interferometer with broadband light source. Interference between reference arm and sample arm light creates interference pattern. Fourier transform → depth-resolved image.
+
+**NanoFlowSIM derivatives: NFSIM-US-01 through US-09, NFSIM-MRI-01, NFSIM-XRAY-01, NFSIM-OCT-01, NFSIM-MICRO-01**
+
+### 7.3 Domain: Chemical / Metabolic Sensing
+
+**What It Measures:** Dissolved molecules — ions, metabolites, dissolved gases, hormones, enzymes, neurotransmitters, drugs. The real-time biochemical state of the body.
+
+**Why It Matters for NanoFlowSIM:** Metabolic state modulates nanoparticle behavior. pH affects payload release. Protein corona composition depends on blood chemistry. Glucose level affects cancer cell metabolism modeling. Continuous chemistry is the most actionable real-time data layer.
+
+#### Pre-Electronic Era (1800s–mid 1900s)
+Chemical sensing was visual and manual. Fehling's test (1848) for glucose: blue copper complex turned brick-red in the presence of glucose. Litmus paper for pH. Biuret test for protein. These were slow, qualitative, batch-only.
+
+#### Electrochemical Revolution (mid 1900s)
+Key realization: chemical reactions involve electron transfer → can be measured electrically.
+
+**Three electrochemical modalities:**
+
+**1. Potentiometry** (measuring equilibrium voltage):
+```
+Reference electrode | Solution | Ion-selective membrane | Working electrode
+                                   ↑
+                   Nernst equation: E = E₀ + (RT/nF) × ln([ion])
+
+Hardware:
+- Ion-selective electrode (ISE): pH glass electrode, Na+ glass, K+ valinomycin
+- Reference electrode: Ag/AgCl in saturated KCl
+- High-input-impedance amplifier: >10¹² Ω input (glass electrode source impedance huge)
+- ADC: 16–24 bit (need <0.1 mV resolution)
+Applications: pH, Na+, K+, Ca2+, Li+, pCO2
+```
+
+**2. Amperometry** (measuring reaction current):
+```
+Working electrode maintained at fixed potential vs. reference
+Analyte oxidizes/reduces at electrode → current proportional to concentration
+i = n × F × A × D × (∂C/∂x) at electrode surface
+
+Hardware:
+- 3-electrode cell: working (Pt, Au, carbon), counter (Pt), reference (Ag/AgCl)
+- Potentiostat: controls working electrode potential
+- Transimpedance amplifier: converts pA–μA current to measurable voltage
+- ADC: 16–24 bit
+Applications: glucose (glucose oxidase), H2O2, O2, dopamine, acetaminophen
+```
+
+**3. Conductometry** (measuring solution conductance):
+```
+AC measurement (avoids electrode polarization)
+Conductance proportional to total ion concentration
+Applications: total electrolyte concentration, bacterial growth detection
+```
+
+**Glucose Sensing Evolution:**
+
+Phase 1 — Chemical strips (1965): Dextrostix. Reflectance photometry. Glucose oxidase on paper strip → colorimetric. Estimated by eye. Inaccurate.
+
+Phase 2 — First-generation glucometers (1970s): Electrochemical. Glucose oxidase reaction:
+```
+Glucose + O₂ → Gluconolactone + H₂O₂   (glucose oxidase catalysis)
+H₂O₂ → 2H⁺ + O₂ + 2e⁻                  (electrode oxidation at +0.6V vs Ag/AgCl)
+Current ∝ glucose concentration
+```
+
+Phase 3 — Second-generation CGM (2006+): Subcutaneous sensor. Challenges overcome:
+- Biofouling: polyurethane outer membrane limits glucose diffusion rate, stabilizes signal
+- Enzyme stability: crosslinked GOx in hydrogel matrix survives 10–14 days
+- Calibration drift: factory calibration algorithms, optional fingerstick calibration
+- BLE transmission: NFC (FreeStyle Libre style passive readout) or active BLE (Dexcom G7)
+
+**Pulse Oximetry:**
+Beer-Lambert law applied to tissue. Oxygenated hemoglobin (HbO2) and deoxygenated hemoglobin (Hb) have different extinction coefficients at 660nm (red) and 940nm (near-IR).
+
+```
+SpO2 = HbO2 / (HbO2 + Hb) × 100%
+
+Ratio of ratios (R):
+R = (AC660/DC660) / (AC940/DC940)
+
+SpO2 ≈ 110 - 25R  (empirical, calibrated against SaO2)
+
+Hardware:
+- Red LED: 660nm, 2–3mA drive
+- IR LED: 940nm, 5–8mA drive
+- Photodiode: silicon, broadband
+- Analog front end: transimpedance amp, synchronous demodulation (lock-in)
+- ADC: 18–22 bit
+- DSP: adaptive filtering, motion artifact removal (accelerometer-based)
+```
+
+**NIRS (Near-Infrared Spectroscopy):**
+Extended pulse oximetry concept. Multiple wavelengths (700–900nm) at multiple distances from source → depth-resolved tissue oxygenation. Detects oxy-Hb, deoxy-Hb, and cytochrome c oxidase. Used for cerebral oximetry, muscle oxygenation monitoring during exercise.
+
+**NanoFlowSIM derivatives: NFSIM-CGM-01, NFSIM-SWEAT-01, NFSIM-CHEM-01 through CHEM-08, NFSIM-OXY-01, NFSIM-BREATH-01**
+
+### 7.4 Domain: Electrical / Bioelectric Sensing
+
+**What It Measures:** Bioelectric signals generated by ion flux across cell membranes — cardiac rhythm (ECG), brain activity (EEG), muscle activation (EMG), eye movement (EOG), skin conductance (EDA/GSR), nerve conduction.
+
+**Why It Matters for NanoFlowSIM:** Cardiac status informs vascular simulation. Neural activity relates to CNS-targeting therapies. ECG arrhythmias may correlate with drug toxicity from simulated therapeutics.
+
+#### Core Physics of Bioelectricity
+
+Action potential: Cell membrane at rest maintains -70 mV (neurons) to -90 mV (cardiac) via Na+/K+ ATPase pump. Depolarization opens voltage-gated Na+ channels → rapid influx → +30 mV overshoot. K+ channels repolarize membrane. This spike propagates cell-to-cell.
+
+Body as volume conductor: The body is a conductive medium. Bioelectric dipoles within the heart, brain, or muscles create potential fields that spread through tissue and appear (attenuated) at skin surface.
+
+Signal amplitudes at skin:
+```
+ECG: 1–3 mV (heart, strong)
+EMG: 0.1–10 mV (muscle, strong)
+EOG: 0.1–5 mV (eye movement)
+EEG: 10–100 μV (brain, weak)
+ERG: 5–20 μV (retina)
+```
+
+**ECG Hardware Stack:**
+```
+Electrodes:
+- Ag/AgCl wet gel: lowest impedance, best signal, requires gel
+- Dry electrodes: carbon composite or conductive fabric, higher impedance, no prep
+- Textile electrodes: conductive yarn woven into fabric
+
+Analog front end:
+- Instrumentation amplifier: 3-op-amp topology, CMRR >80 dB (to reject 50/60Hz)
+- Input impedance: >100 MΩ (to preserve signal despite electrode impedance)
+- Gain: 250–1000× (to bring mV signals to ADC range)
+- Right-leg drive (RLD) circuit: drives patient to virtual ground, improves CMRR
+- High-pass filter: 0.05 Hz cutoff (removes baseline wander)
+- Low-pass filter: 150 Hz cutoff (anti-alias, removes EMG artifact)
+- Notch filter: 50 or 60 Hz (power line interference)
+
+ADC:
+- Resolution: 16–24 bit (to resolve 10 μV LSB)
+- Sample rate: 250–500 Hz standard; 8000 Hz for high-freq analysis
+
+MCU/DSP:
+- R-peak detection: Pan-Tompkins algorithm (bandpass → derivative → squaring → moving window integration)
+- HRV analysis: SDNN, RMSSD, pNN50, frequency domain (LF/HF ratio)
+- Arrhythmia detection: AI classifier (AFib, PVC, SVT) - TinyML on device or cloud
+
+Power:
+- Supply: 3.3V or 5V from battery
+- Quiescent current: 1–10 mA (ultra-low-power IC options: ADS1291, MAX30003)
+- Battery life: 14–30 days (CR2032 to 180mAh LiPo depending on duty cycle)
+
+ECG ICs used in NFS devices:
+- Texas Instruments ADS1291: 1-channel, 8-lead capable, ultra-low noise (4 μV_RMS)
+- Texas Instruments ADS1298: 8-channel, 24-bit, SPI interface
+- Maxim MAX30003: dedicated cardiac monitor AFE with R-R detection
+- Nordic nRF5340 (MCU + BLE combo)
+```
+
+**EEG Hardware Stack:**
+```
+Challenges vs ECG:
+- Signals 10–100× weaker (μV vs mV)
+- Skull attenuates high frequencies (above 40 Hz severely attenuated)
+- More electrodes needed for spatial resolution (8–256 channels)
+- Dry electrodes have much higher impedance → more noise
+
+Amplifier requirements:
+- Noise floor: <1 μV_RMS (vs ~5 μV for ECG)
+- Input impedance: >1 GΩ (dry electrodes have skin-electrode impedance of 50–500 kΩ)
+- CMRR: >100 dB
+- Gain: 1000–10000×
+
+Key IC: Texas Instruments ADS1299 (8-channel, 24-bit, specifically designed for EEG)
+- Noise: 1 μV_RMS input-referred
+- Input impedance: 1 GΩ
+- Programmable gain: 1–24×
+
+Frequency analysis:
+- Delta: 0.5–4 Hz (deep sleep)
+- Theta: 4–8 Hz (drowsiness, meditation)
+- Alpha: 8–13 Hz (relaxed wakefulness, eyes closed)
+- Beta: 13–30 Hz (active thinking, focus)
+- Gamma: 30–100 Hz (cognitive processing, attention)
+```
+
+**EMG Hardware Stack:**
+```
+Surface EMG (sEMG):
+- Electrodes: Ag/AgCl pairs 20–30mm apart, aligned with muscle fiber direction
+- Differential amplification: rejects common-mode noise
+- Bandpass: 10–500 Hz (motor unit action potentials)
+- Sampling: 1000–4000 Hz
+- Rectification + envelope detection → muscle activation level
+- Pattern recognition: gesture classification via ML (NFSIM-EMG-01)
+
+Needle EMG:
+- Concentric needle electrode inserted into muscle
+- 50–500 μm diameter
+- Recording: individual motor unit action potentials (MUAPs)
+- Signal: 0.1–5 mV amplitude, 5–15 ms duration
+- Requires clinical operation
+```
+
+**EDA (Electrodermal Activity / GSR):**
+```
+Measures sweat gland activity (eccrine glands, under sympathetic nervous control)
+Skin conductance rises during arousal/stress
+Two components:
+- SCL (Skin Conductance Level): tonic baseline
+- SCR (Skin Conductance Response): phasic response to stimuli
+
+Measurement:
+- 500 mV AC voltage at 20 Hz applied to skin electrodes
+- Measure resulting current → skin conductance (0.1–30 μS)
+- Palmar sites (thenar/hypothenar eminence) most sensitive
+```
+
+**NanoFlowSIM derivatives: NFSIM-ECG-01, ECG-02, EEG-01, EMG-01, NEURAL-01, EOG-01, EDA-01**
+
+### 7.5 Domain: Implantable / Closed-Loop Systems
+
+**What It Measures + Does:** Combines continuous sensing with automatic intervention. Pacemakers, cochlear implants, deep brain stimulators, continuous glucose monitors with insulin delivery, BCIs.
+
+**Why It Matters for NanoFlowSIM:** Implantable sensors provide the highest-quality continuous data streams (direct tissue contact, no motion artifact, no transdermal attenuation). Nanoparticle systems may eventually be implant-compatible or delivered via implant.
+
+Historical arc:
+```
+1950s: External cardiac pacemakers (wall-powered, patient tethered)
+1958: First implantable pacemaker (Åke Senning/Rune Elmqvist, Sweden)
+1960s: Mercury-zinc batteries, transistor circuits (replaced vacuum tubes)
+1970s: Lithium iodide batteries → 5–10 year longevity
+1980s: Programmable pacemakers (external radio programming)
+1990s: ICDs (Implantable Cardioverter-Defibrillators) — sense + shock
+2000s: Biventricular pacing (cardiac resynchronization therapy)
+2010s: Leadless pacemakers (Medtronic Micra), MRI-conditional devices
+2020s: Subcutaneous ICDs, remote monitoring, adaptive algorithms
+
+Cochlear implants:
+1972: House single-channel implant
+1985: Nucleus multi-electrode (Cochlear Ltd, 22 electrodes)
+1990s-present: Digital signal processing, 22+ channel, speech coding strategies
+Future: optical cochlear implants, higher channel count, neural prosthetics
+
+Deep Brain Stimulation:
+1987: Alim-Louis Benabid discovers DBS for Parkinson tremor
+1997: FDA approval for tremor
+2000s: Bilateral STN stimulation for motor Parkinson symptoms
+2010s: DBS for depression, OCD, Tourette (investigational)
+Future: Adaptive DBS (sensing + stimulating simultaneously), closed-loop
+```
+
+**Key engineering challenges that apply to all NFS implant-adjacent devices:**
+
+| Challenge | Description | NFS Approach |
+|---|---|---|
+| Biocompatibility | Body attacks foreign materials | Parylene-C coating, titanium casing |
+| Power | Continuous sensing drains battery | Ultra-low-power ASICs, energy harvesting |
+| Data transmission | Wireless through tissue | BLE/MICS band radio, inductive telemetry |
+| Hermeticity | Body fluids destroy electronics | Titanium or ceramic hermetic packages |
+| Long-term stability | Tissue changes around device | Flexible electrodes, anti-inflammatory coatings |
+| Safety | Heating, RF interference | SAR limits, MRI compatibility testing |
+
+---
+
+## 8. Open-Source Hardware Ecosystem — All Devices
+
+### Design Philosophy
+
+Every NanoFlowSIM hardware device follows these universal mandates:
+
+1. **Fully open hardware:** KiCad source files, no proprietary EDA required
+2. **JLCPCB-compatible BOM:** All components available from LCSC/JLCPCB for one-stop PCB + assembly
+3. **Open firmware:** FreeRTOS or Zephyr RTOS, MIT license
+4. **Open software:** Python SDK + Node.js SDK + Rust client library
+5. **NFS Protocol:** Universal JSON packet over BLE GATT or USB-C
+6. **Battery operable:** USB-C charging, minimum 8h continuous operation on internal battery
+7. **UBERON-tagged output:** All data tagged with anatomical codes
+8. **Sub-$500 BOM** target for most devices (exceptions noted)
+9. **Research Use Only (RUO) status** — not cleared as medical devices
+
+### Device Naming Convention
+
+```
+NFSIM-[DOMAIN]-[NUMBER]
+
+DOMAIN codes:
+PCR    = Polymerase Chain Reaction / isothermal amplification
+SEQ    = DNA/RNA Sequencing
+CRISPR = CRISPR-based diagnostics
+GELEC  = Gel electrophoresis
+dPCR   = Digital PCR
+US     = Ultrasound
+MRI    = Magnetic Resonance Imaging
+XRAY   = X-ray
+OCT    = Optical Coherence Tomography
+MICRO  = Microscopy
+CGM    = Continuous Glucose Monitor
+SWEAT  = Sweat/interstitial chemistry
+CHEM   = Blood/chemical analysis
+OXY    = Oxygenation (NIRS/SpO2)
+BREATH = Breath analysis
+ECG    = Electrocardiography
+EEG    = Electroencephalography
+EMG    = Electromyography
+NEURAL = Neural recording
+EOG    = Electrooculography
+EDA    = Electrodermal activity
+CAP    = Ingestible capsule
+FLOW   = Flow cytometry
+ENV    = Environmental sensing
+```
+
+---
+
+### Domain A: Molecular / Genomic
+
+---
+
+#### NFSIM-PCR-01 — Portable Individual PCR Thermocycler
+
+**Concept:** A single-strip (8-tube) PCR thermocycler designed for individual field use. Smaller than a paperback book. Peltier-based thermal cycling, BLE connectivity, TFT display, battery powered.
+
+**What problem it solves vs OpenPCR:** OpenPCR was a 96-well desktop unit at ~1.5 kg. NFSIM-PCR-01 targets individual 0.2mL strip tubes at <300g, runs on a 3000 mAh LiPo for 40+ PCR cycles without USB power.
+
+**Specifications:**
+```
+Sample format: 8-tube 0.2 mL PCR strip
+Sample volume: 5–50 μL per tube
+Thermal range: 4°C – 99°C
+Temperature accuracy: ±0.2°C block-to-block, ±0.5°C well-to-well
+Ramp rate heating: 5°C/second minimum
+Ramp rate cooling: 3°C/second minimum (Peltier-limited)
+Maximum cycles: 60 cycles
+Lid temperature: 105°C (heated lid prevents evaporation)
+Dimensions: 120 × 80 × 60 mm
+Weight: ~280g with battery
+Display: 2.4" IPS TFT 240×320 (ST7789 controller)
+MCU: STM32G474 (Cortex-M4, 170 MHz, with math co-processor for PID)
+Wireless: nRF52840 (BLE 5.0) on daughter module
+USB: USB-C for charging and data (USB-CDC serial for firmware update + protocol control)
+Battery: 3000 mAh LiPo, USB-C PD charging
+Charging time: 2h to full
+Runtime: ~8–12 PCR runs (35 cycles each) per charge
+Power supply for Peltier: 5V 3A from battery via boost converter
+```
+
+**Hardware Stack — PCB Design:**
+```
+Primary MCU board (PCB-A, 80×50mm, 4-layer):
+- STM32G474RET6 (LQFP64, main controller)
+- nRF52840-QIAA (QFN73, BLE SoC)
+- DS18B20 or PT1000 RTD (temperature reference)
+- MAX4238 (precision op-amp for RTD readout)
+- 24C256 EEPROM (protocol storage, calibration)
+- USB-C connector + CH552 USB bridge or STM32 internal USB
+- SWD debug header (TC2030-CTX-NL)
+- LDO: TPS7A85 3.3V 2A for logic
+- Status LEDs: 3× WS2812B (RGB addressable)
+
+Thermal block board (PCB-B, 80×50mm, 2-layer, aluminum-core):
+- Aluminum PCB substrate for thermal conductivity
+- Peltier module footprints: 2× TEC1-12706 (40×40mm, 6A, 12W max)
+- Thermistors: 2× NTC 10kΩ B=3950 (block and heat sink)
+- Current sense: INA219 (measures Peltier drive current)
+- MOSFET H-bridge: 2× IRLZ44N (for Peltier polarity switching — heating vs cooling)
+- Gate drivers: IR2104 half-bridge driver
+- Gate resistors: 10Ω
+- Bootstrap capacitors: 100nF ceramic
+
+Heat sink assembly:
+- Aluminum heat sink: 80×50×20mm, 0.5°C/W thermal resistance
+- Cooling fan: 50×50×10mm, 5V, 0.1A, ball bearing
+- Thermal interface: 3M 8810 thermal pad between Peltier and heat sink
+
+Heated lid assembly:
+- Kapton flexible heater: 70×30mm, 5V, 5W
+- Thermistor: NTC 10kΩ embedded in lid block
+- MOSFET: IRLML6344 (logic-level, N-channel)
+- Silicone pressure pad: 1.5mm, compresses against tube caps
+
+Display module:
+- 2.4" IPS TFT (ST7789, SPI)
+- 4 tactile buttons (protocol select, start/stop, navigate menus)
+- Membrane switch or silicone rubber buttons
+```
+
+**Schematic — Critical Nets:**
+```
+Peltier control loop (PID):
+- STM32 TIM1 → PWM at 20kHz → IR2104 gate driver → IRLZ44N H-bridge → Peltier
+- Direction pin → H-bridge direction = heating or cooling
+- Block temp measured via 10-bit ADC + NTC thermistor
+- PID coefficients: Kp=5.0, Ki=0.3, Kd=0.8 (tuned for 5°C/s ramp)
+
+BLE communication (nRF52840 to STM32):
+- SPI interface (4-wire) at 8 MHz
+- INT line from nRF52840 to STM32 (data ready)
+- 3.3V logic compatible
+
+Power tree:
+- LiPo → BQ24075 charger (USB-C PD negotiation) → protection IC → raw battery rail
+- Battery → TPS61085 boost converter → 5V 3A rail (Peltier + fan + lid heater)
+- Battery → TPS7A85 LDO → 3.3V rail (MCU, BLE, display, sensors)
+- Battery monitoring: MAX17055 fuel gauge (I2C to STM32)
+```
+
+**Firmware Architecture:**
+```
+RTOS: FreeRTOS (STM32CubeMX generated)
+
+Tasks:
+1. ThermalControlTask (highest priority, 10ms tick)
+   - PID loop for block temperature
+   - Stage detection (denaturation/annealing/extension/hold)
+   - Lid heater PID (separate controller, setpoint 105°C)
+   - Cycle counter
+   
+2. ProtocolTask (normal priority, 100ms tick)
+   - Protocol file parsing (JSON stored in EEPROM)
+   - Stage progression logic
+   - Protocol completion detection
+   
+3. BLECommTask (normal priority, 50ms tick)
+   - GATT server for NFS device profile
+   - Characteristic updates: temp, stage, cycle count, estimated time remaining
+   - Command reception: start, stop, pause, load protocol
+   
+4. DisplayTask (low priority, 50ms tick)
+   - TFT rendering via LVGL (Light and Versatile Graphics Library)
+   - Real-time temperature plot (last 60 seconds)
+   - Stage/cycle display, progress bar, ETA
+   - Menu system for protocol selection
+   
+5. BatteryMonitorTask (low priority, 1000ms tick)
+   - MAX17055 polling
+   - Low-battery warning at 10%
+   - Emergency stop at 5% (preserves current cycle then halts)
+   
+State machine:
+IDLE → RUNNING → PAUSED → COMPLETE → ERROR
+                    ↕
+                  RUNNING (resume)
+```
+
+**Communication Protocol — NFSIM-PCR-01 specific:**
+```
+BLE GATT Service: NFS Device Control (4a6e-1000-...)
+Characteristics:
+- 0x1001 (notify, 20 bytes): Current state packet
+  [status:1][stage:1][cycle:1][block_temp_x100:2][lid_temp_x100:2][ETA_sec:2][battery_pct:1]
+  
+- 0x1002 (write): Command
+  0x01 = Start protocol
+  0x02 = Stop
+  0x03 = Pause
+  0x04 = Resume
+  0x10 = Load protocol (followed by JSON protocol data over multiple writes)
+  
+NFS Universal JSON packet (on session completion):
+{
+  "nfs_version": "1.0",
+  "device_id": "NFSIM-PCR-01-XXXXXX",
+  "session_id": "uuid",
+  "patient_id": "uuid",
+  "timestamp_unix": 1748304000,
+  "data_type": "pcr_run",
+  "anatomy_region": "UBERON:0000178",  // blood or user-specified sample source
+  "data": {
+    "protocol_name": "COVID_Taqman",
+    "cycles_completed": 40,
+    "final_block_temp": 72.1,
+    "thermal_profile": [
+      {"stage": "denaturation", "target": 95.0, "duration": 30, "achieved": 94.8},
+      ...
+    ],
+    "total_runtime_seconds": 2847
+  },
+  "quality": 0.98,
+  "battery_pct": 74
+}
+```
+
+**BOM (Key Components):**
+```
+STM32G474RET6       $3.80   Mouser 511-STM32G474RET6
+nRF52840-QIAA       $4.50   Mouser 949-NRF52840-QIAA-R
+TEC1-12706          $2.80×2 LCSC / Amazon
+50×50 fan           $1.20   LCSC
+ST7789 2.4" TFT     $4.50   AliExpress / LCSC
+BQ24075             $1.20   LCSC
+TPS61085            $1.80   LCSC
+MAX17055            $2.10   Mouser
+INA219              $1.50   LCSC
+IR2104              $0.80×2 LCSC
+IRLZ44N             $0.60×4 LCSC
+3000mAh LiPo        $6.00   Amazon / Adafruit
+PCB manufacture     $15.00  JLCPCB (4-layer, 2 boards)
+PCB assembly        $40.00  JLCPCB PCBA
+Enclosure           $12.00  3D printed PETG
+Hardware/misc       $8.00
+
+Total BOM estimate: ~$115–$148
+```
+
+**Mechanical:**
+```
+Enclosure: Two-part PETG shell (top lid + base)
+Lid hinged: 3mm stainless steel hinge pin
+Tube well access: 8-position opening in top shell
+Display window: polycarbonate inset
+Button cutouts: 4 positions
+USB-C cutout: bottom edge
+Vent holes: fan intake (bottom) + exhaust (side)
+Silicone gasket: around tube block area (prevents condensation damage)
+Dimensions: 120 × 80 × 60 mm
+```
+
+---
+
+#### NFSIM-PCR-02 — Gel-Slip Strip Reader
+
+**Concept:** Portable gel electrophoresis via pre-cast disposable gel strips. Think MinION-style consumable design applied to gel electrophoresis. Instead of casting agarose gels in a lab, users receive pre-cast gel strips (or cast them using the provided mold kit). The reader provides high voltage, UV LED illumination, and CMOS imaging.
+
+**What problem it solves:** Traditional gel electrophoresis requires: agarose weighing, microwave melting, casting, solidification, buffer preparation, UV transilluminator (heavy, UV hazard), gel documentation station. Total setup time: 45+ minutes. NFSIM-PCR-02 reduces this to: insert gel strip + load samples + press run = 25 min total.
+
+**Gel strip design:**
+```
+Strip dimensions: 70 × 20 × 2mm
+Material: 1.5% agarose pre-cast in TBE buffer
+Wells: 8 wells + 1 ladder well (10μL capacity each)
+Loading dye: pre-mixed into loading buffer vials (supplied)
+Storage: sealed foil pouches with preservative buffer
+Shelf life: 6 months refrigerated
+Cost target: $30/10 strips
+Ladder: pre-loaded in well 1 (50bp–3kb) or 1kb ladder option
+```
+
+**Reader Hardware Stack:**
+```
+High-voltage system:
+- HV power supply: 300V DC at up to 30mA
+- Step-up transformer or charge pump (Cockroft-Walton multiplier)
+  IC: EMCO Q101-5 (0–300V adjustable DC-DC module) or custom
+- HV connectors: platinum wire contacts that contact gel strip end electrodes
+- Safety interlock: door switch cuts HV when opened
+- Current limiting: 30mA max (current sense + comparator shutdown)
+- LED indicator: HV active warning
+
+UV LED illumination:
+- 365nm UV LED array: 8× 1W UV LEDs (SMD LED365-08)
+- LED driver: AL8860 constant current (100–300mA per LED)
+- LED arrangement: under-illumination through clear gel strip holder
+- Safety interlock: UV LED off when door open
+
+CMOS imaging:
+- Camera module: OV5640 (5MP, 1/4" CMOS, 30fps at 1080p)
+- Lens: fixed focus f/2.0, 10cm working distance
+- Filter: orange cutoff filter (550nm longpass) to block UV, pass ethidium bromide emission (590nm)
+- Image processor: STM32H743 (Cortex-M7, 480 MHz) for JPEG compression
+
+Microcontroller:
+- STM32H743 (main controller + image processing)
+- nRF52840 (BLE)
+
+Display:
+- 3.5" TFT IPS 480×320 (ILI9488, SPI)
+- Gel image display with brightness/contrast adjustment
+
+USB:
+- USB-C: image transfer (USB-MSC mass storage + NFS protocol)
+- Storage: 16GB eMMC for image archive
+
+Power:
+- 5000 mAh LiPo
+- USB-C PD charging
+- HV generation from 5V rail (boost to 300V)
+
+Safety:
+- Interlocked door mechanism (requires latching)
+- Automatic UV + HV cutoff when door unlatched
+- Timer auto-shutoff (HV max 60 min)
+```
+
+**BOM Estimate: ~$83 reader + $30/10 gel strips**
+
+---
+
+#### NFSIM-PCR-03 — LAMP Isothermal Reader
+
+**Concept:** Loop-mediated isothermal amplification reader. Fixed 65°C block. No thermal cycling required. Faster than PCR for pathogen detection. Suitable for LAMP primers available for COVID-19, influenza, HIV, malaria, Zika, dengue, TB.
+
+**Key advantage over NFSIM-PCR-01:** Simpler thermal system (no cycling, just hold 65°C), faster results (15–30 min), potentially lower cost and smaller form factor. Fluorescence readout (LAMP with fluorescent dye like SYTO-9, or turbidity via LED/photodiode).
+
+**Hardware Stack:**
+```
+Thermal block:
+- Single-temperature Peltier + aluminum block, 8-tube strip
+- Setpoint: 65°C (fixed for LAMP, user-adjustable 60–70°C)
+- Temperature uniformity: ±0.5°C
+- No ramp rate requirement (just hold temperature)
+
+Optical detection system:
+- Excitation LED: 470nm (blue, for SYBR Green/SYTO-9)
+- Emission filter: 520nm bandpass (25nm FWHM)
+- Photodiode: OPT101 (with integrated amplifier)
+- One photodetector per tube well (8 channels)
+- ADC: ADS1115 (16-bit, 4-channel, I2C) × 2 (for 8 channels)
+- Real-time fluorescence monitoring every 30 seconds
+
+Turbidity option:
+- OD600 LED + photodiode alternative
+- No fluorescent dye needed (LAMP produces visible turbidity)
+- Lateral flow strip slot (alternative to optical readout)
+
+MCU: STM32G0 (simpler than PCR-01, no complex PID needed)
+BLE: nRF52840
+Display: 2.8" TFT
+Battery: 2000mAh LiPo
+```
+
+**BOM Estimate: ~$65**
+
+---
+
+#### NFSIM-PCR-04 — RPA Room-Temperature Amplification Reader
+
+**Concept:** Recombinase Polymerase Amplification works at ambient temperature (25–42°C). Minimal heating required — just maintaining 37–42°C body temperature range. Enables truly ultra-portable molecular diagnostics with minimal power consumption.
+
+**Hardware Stack:**
+```
+Thermal management:
+- Minimalist: single small 40×40mm Peltier module OR
+- Passive warming: body heat pocket incubator concept (no active electronics)
+- For electronic version: resistance heater only (no cooling needed), setpoint 37°C
+- NTC thermistor + PID with simple PWM heater
+
+Readout:
+- Lateral flow strip reader (optical reflectance)
+  - White LED illumination
+  - OPT3001 or TSL2591 ambient light sensor
+  - Band-specific line reading (control line, test line)
+  - Line intensity → positive/negative/invalid result
+  
+- OR: Fluorescence reader (same as LAMP unit but at lower temp)
+
+MCU: STM32L0 (ultra-low power)
+BLE: nRF52840
+No display option (BLE only, phone shows result)
+Battery: 1000mAh LiPo (days of standby, hours of active operation)
+```
+
+**Target use cases:** HIV viral load screening, malaria diagnosis, antibiotic resistance gene detection. Compatible with standard RPA kits (TwistAmp by TwistDx or equivalents).
+
+**BOM Estimate: ~$45**
+
+---
+
+#### NFSIM-SEQ-01 — Open Nanopore Sequencer
+
+**Concept:** The most technically ambitious device in the NanoFlowSIM ecosystem. An open-source nanopore sequencer using biological pores, open-source FPGA signal processing, and open-source basecalling. Addresses everything MinION got right (portability, electrical detection) while opening what it kept closed (pore, ASIC, basecalling, flow cell design).
+
+**Why this is possible now:**
+- Alpha-hemolysin pore protein: published structure (1996), expressible in E. coli, available commercially from Sigma-Aldrich
+- MspA pore: published (2010, Bhanu Bhanu lab), expressible and available
+- Phi29 DNA polymerase (motor enzyme): commercially available (NEB, Lucigen)
+- FPGA boards (Xilinx Artix-7, Lattice ECP5): accessible to makers
+- Open-source basecalling: Bonito (Oxford Nanopore open-sourced training pipeline), Caduceus, community models
+- Lipid bilayer techniques: published protocols, achievable with off-the-shelf lipids (DPhPC)
+
+**Technical Challenges (honest assessment):**
+1. Lipid bilayer formation: fragile, requires practice, not trivially reproducible
+2. Pore insertion: probabilistic, requires optimization
+3. Picoamp signal measurement: requires careful PCB layout, shielding
+4. FPGA real-time processing: significant firmware development
+5. Basecalling: computationally intensive, GPU recommended for real-time
+
+**This device is firmly research/laboratory grade, not consumer grade.**
+
+**Flow Cell Design (open):**
+```
+Membrane chamber:
+- Two PDMS chambers separated by 25μm polyimide film with 50μm aperture
+- cis chamber: contains DNA sample + buffer
+- trans chamber: contains buffer
+- Ag/AgCl electrodes: in each chamber (3mm diameter, chlorided by electrolysis)
+- Lipid bilayer forms across aperture spontaneously
+  (DPhPC in n-decane: 5 mg/mL solution painted across aperture)
+
+Pore insertion:
+- Alpha-hemolysin (α-HL): added to cis chamber at 1–10 μg/mL
+- Self-inserts into bilayer spontaneously
+- Monitoring: watch current for step from 0 pA → ~100 pA (one pore insertion)
+- Target: single pore (disconnect after first insertion, or tolerate 1–4 pores)
+
+Applied voltage:
+- 120–180 mV DC, cis negative vs trans positive (drives DNA translocation)
+- Voltage source: precision DAC + low-noise buffer op-amp
+
+Signal detection:
+- Transimpedance amplifier (TIA): 100 MΩ feedback, bandwidth 10 kHz
+  - Op-amp: OPA637 or AD8067 (ultra-low noise, FET input)
+  - Feedback resistor: 100 MΩ 0.1% (Vishay or Ohmite)
+  - Feedback capacitor: 0.1 pF (limits bandwidth, sets noise)
+- Anti-aliasing filter: 4th order Butterworth, cutoff 5 kHz
+- ADC: ADS8900 (18-bit, 1MSPS) or AD7173 (24-bit, 31.25kSPS) 
+  (higher precision than speed needed here)
+
+FPGA processing:
+- Board: Digilent Nexys Video (Artix-7 XC7A200T) or Lattice ECP5 Evaluation board
+- Functions:
+  - ADC interface (SPI/LVDS)
+  - Real-time event detection (current level changes)
+  - Segmentation: identify individual k-mer events
+  - Streaming to laptop via USB 3.0 (UART at 12 Mbps or USB FX3)
+  - Optional: on-FPGA pre-processing (signal normalization, segmentation)
+
+Host computer:
+- Receives raw signal stream (squiggles)
+- Basecaller: Bonito (PyTorch-based, Oxford Nanopore open-source basecaller)
+  or Caduceus (community fork)
+- GPU: NVIDIA GPU recommended for real-time basecalling
+  (CPU-only works for post-run basecalling)
+- Alignment: minimap2 against reference genome
+- Variant calling: medaka or PEPPER-DeepVariant
+```
+
+**Library Preparation (open protocol):**
+```
+Rapid library prep (no PCR):
+1. DNA extraction: DNeasy Blood & Tissue Kit or CTAB method
+2. End-repair and dA-tailing: NEBNext Ultra II End Repair module
+3. Adapter ligation: custom hairpin adapter (motor enzyme pre-loaded)
+   - Motor enzyme: Phi29 DNAP (NEB M0269) or commercially pre-coupled adapters
+4. Bead cleanup: SPRI beads (AMPure XP or home-made: 0.22μm SPRI protocol)
+5. Load onto flow cell
+
+Amplicon library (with PCR):
+1. PCR amplification of target region (NFSIM-PCR-01 output)
+2. PCR cleanup (column or beads)
+3. End-repair + adapter ligation (same as above)
+4. Load
+```
+
+**BOM (Major Items):**
+```
+Artix-7 FPGA board (Digilent Cmod A7)    $65
+OPA637 precision op-amp                   $12
+AD8067 backup option                      $8
+ADS8900 18-bit ADC                        $15
+PDMS flow cell mold (silicone)           $20
+Ag/AgCl electrodes (×10)                $8
+DPhPC lipid (1mg, Avanti Polar Lipids)  $45
+Alpha-hemolysin (50μg, Sigma)            $180
+PCB design (4-layer, shielded)           $30
+Enclosure (aluminum, Faraday cage)       $35
+Assorted electronics                     $60
+
+Total BOM estimate: ~$478–$536
+```
+
+**Note on pore alternatives:**
+- Alpha-hemolysin (α-HL): most published, easiest to source, larger pore (~1.4nm) — suitable for ssDNA
+- MspA: narrower reading head, better signal discrimination — harder to source but expressible from published sequence
+- Aerolysin: emerging for DNA sensing — commercially available
+
+---
+
+#### NFSIM-SEQ-02 — Solid-State Nanopore Research Board
+
+**Concept:** Instead of biological pores in lipid bilayers (fragile, requires biological handling), uses fabricated solid-state nanopores in SiN or MoS₂ membranes. More stable than biological pores, reusable, manufacturable. Requires cleanroom fabrication or purchase of commercial nanopore chips.
+
+**Hardware Stack:**
+```
+Nanopore chip:
+- SiN membrane: 20–50nm thick, 10–30nm pore (TEM or FIB drilled)
+  Commercial source: IRSPEC, Norcada, or DIY via cleanroom access
+- OR: MoS₂ monolayer membrane with sub-2nm pore (research grade)
+- Chip holder: PDMS gasket, clamped between two fluid chambers
+
+Signal detection:
+- Same TIA circuit as NFSIM-SEQ-01 but with wider bandwidth (50kHz+)
+- Faster ADC: ADS8861 (16-bit, 1MSPS) 
+- FPGA: higher bandwidth processing
+
+PCB layout:
+- 4-layer, microstrip controlled impedance
+- Ground plane isolation around TIA
+- Shielded Faraday cage enclosure (aluminum)
+- Guard ring around TIA input
+- Low-noise 3.3V LDO: MAX6126 (reference) + TPS7A4901 (supply)
+
+Advantages over biological pore:
+- Reusable (clean between experiments)
+- No lipid bilayer manipulation
+- Stable for weeks
+- Higher bandwidth possible
+
+Disadvantages:
+- Pore requires fabrication (TEM or FIB — expensive, specialized)
+- Less selective than engineered biological pores
+- Commercial chips: $50–500 each
+
+BOM estimate (excluding chips): ~$180
+```
+
+---
+
+#### NFSIM-CRISPR-01 — Portable CRISPR Diagnostic Reader
+
+**Concept:** Implements SHERLOCK (CRISPR-Cas13a) or DETECTR (CRISPR-Cas12a) diagnostic assay in a portable, room-temperature device with fluorescence readout and optional lateral flow strip output. Can detect specific DNA/RNA targets at attomolar sensitivity when combined with LAMP pre-amplification.
+
+**SHERLOCK assay workflow:**
+```
+1. Sample RNA/DNA extracted (quick lysis kit or NFSIM-PCR-03 LAMP amplification)
+2. T7 transcription (if DNA target): converts amplified DNA to RNA target
+3. CRISPR-Cas13a + crRNA added:
+   - crRNA guides Cas13a to target RNA sequence
+   - Cas13a binds target → activates collateral cleavage activity
+   - Collateral cleavage destroys fluorescent RNA reporter molecules
+   - Reporter: quenched RNA with FAM fluorophore (e.g., FAM-AAAA-Biotin, Iowa Black quencher)
+4. Read fluorescence: target present → high fluorescence (reporters cleaved = dequenched)
+   Wait, actually: in SHERLOCK with clamped crRNA, presence of target INCREASES cleaveage
+   → cleaved reporters = INCREASED fluorescence (quencher separated from fluorophore)
+5. OR: lateral flow: biotinylated reporter captured at test line when intact; cleaved reporter runs through
+
+Incubation: 37°C for 1 hour (or 45°C for 30 min accelerated)
+```
+
+**Hardware Stack:**
+```
+Heating system:
+- Single 40×40mm Peltier module (only heating needed, 37–42°C)
+- Aluminum block with 8-tube strip format
+- Temperature uniformity: ±1°C (less critical than PCR)
+- Setpoint: 37°C (SHERLOCK/DETECTR), 65°C if combined with LAMP pre-amp
+
+Fluorescence detection:
+- Excitation: 470nm LED (FAM excitation) + 530nm LED (HEX/VIC excitation)
+- Emission filter: 520nm bandpass (FAM), 570nm bandpass (HEX)
+- Per-well detector: OPT101 photodiode × 8
+- ADC: ADS1115 × 2 (8 channels total)
+- Measurement: end-point fluorescence (single read at assay completion) OR
+  Real-time kinetic monitoring (every 5 min during incubation)
+
+Lateral flow strip reader:
+- White LED transilluminator
+- CMOS camera (OV2640 2MP) images lateral flow strip
+- AI model on-device classifies positive/negative/invalid (ResNet-8, INT8 TFLite)
+
+MCU: STM32G474
+BLE: nRF52840
+Display: 2.4" TFT (same as PCR-01)
+Battery: 2000mAh LiPo
+
+Consumables (per test):
+- SHERLOCK master mix (freeze-dried): Cas13a protein, crRNA, reporter RNA, buffer
+  Reconstituted with nuclease-free water per test
+- LwCas13a protein: commercially available (GenScript, Sigma-Aldrich)
+  Cost: ~$5–20 per test depending on supplier and batch size
+- Lateral flow strips (Milenia HybriDetect format): ~$2 each
+
+Design priority for open-source: 
+  crRNA synthesis is published/open (can order from any oligo synthesis service)
+  Cas protein expression protocols are published
+  Full open-source SHERLOCK protocol published by Broad Institute/MIT
+```
+
+**BOM Estimate: ~$96 reader + $5–20/test reagents**
+
+---
+
+#### NFSIM-dPCR-01 — Digital Droplet PCR System
+
+**Concept:** Digital PCR by oil-water emulsion partitioning. Sample partitioned into ~20,000 nanoliter droplets. After PCR amplification, each droplet is either positive or negative. Poisson counting gives absolute molecule quantification without standard curves. Critical for liquid biopsy ctDNA detection at 0.01% VAF.
+
+**Hardware Stack:**
+```
+Droplet generation (microfluidic chip):
+- PDMS chip with T-junction or flow-focusing channel geometry
+- Channel dimensions: 50–100μm width × 30–50μm depth
+- Oil phase: Droplet Generation Oil (Bio-Rad compatible formulation or open alternative)
+- Aqueous phase: PCR master mix + sample
+- Flow control: precision syringe pumps (stepper motor driven)
+  - Aqueous: 0.2–1 μL/min
+  - Oil: 2–10 μL/min
+- Droplet size: 1–5 nL (20,000 droplets from 20 μL sample)
+
+Chip fabrication (open):
+- Soft lithography from SU-8 master mold (photolithography required, OR)
+- Commercial PDMS chips (Dolomite, Micralyne — specify open design)
+- 3D printed mold (Formlabs Clear V4 resin, post-cured, PDMS cast)
+
+Thermal cycling:
+- Chip placed in flat-block thermocycler
+- 40 cycles PCR at standard temperatures
+- Chip sealed with adhesive film before cycling
+
+Fluorescence readout station:
+- Droplets flow through serpentine channel past detector
+- Two-color detection: FAM (blue excitation) + HEX (green excitation)
+- Detector: photomultiplier tube (R7400P, Hamamatsu) or avalanche photodiode
+- Excitation lasers: 488nm (10mW) + 532nm (5mW)
+- Dichroic + bandpass filters: standard epifluorescence configuration
+- Flow rate: 1–2 μL/min during readout
+- Data: amplitude histogram → threshold → count positives/negatives
+
+Data analysis:
+- Poisson statistics: concentration = -ln(1 - positives/total) × (dilution/droplet_volume)
+- 2D clustering (Ch1 vs Ch2 amplitude) → mutation discrimination
+- Software: open-source DropViz or Python ddPCR analysis library
+
+MCU: STM32H7 (high-speed ADC + image processing)
+Laser control: dedicated driver ICs
+Pumps: TMC2209 stepper motor driver
+```
+
+**BOM Estimate: ~$285 (excludes laser sources if salvaged)**
+
+---
+
+#### NFSIM-GELEC-01 — Portable Complete Gel Electrophoresis System
+
+**Concept:** Full portable gel electrophoresis with real agarose casting, UV LED safe visualization, and CMOS gel documentation. Self-contained in a lunchbox-sized unit. Uses standard laboratory gel electrophoresis technique but miniaturized and battery-powered.
+
+**What makes this different from NFSIM-PCR-02:** PCR-02 uses pre-cast disposable gel strips optimized for consumer use. GELEC-01 supports casting any agarose concentration from powder, using standard molecular biology protocols, for research applications.
+
+**Hardware Stack:**
+```
+Gel tank:
+- Internal tank: 80×65mm casting area
+- Accepts: standard 0.7–2.5% agarose gels
+- Includes: casting tray, comb set (6 or 12 teeth)
+- Buffer: TBE or TAE (user prepared)
+
+High-voltage power supply:
+- Output: 10–200V DC adjustable
+- Current: 0–500mA
+- Safety: current limiting, HV interlock with lid
+- HV generation: flyback converter (UC3845 PWM controller)
+- Voltage feedback: resistive divider + TL431 reference
+- Current measurement: INA219
+
+Gel visualization:
+- UV LED array: 12× 365nm UV LEDs (1W each) in lightbox below gel tray
+- Safety interlock: UV LEDs off when viewing window is open
+- Viewing window: Orange UV-blocking acrylic (>500nm cutoff)
+- CMOS camera: OV5640 5MP, positioned above gel through orange filter
+- Exposure: auto-exposure via OV5640 driver
+
+Safety:
+- UV protective orange goggle included
+- Gel stain: SYBR Safe instead of ethidium bromide (non-mutagenic, UV-visible)
+  Alternative: GelGreen (excites at 254nm, 302nm, or 491nm)
+  Note: if EtBr used, treat waste as hazardous (outside scope of this design)
+
+Documentation:
+- Images saved to microSD card (JPEG, 5MP)
+- Wi-Fi (ESP32 module) for wireless image transfer to phone/PC
+- NFS Protocol: metadata packet with run parameters + image attachment reference
+
+MCU: STM32G474 (main) + ESP32 (WiFi)
+Display: 3.5" TFT (gel image preview)
+Battery: 5000mAh LiPo (longer runtime needed for 45min runs + UV)
+```
+
+**BOM Estimate: ~$110**
+
+---
+
+### Domain B: Structural / Anatomical Imaging
+
+---
+
+#### NFSIM-US-01 — USB-C Handheld Ultrasound Probe (B/M/Doppler)
+
+**Concept:** A handheld ultrasound probe that connects via USB-C to a smartphone or laptop. Opens ultrasound to the NanoFlowSIM ecosystem as a direct DICOM-generating, UBERON-tagging sensor. Inspired by commercial USB probes (Clarius, Butterfly IQ) but with open hardware design.
+
+**Core physics implementation:**
+```
+Transducer array:
+- 64-element linear array (or convex for abdominal)
+- Element pitch: 0.25mm (linear) or 0.3mm (convex)
+- Frequency: 7.5 MHz center (broadband 4–12 MHz usable)
+- Element impedance: ~100Ω (PZT5H matching to electronics)
+- Acoustic stack: 2× matching layers (quarter-wave PVA + polyurethane)
+- Backing: 1-part epoxy + tungsten powder, ~5dB/cm acoustic attenuation
+
+TX beamformer:
+- 64 independent TX channels
+- Pulser IC: HV748 (Supertex/Microchip) — 64-channel multiplexed high-voltage pulser
+  - Peak voltage: ±100V
+  - Rise time: <5ns
+- TX timing: FPGA-controlled (sub-nanosecond precision)
+- Apodization: Hanning window applied across aperture
+- Focusing: delay-and-sum with programmable focus depth
+
+RX signal chain (per channel):
+- T/R switch: MOSFET or dedicated T/R switch IC (MD2012, Texas Instruments)
+- LNA: AD8432 or LM6172 (low noise, high input impedance)
+  Noise figure: <5dB at 7.5MHz
+- TGC (Time Gain Compensation): programmable amplifier, 0–80dB range
+  IC: AD9275 (8-channel LNA + TGC + ADC)
+- ADC: AD9275 integrated 12-bit, 50MSPS (or external AD9634)
+
+Digital beamformer:
+- FPGA: Xilinx Artix-7 (XC7A100T on-board in small module)
+- Receive delay calculation: pre-computed LUT for focus depths
+- Dynamic receive focusing: updates focus delay every 0.5mm depth
+- IQ demodulation: quadrature mixing at carrier frequency
+- Envelope detection: complex magnitude
+- Log compression: 40dB dynamic range compression
+- Scan conversion: polar to Cartesian interpolation
+
+Signal processing pipeline:
+- B-mode: envelope → log compress → scan convert → render
+- M-mode: single line repeated at PRF, time vs depth display
+- Color Doppler: autocorrelation, velocity map overlay on B-mode
+- Spectral Doppler: FFT, velocity spectrum vs time
+
+Interface:
+- USB-C (USB 3.1 Gen1): streams IQ data or rendered frames to host
+  Bandwidth: 400MB/s available, typical usage 50–150 MB/s
+- OR: Wi-Fi 802.11ac: 100–200 Mbps for wireless operation
+- Power: from USB-C (5V/3A profile negotiated via USB-PD)
+
+Processing options:
+- On-probe beamforming (FPGA): streams DICOM-compatible frames
+- Host-side processing: stream raw RF data to PC for software beamforming
+
+Display: processed images rendered on phone app or desktop viewer
+DICOM output: probe generates standard DICOM US format, NFS metadata header added
+```
+
+**NFS Data Packet:**
+```json
+{
+  "data_type": "ultrasound_b_mode",
+  "anatomy_region": "UBERON:0000948",
+  "data": {
+    "frames": "base64-JPEG array or DICOM reference",
+    "depth_cm": 15,
+    "frequency_mhz": 7.5,
+    "mode": "B",
+    "probe_type": "linear"
+  }
+}
+```
+
+**BOM (Key Items):**
+```
+PZT transducer array (custom, 64-element)    $120
+Artix-7 XC7A100T module                      $65
+HV748 64-channel pulser                      $35
+AD9275 LNA+ADC (×8, 8ch each)               $180
+USB 3.0 controller (FX3)                     $12
+Enclosure + housing                          $35
+Misc components                              $24
+
+Total BOM estimate: ~$471
+```
+
+---
+
+#### NFSIM-US-02 — Wearable Ultrasound Patch
+
+**Concept:** A flexible, wearable ultrasound array that adheres to skin for continuous structural monitoring. Applications: continuous cardiac monitoring, blood flow monitoring, diaphragm mechanics during respiratory disease, muscle deformation analysis.
+
+**Core innovation vs handheld probe:**
+- Flexible PVDF piezoelectric film array instead of rigid PZT
+- Serpentine interconnects allow bending without cracking
+- Miniaturized beamformer ASIC or FPGA on rigid island
+- Wireless BLE transmission (no tether)
+
+**Hardware Stack:**
+```
+Transducer array:
+- PVDF (polyvinylidene fluoride) film, 52μm thickness
+- Array: 64 elements in 8×8 or 16×4 configuration
+- Element size: 2×2mm
+- Flexible PCB substrate: polyimide (Kapton), 25μm
+- Serpentine copper interconnects: 100μm trace width, 50μm space
+
+ASIC requirements (custom or FPGA-based):
+- 64-channel TX/RX switching
+- Miniaturized beamformer
+- Low-power operation: <100mW total
+- Key challenge: custom ASIC needed for production; FPGA for prototype
+
+Coupling gel layer:
+- Hydrogel adhesive: medical-grade polyacrylamide hydrogel
+- Acoustic impedance: ~1.5 MRayl (matches tissue)
+- Sticks to skin without irritation, reusable × 100 applications
+- Replacement hydrogel pads: disposable, ~$0.50 each
+
+Wireless:
+- nRF52840 BLE 5.0 on rigid island
+- Streaming: compressed envelope data, not raw RF
+- Power: flexible lithium polymer battery (10×80mm, 150mAh)
+- Duty cycle: 30 min on / 30 min off → 24h operation
+
+Imaging parameters:
+- Frequency: 3–7 MHz (optimized for depth vs. resolution tradeoff for continuous monitoring)
+- Frame rate: 5–30 fps (application dependent)
+- Depth: 3–8 cm (cardiac, diaphragm) or 1–3 cm (superficial)
+
+UBERON tags: UBERON:0000948 (heart), UBERON:0001062 (internal structure per anatomy)
+
+Clinical targets:
+- Cardiac: continuous EF monitoring, wall motion, pericardial effusion tracking
+- Respiratory: diaphragm excursion, lung sliding (pneumothorax detection)
+- Vascular: carotid intima-media thickness over time, DVT surveillance
+- Muscle: fascicle length, pennation angle during rehabilitation
+
+Wearable duration: 24–72 hours
+```
+
+---
+
+#### NFSIM-US-03 — Ingestible GI Ultrasound Capsule
+
+**Concept:** A swallowable capsule containing a miniaturized ultrasound transducer array for 360° GI tract imaging during transit. Ultrasound penetrates into the GI wall and nearby organs from the inside — unlike standard capsule endoscopy which only sees the mucosal surface.
+
+**Design:**
+```
+Dimensions: 26×11mm (slightly larger than standard capsule endoscope)
+Total weight: <4g
+Biocompatibility: Parylene-C coated exterior, medical-grade ABS housing
+
+Transducer:
+- CMUT (Capacitive Micromachined Ultrasound Transducer) ring array
+  CMUT preferred over PZT for this application: thinner, silicon-based, integrates with ASIC
+- Ring configuration: 64 elements arranged circumferentially (360° coverage)
+- Frequency: 12–20 MHz (higher frequency for better resolution at short range)
+- Imaging depth: 0–5 cm (GI wall + immediately surrounding structures)
+
+Imaging modes:
+- B-mode: real-time cross-sectional ultrasound image
+- Radial: 360° radial scan = complete GI wall cross-section
+- Doppler (limited): blood flow in mesenteric vessels if adjacent
+
+RF electronics:
+- Miniaturized ASIC or application-specific FPGA-in-package
+- TX pulser: miniature HV pulsers (custom)
+- RX: direct-conversion IQ demodulation
+- Power budget: <25mW for electronics
+
+Communication:
+- 434 MHz FSK radio (body penetration superior to BLE at this range)
+- Data rate: 1–10 Mbps (compressed envelope data, not raw RF)
+- External receiver: wearable belt patch with 434MHz antenna and BLE bridge to phone
+
+Power:
+- Primary battery: silver oxide (SR927W equivalent, 2× in series = 3V)
+- Expected runtime: 8–12 hours (sufficient for complete GI transit from swallow to excretion)
+- No recharging (single-use capsule)
+
+Capsule position tracking:
+- Method 1: Pressure signature pattern — stomach entry (high pressure peristalsis), pylorus crossing (characteristic pressure spike), ileocecal valve crossing
+- Method 2: IMU — 6-axis IMU, orientation and motion during peristalsis
+- Method 3: Transit time — calibrated average transit rates per GI segment
+- Method 4: 434 MHz signal strength triangulation with external antenna array on body surface
+- Combined: Bayesian position estimator integrating all methods
+- Output: anatomical zone probability (esophagus / stomach / small intestine / colon)
+- UBERON tagging: automatic per zone
+```
+
+---
+
+#### NFSIM-US-04 — High-Frequency Dermal Ultrasound Scanner
+
+**Concept:** High-frequency (20–50 MHz) contact ultrasound for skin imaging. Resolves epidermal thickness (0.05–0.2mm), dermis layers, subcutaneous structures. Useful for monitoring skin tumors, wound healing, dermatological conditions, nanoparticle delivery to skin.
+
+```
+Transducer: single-element 40MHz focused transducer
+Mechanical scanning: X-Y piezo stage, 20×20mm scan area
+Axial resolution: 35–50 μm at 40 MHz
+Lateral resolution: 0.2mm
+Depth: 3–8mm (penetration limited at high frequency)
+Display: 2D cross-sectional B-mode + en-face C-mode
+```
+
+---
+
+#### NFSIM-US-05 — Doppler Wristband (Radial Artery)
+
+**Concept:** Wrist-worn continuous Doppler ultrasound for radial artery blood flow monitoring. More specific than optical PPG (pulse oximeter wristband) — measures actual blood velocity waveform, enabling beat-to-beat stroke volume estimation and continuous blood pressure waveform (via pulse wave analysis).
+
+```
+Transducer: dual-element 8MHz pulsed-wave Doppler
+Location: radial artery at wrist
+Coupling: ultrasound gel-impregnated silicone coupling layer
+Signal: Doppler velocity spectrum + envelope = blood pressure waveform
+Continuous operation: 8–12h per charge
+Output: beat-to-beat BP estimate, HR, stroke volume estimate, arterial stiffness index
+```
+
+---
+
+#### NFSIM-US-06 — Transcranial Doppler Headband (TCD)
+
+**Concept:** Wearable transcranial Doppler for cerebral blood flow velocity monitoring. Measures flow in middle cerebral artery (MCA) through temporal bone window. Applications: stroke monitoring, cerebral autoregulation, intracranial pressure estimation.
+
+```
+Transducer array: 4× 2MHz probes positioned over bilateral temporal windows
+Depth: 25–65mm (MCA, ACA, PCA)
+Mode: pulsed-wave Doppler
+Output: flow velocity, pulsatility index, Lindegaard ratio, auto-regulation index
+Headband: adjustable, maintains probe position and coupling gel contact
+```
+
+---
+
+#### NFSIM-US-07 — Endocavity Ultrasound Probe
+
+**Concept:** Transvaginal or transrectal ultrasound probe for endocavity imaging. Connects to NFSIM-US-01 electronics module. Specific probe head geometry for endocavity insertion.
+
+```
+Probe head: 12×60mm cylindrical (transvaginal) or 15×80mm (transrectal)
+Array: 128-element curved array, 5–9 MHz
+Field of view: 150° sector
+Applications: uterus/ovary imaging, prostate imaging, early pregnancy monitoring
+Connection: proprietary probe port on NFSIM-US-01 reader
+```
+
+---
+
+#### NFSIM-US-08 — Fetal Doppler Wristband
+
+**Concept:** Wearable fetal heartbeat Doppler for continuous fetal monitoring at home during pregnancy (3rd trimester). Detects fetal heart motion via Doppler shift.
+
+```
+Transducer: 2–3 MHz continuous-wave Doppler
+Location: maternal abdomen (adjustable band, 7–9 positions)
+Output: fetal HR (continuous), fetal movement detection
+Display: wristwatch-sized display
+Alert: notification if FHR outside 110–160 bpm range
+```
+
+---
+
+#### NFSIM-US-09 — Ultrasound Needle Guide
+
+**Concept:** Clip-on ultrasound transducer that mounts to a syringe or needle guide, providing real-time needle visualization during injections or aspirations. Reduces procedure risk (prevents inadvertent vessel puncture during joint injections, spinal taps, etc.).
+
+```
+Clip mount: fits standard 3–5mL syringe
+Transducer: 10MHz linear array, 20mm aperture
+Needle visualization: beam-steer for needle angle display
+Output: connects to phone via USB-C for real-time B-mode display
+```
+
+---
+
+#### NFSIM-MRI-01 — Low-Field Portable MRI System
+
+**Concept:** A 64 mT permanent magnet MRI system using a Halbach cylinder or similar permanent magnet array arrangement. No cryogenics. AI reconstruction compensates for reduced SNR at low field. Primarily for structural brain or extremity imaging.
+
+**This is the most ambitious structural imaging device and requires significant development effort.**
+
+```
+Magnet design (Halbach cylinder):
+- Array of N50 grade NdFeB permanent magnets
+- Halbach arrangement: produces dipole field internally, near-zero external field
+- Target field: 50–100 mT (Larmor frequency: 2.13–4.26 MHz for ¹H)
+- Bore diameter: 15–25 cm (head-only, extremity, or small animal)
+- Field uniformity: <100 ppm over 10cm DSV (shimming required)
+- Passive shimming: additional magnet pieces, iteratively placed
+- Weight: 30–80 kg depending on bore size
+
+RF system:
+- TX/RX coil: surface coil or single-channel solenoid/birdcage
+- RF frequency: 2.13–4.26 MHz (much lower than clinical 64/128 MHz)
+- RF power: 10–50W (much less than clinical systems)
+- Pre-amplifier: low-noise JFET or GaAs FET (noise figure <0.5dB at 2–4 MHz)
+- Quadrature detection: two orthogonal receivers for SNR improvement
+
+Gradient system:
+- Three gradient coils: Gx, Gy, Gz
+- Amplitude: 10–50 mT/m (weaker than clinical but adequate for 64mT)
+- Slew rate: 2–10 T/m/s
+- Gradient amplifiers: Class-D audio amplifiers (100–300W)
+  H-bridge: IRFS7430 + IR2010 gate driver
+  Commercial option: Kepco BOP 20-20 analog amplifier
+
+Shimming:
+- Passive: NdFeB shim pieces in dedicated shim tray
+- Active (optional): second-order shim coils, resistive
+- Mapping: 3D field map scan + iterative algorithm
+
+Reconstruction:
+- Standard: Fourier-based (FFT) — same as clinical MRI in concept
+- AI enhancement: U-Net or diffusion model trained on low-field images
+  Trained to recover resolution from noisy low-field acquisition
+  Open-source models available from FastMRI challenge datasets
+
+Sequence library (open):
+- Spin echo (SE): T1, T2 weighted
+- Gradient echo (GRE): fast acquisition, susceptibility contrast
+- Inversion recovery (IR): T1 mapping
+- EPI (Echo Planar Imaging): fast (but challenging at low field due to B0 inhomogeneity)
+
+Hardware controller:
+- MRI console: custom or open-source (MaRCoS — Magnetic Resonance Control System)
+  MaRCoS is an open-source MRI console project (GitHub: vnegnev/marcos_server)
+  Runs on Xilinx Red Pitaya FPGA platform
+  Generates RF pulses, gradient waveforms, acquisition triggers
+
+Power:
+- Gradient amplifiers: 3× 200W Class-D amps
+- RF amplifier: 50W
+- Total: ~700W from standard AC outlet
+
+Shielding:
+- 64mT fringe field is minimal — far less shielding needed than clinical
+- Basic copper mesh Faraday cage for RF shielding (prevents pickup interference)
+- No 5-Gauss line safety perimeter required
+
+BOM estimate: $2,000–$8,000 depending on magnet design and bore size
+```
+
+---
+
+#### NFSIM-XRAY-01 — Portable X-ray System
+
+**Concept:** A battery-powered portable X-ray generator paired with a wireless flat-panel detector. Enables point-of-care radiography in field settings, remote clinics, or disaster relief.
+
+**⚠ REGULATORY NOTE:** X-ray devices emit ionizing radiation. Operator training required. Regulatory approval varies by jurisdiction. This is RUO designation but real radiation hazards exist.
+
+```
+X-ray generator:
+- Tube: mini rotating anode (Varian M111 or stationary Dunlee series)
+  Or: fixed anode miniature tube (Newton Scientific MINI-X2)
+- kVp range: 40–120 kVp
+- mAs range: 0.5–320 mAs
+- High-voltage generator: resonant inverter (DC-DC, target 120kV peak)
+- Input power: Li battery 24V, 10Ah (for portable operation)
+- Weight: 3–5 kg (tube + HV generator)
+- Collimator: adjustable lead shutters with light field indicator
+
+Detector (wireless FPD):
+- Size: 35×43 cm or 30×35 cm
+- Scintillator: CsI (thallium-doped), structured
+- Active matrix: amorphous silicon TFT array
+- Pixel size: 139–148 μm
+- DQE: 60–70% at 70 kVp
+- Wireless: 802.11ac dual-band
+- Battery: built-in 6000mAh
+- Commercial options (to repurpose into open system): iRay or Rayence OEM FPDs
+
+Processing:
+- Flatfield correction (dark field, air flat field calibration)
+- Bone/soft tissue processing algorithms
+- DICOM output (DR SOP Class)
+- NFS metadata header addition
+- Grid artifact removal (anti-scatter grid correction)
+
+Safety features:
+- Radiation indicator light
+- Dead-man switch (exposure only when button held)
+- Timer circuit limits max exposure time
+- Exposure counter and cumulative dose tracker
+
+BOM estimate: ~$3,500–$6,000 (FPD cost dominates)
+```
+
+---
+
+#### NFSIM-OCT-01 — Portable Spectral Domain OCT Probe
+
+**Concept:** A portable SD-OCT probe for dermatology, ophthalmology, and wound assessment. Generates cross-sectional tissue images at 1–15 μm axial resolution without contact. The ultrasound of light.
+
+```
+Light source:
+- SLD (Superluminescent Diode): 840nm center, 50nm FWHM bandwidth
+  Manufacturer: Superlum, Thorlabs
+  Output power: 10–20mW
+- Axial resolution: Δz = 0.44λ²/Δλ = 0.44×840²/50 = 6.2 μm (in tissue)
+
+Interferometer:
+- Fiber Michelson interferometer
+- 2×2 50/50 fiber coupler (SMF-28e fiber)
+- Reference arm: mirror on translation stage (for path length matching)
+- Sample arm: galvanometric scanner + objective lens
+
+Spectrometer:
+- Diffraction grating: 1200 lines/mm transmission grating
+- Collimating + focusing optics
+- Line-scan camera: e2v Aviiva (1024 or 2048 pixels, InGaAs or Si)
+- Camera interface: Camera Link or GigE Vision
+
+Lateral scanning:
+- Galvo mirrors: Cambridge Technology 6mm aperture
+- Scan angle: ±10° mechanical = ±20° optical
+- Scan speed: up to 100 A-scans/second for real-time B-mode
+
+Processing:
+- FPGA or GPU: FFT of spectral interferogram → A-scan
+- Frame rate: 30 fps B-mode (500 A-scans per frame × 30 fps = 15,000 A-scans/s)
+- Display: 3D rendering (en-face + cross-section)
+- DICOM output: OCT SOP class
+
+Handheld probe:
+- Portable ophthalmoscope form factor
+- Optional slit lamp adapter
+- Patient fixation target (internal LED)
+```
+
+---
+
+#### NFSIM-MICRO-01 — Portable Digital Pathology Microscope
+
+**Concept:** A portable transmission microscope with motorized stage, LED illumination, and automated slide scanning for digital pathology. Supports fluorescence imaging with UV/blue excitation. AI-based cell classification on-device.
+
+```
+Optics:
+- Objective: 10×, 20×, 40× (switchable, or turret)
+- Illumination: LED Köhler (white for brightfield, 365nm UV + 470nm blue for fluorescence)
+- Camera: 12MP IMX477 (Sony, for Raspberry Pi CM4 integration)
+- Motorized XY stage: stepper motors, 50×25mm travel, 1μm step resolution
+- Focus: piezo Z axis, 100μm range, 0.1μm resolution
+
+Processing:
+- Compute: Raspberry Pi CM4 (quad-core Cortex-A72, 8GB RAM)
+- Whole-slide imaging: automated tiling, stitching (OpenSlide compatible output)
+- AI cell classification: custom TFLite model for H&E-stained slides
+  - Cell type: normal vs. abnormal morphology detection
+  - Mitosis detection (cancer diagnosis support)
+  - RBC/WBC counting for blood smears
+
+Output:
+- SVS/TIFF whole-slide images
+- Cell count reports (JSON)
+- UBERON-tagged NFS packets
+- Wi-Fi or USB-C connection
+
+Dimensions: 300×200×250mm (desktop portable, not handheld)
+Power: 12V 3A adapter or 10,000mAh power bank
+```
+
+---
+
+### Domain C: Chemical / Metabolic
+
+---
+
+#### NFSIM-CGM-01 — Open Continuous Glucose Monitor
+
+**Concept:** A completely open-source CGM platform. Open hardware sensor with glucose oxidase chemistry, NFC passive readout + active BLE, 14-day wear target, OpenAPS/Loop compatible data output.
+
+```
+Sensor design:
+- Working electrode: platinum wire 127μm diameter, 5mm insertion depth
+- Enzyme layer: glucose oxidase (GOx) crosslinked with BSA + glutaraldehyde
+- Polymer membrane: polyurethane outer (glucose diffusion limiter, biocompatibility)
+  + Nafion inner (H2O2 selectivity, blocks interfering species)
+- Reference electrode: Ag/AgCl (3mm disk on sensor housing)
+- Counter electrode: platinum ring on housing
+
+Electrochemistry:
+- Applied potential: +0.6V vs Ag/AgCl (oxidizes H2O2 from GOx reaction)
+- Current range: 1–30 nA (glucose 40–400 mg/dL)
+- Interferents blocked by Nafion membrane: ascorbic acid, acetaminophen, uric acid
+- Calibration: factory calibration (50 sensors calibrated at 3 glucose concentrations)
+  OR fingerstick-based in-vivo calibration (1× per wear period)
+
+Electronics:
+- ASIC: custom low-power AFE OR
+  Texas Instruments LMP91000 (potentiostat IC, programmable)
+  + Current-to-voltage: transimpedance amplifier (gain 1 MΩ → 1nA = 1mV)
+- ADC: 16-bit, 1 sample/minute (glucose changes slowly)
+- MCU: nRF52840 (BLE + NFC)
+- NFC: ISO 15693 (13.56 MHz passive readout, compatible with phone NFC)
+  Range: 2–3 cm through clothing
+- BLE: active connection every 5 minutes for alert-capable streaming
+- Battery: 25mAh coin cell (CR1616 equivalent) for 14-day operation
+  Ultra-low power design: 5–15 μA average current drain
+
+Transmitter unit:
+- PCB: 12mm × 12mm (miniaturized to fit within sensor housing)
+- Housing: epoxy-filled ABS, IPX7 water resistant
+- Adhesive: medical-grade acrylic adhesive, skin patch
+- Applicator: spring-loaded needle applicator (inserts filament, then retracts needle)
+
+Data output (NFS protocol):
+- UBERON: UBERON:0000178 (blood) / UBERON:0004537 (interstitial fluid)
+- Update rate: every 5 minutes
+- Units: mg/dL or mmol/L (user configurable)
+- Trend: rate of change (mg/dL/min), directional arrows
+- OpenAPS compatibility: Nightscout endpoint or local REST API
+
+Factory calibration vs user calibration:
+- Factory: each sensor batch calibrated in vitro against reference analyzer
+  Calibration coefficients stored in NFC memory on sensor
+- User: optional fingerstick at 6h and 12h for improved accuracy
+- Accuracy target: MARD < 10% vs. reference analyzer
+
+```
+
+---
+
+#### NFSIM-SWEAT-01 — Sweat Chemistry Patch
+
+**Concept:** A flexible microfluidic wearable patch that analyzes sweat chemistry in real time. Measures sodium, potassium, pH, lactate, and sweat rate. Attached to skin like a large bandage, worn during exercise or continuously.
+
+```
+Microfluidics layer:
+- Material: PDMS or laser-cut adhesive microfluidic tape
+- Channels: serpentine sweat collector → individual ISE chambers
+- Sweat inlet: laser-drilled pores through skin-adhesive layer
+- Flow control: capillary pressure-driven (no pump needed)
+- Volume: 5–20 μL total volume triggers sensors
+
+Sensor array:
+- Na+ ISE: PEDOT-based ion-selective membrane
+- K+ ISE: valinomycin ionophore membrane
+- pH ISE: polyaniline or iridium oxide film
+- Lactate: lactate oxidase amperometric sensor
+- Sweat rate: galvanic cell measuring skin conductance at inlet
+
+Electronics:
+- Multiplexed potentiostat: LMP91000 × 2 (for 4 ISE channels)
+- Reference electrode: shared Ag/AgCl
+- ADC: ADS1115 (16-bit, 4-channel)
+- MCU: nRF52840
+- BLE: 5-minute update interval
+- Flexible PCB: polyimide, conductive polymer electrodes
+- Power: thin-film battery (Enfucell SoftBattery, 50mAh)
+
+Calibration:
+- Factory: calibration sweat buffer pre-loaded in sealed chamber adjacent to sensor
+  On first sweat contact: buffer releases → 2-minute calibration sequence
+- Drift correction: continuous drift model (Na+ ISE drifts ~1mV/h)
+
+Data interpretation:
+- Na+ 20–80 mM (hyponatremia indicator if very low)
+- K+ 3–8 mM
+- pH 4.5–7.5
+- Lactate 1–25 mM (exercise intensity marker)
+- Sweat rate: nl/min/cm²
+
+UBERON: UBERON:0001416 (skin surface, sweat gland region)
+Note: sweat values ≠ blood values directly, correlation models provided
+```
+
+---
+
+#### NFSIM-CHEM-01 — Portable Blood Chemistry Analyzer
+
+**Concept:** A portable point-of-care blood chemistry analyzer using microfluidic test cartridges. A small fingerstick blood sample runs through a disposable cartridge containing dried reagents. Results in 2–4 minutes.
+
+```
+Analyzer unit (reusable):
+- Microfluidic cartridge slot: accepts credit-card-sized cartridge
+- Optical reader: LED-photodiode pairs at 4 wavelengths (415, 540, 575, 625nm)
+  Measure colorimetric reactions (absorbance)
+- Electrochemical reader: potentiostat for ISE-based cartridge tests
+- Barcode scanner: reads cartridge type, lot, expiry
+- LCD display: 2.4" TFT (same as PCR-01)
+- MCU: STM32G474
+- BLE: nRF52840
+- Battery: 3000mAh LiPo
+- USB-C: data export + charging
+
+Disposable cartridge (15-analyte panel):
+- 15 microfluidic lanes, each with specific reagent
+- Dried reagent beads (rehydrated on sample addition)
+- Wicking membrane controls flow
+- Reaction windows: optically transparent
+
+Analytes measured (example 15-panel):
+Colorimetric:
+- Total protein (biuret, 540nm)
+- Albumin (BCG dye, 625nm)
+- Total bilirubin (diazo, 540nm)
+- ALT / AST (NADH oxidation, 340nm UV — LED)
+- Alkaline phosphatase (4-NPP substrate, 405nm)
+- Creatinine (Jaffe method, 510nm)
+- BUN (urease + Berthelot, 625nm)
+- Cholesterol (oxidase-peroxidase, 540nm)
+- Triglycerides (GPO method, 540nm)
+- Glucose (GOx-POD, 540nm)
+
+Electrochemical (ISE):
+- Na+ (sodium glass ISE)
+- K+ (valinomycin ISE)
+- Cl- (chloride ISE)
+- CO2/bicarbonate (pCO2 electrode)
+- Lactate (amperometric, lactate oxidase)
+
+Accuracy targets (vs reference lab): within 5% MARD for most analytes
+Cost per cartridge target: $8–15
+
+UBERON: UBERON:0000178 (blood sample)
+```
+
+---
+
+#### NFSIM-OXY-01 — Multi-Site NIRS Tissue Oxygenation Array
+
+**Concept:** A wearable NIRS (Near-Infrared Spectroscopy) array with multiple source-detector pairs for continuous multi-site tissue oxygenation monitoring. Extends pulse oximetry to muscle oxygenation, cerebral oxygenation, and organ perfusion monitoring.
+
+```
+Principle:
+- Modified Beer-Lambert law applied at multiple wavelengths
+- Wavelengths: 730nm (sensitive to deoxy-Hb), 850nm (sensitive to oxy-Hb)
+  Optional: 780nm (cytochrome c oxidase sensitive)
+- Multiple source-detector distances: short (<15mm for superficial tissue correction)
+  and long (30–45mm for deep tissue)
+- Spatial resolution: ~1cm × 1cm per detector pair
+
+Hardware:
+- Optical sources: 730nm + 850nm + optional 780nm LED (Osram SFH series)
+- Detectors: silicon photodiodes (Hamamatsu S2387-33R)
+  or avalanche photodiodes (for better SNR at long separations)
+- Source-detector geometry: flexible PCB, multiple source positions (4–8)
+  and multiple detector positions (4–8) = 4–16 independent channels
+- Modulation: 1kHz frequency division multiplexing (different frequencies per source)
+  or time-division multiplexing (sequential source activation)
+- Lock-in detection: synchronous demodulation to extract signal per source
+
+Signal processing:
+- Modified Beer-Lambert: calculate ΔHbO2, ΔHHb from ΔOD at two wavelengths
+- Differential pathlength factor (DPF): age and tissue-specific correction
+- Short-channel regression: remove superficial tissue contribution
+- CBSI (corrected Beer-Lambert): motion artifact correction
+
+Applications:
+- Cerebral oxygenation (forehead placement): StO2, HbO2, HHb
+  UBERON: UBERON:0001017 (brain)
+- Muscle oxygenation (quadriceps, biceps during exercise):
+  UBERON: specific muscle UBERON code
+- Peripheral perfusion (forearm, calf): vascular health monitoring
+- Tumor perfusion monitoring (if placed over accessible superficial tumor)
+
+BLE: nRF52840, 1-minute averaged data updates (or 1-second for high-resolution)
+Battery: 2000mAh, 8h continuous
+Array size: 8×4cm flexible patch per site
+```
+
+---
+
+#### NFSIM-BREATH-01 — Breath Metabolomics Device
+
+**Concept:** An exhaled breath analyzer that measures metabolite signatures in breath. Breath contains >800 volatile organic compounds (VOCs). Several are disease biomarkers: acetone (diabetes, ketoacidosis), isoprene (cholesterol metabolism, liver disease), ammonia (renal failure), hydrogen sulfide (gut microbiome), CO (inflammation, anemia).
+
+```
+Two sensing technologies combined:
+
+1. Photoacoustic sensor (for targeted molecules):
+   - Quantum cascade laser: 7–9 μm mid-IR, tunable over absorption fingerprint region
+     (or cheaper DFB IR laser for specific molecule)
+   - Photoacoustic cell: Helmholtz resonator, microphone detection
+   - Target molecules: CO2 (respiration rate), CO (1–10 ppm), NO (1–100 ppb — asthma)
+   - Sensitivity: ppb range for CO/NO
+
+2. Metal oxide semiconductor (MOX) e-nose array:
+   - Array of 6–12 MOX sensors (Sensirion SGP40 or SGP41, or MQ series)
+   - Each sensor responds differently to different VOC classes
+   - Pattern: multivariate response vector → ML classification
+   - Targets: acetone (>1.8 ppm: possible diabetes/ketosis), isoprene (<0.1 ppm: healthy range)
+     ammonia (>1 ppm: possible renal failure)
+   - Cross-validation: temperature cycling improves selectivity
+   - Training data: breath samples from known conditions
+
+Breath collection:
+- Flow meter: integrated, detects exhalation flow
+- Breath sampling valve: excludes dead space air (first 30% of breath)
+  Collects alveolar air (late-exhaled, 150–200 mL)
+- Condenser trap: removes water vapor (prevents MOX sensor saturation)
+- One-way check valves ensure correct flow direction
+
+MCU: STM32G474 (laser driver PWM + ADC for MOX + I2S for microphone)
+BLE: nRF52840
+Battery: 2000mAh (photoacoustic laser = highest power draw)
+Use: blow through mouthpiece for 10 seconds → 90-second analysis → result
+Disposable mouthpiece: standard medical mouthpiece, ~$0.30 each
+
+UBERON: UBERON:0001707 (lung air, exhaled breath)
+```
+
+---
+
+#### NFSIM-CHEM-02 — Saliva Chemistry Analyzer
+
+**Concept:** Cartridge-based saliva analyzer. Saliva is accessible, non-invasive, and contains diagnostically relevant analytes: cortisol, alpha-amylase (stress markers), glucose, uric acid, nitrites (oral health), DNA (for rapid PCR prep), SARS-CoV-2 antigen.
+
+```
+Sample: passive drool into sample cup (1mL)
+Cartridge: single-use, 8-analyte panel
+Analytes: cortisol (ELISA immunoassay), alpha-amylase (enzymatic), glucose, uric acid,
+          nitrite (Griess reagent), pH, sodium, total protein
+Reader: same base unit as NFSIM-CHEM-01 (compatible cartridge slot)
+UBERON: UBERON:0001836 (saliva)
+```
+
+---
+
+#### NFSIM-CHEM-03 — Urine Dipstick Smart Reader
+
+**Concept:** AI-powered digital urine dipstick reader. Standard commercial dipstick strips provide 10–14 parameters. This reader eliminates visual interpretation error with a CMOS camera + calibrated color analysis.
+
+```
+Hardware:
+- Standard dipstick slot (accepts all major brands: Combur, Multistix)
+- LED illumination: controlled intensity, 6500K color temperature
+- Camera: OV5640 5MP
+- Calibration target: integrated white balance + color calibration card
+- MCU: STM32H743 (camera interface + color processing)
+- BLE: nRF52840
+
+Analysis:
+- Each reagent pad photographed: RGB → HSV → compare to reference LUT
+- Parameters: glucose, protein, ketones, blood, bilirubin, urobilinogen, nitrite,
+              leukocytes, pH, specific gravity, creatinine (some strips)
+- AI quality check: detects invalid/expired strip, insufficient dip time
+
+UBERON: UBERON:0001088 (urine)
+```
+
+---
+
+#### NFSIM-CHEM-04 — Portable Lipid Panel Analyzer
+
+**Concept:** Fingerstick whole blood cholesterol panel. Total cholesterol, LDL, HDL, triglycerides in 3 minutes using enzymatic colorimetric cartridge.
+
+```
+Sample: 40μL whole blood (fingerstick)
+Analytes: TC, LDL-C (Friedewald calculated or direct), HDL-C, TG, non-HDL-C
+Cartridge: single-use, enzymatic reagent embedded
+Reader: optical (same base as CHEM-01) with cholesterol-specific calibration
+Accuracy: NCEP guidelines compliance target (CV < 3%, bias < 3%)
+UBERON: UBERON:0000178 (blood) + UBERON:0004537 (systemic)
+```
+
+---
+
+#### NFSIM-CHEM-05 — Portable Lactate Meter (Point-of-Care)
+
+**Concept:** Handheld fingerstick lactate analyzer for sports performance, critical care triage, and metabolic monitoring. Similar to glucose meter but measuring blood lactate.
+
+```
+Chemistry: amperometric lactate oxidase sensor on disposable strip
+Sample: 1.5μL whole blood (fingerstick)
+Range: 0.5–30 mmol/L
+Accuracy: ±2 standard deviation = ±0.3 mmol/L at low values, ±5% at high
+Time to result: 15 seconds
+Strips: 25-strip cartridge
+UBERON: UBERON:0000178
+```
+
+---
+
+#### NFSIM-CHEM-06 — Ketone + Beta-hydroxybutyrate Sensor
+
+Blood ketone monitoring for ketogenic diet tracking, diabetic ketoacidosis screening, fasting monitoring.
+
+```
+Chemistry: amperometric beta-hydroxybutyrate dehydrogenase
+Sample: 0.8μL whole blood
+Range: 0–8 mmol/L BHB
+UBERON: UBERON:0000178
+```
+
+---
+
+#### NFSIM-CHEM-07 — Cortisol / Stress Hormone Sensor
+
+Saliva cortisol immunoassay for diurnal cortisol monitoring (morning cortisol, evening cortisol, 4-point daily curve). Adrenal function assessment.
+
+```
+Method: competitive ELISA on microfluidic cartridge
+Sample: 50μL saliva
+Time: 15 minutes
+Range: 0.5–60 nmol/L (covers physiological diurnal variation)
+UBERON: UBERON:0001836 (saliva) → linked to UBERON:0001186 (adrenal gland)
+```
+
+---
+
+#### NFSIM-CHEM-08 — Continuous Lactate Subcutaneous Sensor
+
+**Concept:** Extension of CGM technology to lactate monitoring. Subcutaneous enzyme sensor for continuous lactate measurement. Research-grade; real-world continuous lactate sensing is technically harder than glucose due to enzyme sensitivity.
+
+```
+Working electrode: gold or platinum
+Enzyme: lactate oxidase (LOx) crosslinked with polyurethane membrane
+Applied potential: +0.5V vs Ag/AgCl (oxidizes pyruvate intermediate)
+Current: 1–20 nA for 1–25 mmol/L lactate
+Wear: 3–7 days target (shorter than glucose due to enzyme stability)
+Electronics: same as NFSIM-CGM-01 (LMP91000 + nRF52840)
+Applications: exercise physiology, ICU metabolic monitoring, sepsis screening
+UBERON: UBERON:0001175 (interstitial fluid)
+```
+
+---
+
+### Domain D: Electrical / Bioelectric
+
+---
+
+#### NFSIM-ECG-01 — Single-Lead ECG Patch (30-Day Continuous)
+
+**Concept:** A credit card-sized ECG patch worn on the chest for up to 30 days. Captures single-lead ECG continuously. On-device AI detects AFib, PVC, pause events. Waterproof (IPX7). Equivalent to a Zio Patch but fully open.
+
+```
+Hardware:
+- Electrodes: two dry Ag/AgCl electrodes, 35mm spacing, on device face
+  OR gel electrode pads (disposable, snap-on)
+- AFE: Texas Instruments ADS1291
+  - 1 channel, 24-bit ADC
+  - Noise: 4 μV RMS (≤150 Hz bandwidth)
+  - Built-in 1-pole RC + internal programmable filter
+  - Input impedance: >1 GΩ
+  - CMRR: >105 dB
+  - RLD output: reduces common-mode interference
+- MCU: STM32L4 (ultra-low-power, Cortex-M4)
+  - Active ECG recording: 2.5 mA
+  - Sleep between acquisitions: 5 μA
+  - Duty cycle: record 10s every 30s = 75% sleep → effective ~700μA average
+- Storage: 32GB eMMC (stores 30 days of 250Hz single-lead ECG)
+- BLE: nRF52840 (weekly summary uploads, alert transmission)
+- Battery: 200 mAh LiPo sealed in device (non-user-replaceable, 30-day design)
+- Waterproofing: conformal coating + silicone gasket around button, IPX7
+
+On-device AI (TinyML):
+- Model: custom LSTM-based ECG classifier (AFib, PVC, pause, normal)
+- Size: ~20 KB INT8 quantized TensorFlow Lite Micro
+- Inference: runs on 10-second windows every 5 minutes
+- Power: 5 mW during inference on Cortex-M4, 0.1ms per inference
+- Sensitivity/specificity: AFib detection >99%/>97% (target, trained on PhysioNet AF database)
+
+Alert system:
+- BLE alert when phone in range: detected arrhythmia type + timestamp
+- Alerts also stored in local memory for next sync
+- At sync (weekly BLE download), all arrhythmia events + 2min context ECG windows uploaded
+
+Physical:
+- Dimensions: 65×35×6mm (credit-card-ish)
+- Weight: 12g
+- Adhesive: proprietary breathable waterproof adhesive (compatible with Tegaderm)
+  Replaceable: adhesive pad + outer sticker changed at 14 days for 30-day wear
+- IPX7: tested 30 min at 1m submersion
+
+Data flow:
+- 250 Hz, 24-bit → compressed (delta encoding): ~300 KB/day raw
+- 32GB @ 300 KB/day = 30,000 day capacity (far exceeds 30-day design)
+- DICOM ECG SOP class output on sync
+- NFS packet: continuous session, 5-minute summary segments
+
+UBERON: UBERON:0000948 (heart)
+BOM estimate: ~$35–$45 per unit (target production cost)
+```
+
+---
+
+#### NFSIM-ECG-02 — 12-Lead ECG Vest (24–48h Holter)
+
+**Concept:** Textile-based ECG recording vest with 10 electrode positions (standard 12-lead configuration), dry textile electrodes, continuous 24–48h recording at 1000 Hz for professional Holter monitoring.
+
+```
+Hardware:
+- Electrodes: 10× conductive silver yarn electrode patches on inside of vest
+  Positions: RA, LA, RL, LL (limb leads), V1–V6 (precordial leads)
+  Electrode size: 30×30mm conductive fabric islands
+  Impedance: 10–50 kΩ (dry skin contact)
+- AFE: Texas Instruments ADS1298 (8-channel, 24-bit, SPI)
+  - 8 simultaneous channels at up to 32,000 SPS per channel
+  - Noise: 8 μVpp at 1000 Hz bandwidth
+  - Runs at 1000 SPS per channel (standard Holter rate)
+  - Two ICs in daisy-chain → 12 simultaneously sampled leads + 4 extra channels
+- MCU: STM32H743 (processes all channels, manages storage)
+- Storage: 32GB eMMC (stores 48h × 12 leads × 1000 Hz × 24-bit ≈ 26 GB)
+- BLE: nRF52840
+- Battery: 800 mAh LiPo (48h life at 20mA average draw)
+- Electronics housing: rigid unit sewn into vest pocket, removable for washing
+
+Vest:
+- Material: performance fabric (polyester/spandex, moisture-wicking)
+- Size range: XS–3XL (or custom/adjustable straps)
+- Washable: remove electronics unit before washing
+- Electrode contacts: snap connectors (gold-plated, spring-loaded)
+
+Analysis:
+- On-device: basic arrhythmia detection (AF, VT screening)
+- Full analysis: export to PC for professional Holter analysis software
+  Compatible: Mortara MARS (professional), or open-source WFDB tools
+- Output: DICOM Holter ECG SOP, EDF+ format, NFS protocol
+
+UBERON: UBERON:0000948 (heart)
+```
+
+---
+
+#### NFSIM-EEG-01 — Dry-Electrode EEG Headset (8–16 Channels)
+
+**Concept:** Open-source dry-electrode EEG headset compatible with OpenBCI Cyton board or custom ADS1299-based board. 8 or 16 channels. Applications: sleep staging, neurofeedback, BCI research, seizure monitoring.
+
+```
+Hardware:
+- Electrodes: dry comb or cup electrodes (gold-plated spring-loaded)
+  Array: 8-channel minimum (Fp1, Fp2, F3, F4, C3, C4, P3, P4)
+  Optional 16-channel expansion (international 10-20 system)
+  Reference: CMS/DRL electrodes (Active Reference)
+- AFE: ADS1299 (Texas Instruments)
+  - 8-channel simultaneously sampled
+  - 24-bit ADC
+  - Noise: 1 μVRMS input-referred
+  - Input impedance: 1 GΩ
+  - Gain: 24× (programmable 1–24)
+  - CMRR: >110 dB
+  - SPI interface
+- MCU: STM32H743 (for processing) + nRF52840 (BLE)
+  - Sampling: 250 Hz standard (up to 16 kSPS per channel)
+  - Data streaming: BLE 5.0 (250 Hz × 8ch × 24-bit = 6kB/s, within BLE PHY 2M bandwidth)
+- Power: 1200 mAh LiPo (8h continuous recording)
+- Mechanical: adjustable headband, soft-touch silicone ear clips
+
+Signal quality monitoring:
+- Electrode impedance check: brief injected current at 1 kHz, measure voltage
+  Per-electrode impedance: displayed as green (<10kΩ), yellow (10–50kΩ), red (>50kΩ)
+- User-guided electrode placement with impedance feedback
+
+Analysis (on-device or host):
+- On-device: band power calculation (delta, theta, alpha, beta, gamma)
+  Sleep stage classification (TFLite model, ~40KB)
+  SSVEP detection (for BCI)
+- Host: MNE-Python, EEGLAB, OpenViBE compatible output
+- Output: EDF+ format, NFS protocol continuous session
+
+OpenBCI compatibility: firmware mode that mimics OpenBCI Cyton SPI protocol
+→ Works with OpenBCI GUI, BrainFlow, Neurosity SDK
+
+UBERON: UBERON:0001017 (brain/central nervous system)
+```
+
+---
+
+#### NFSIM-EMG-01 — 8-Channel EMG Armband
+
+**Concept:** An 8-channel surface EMG armband for gesture recognition, prosthetic control, rehabilitation monitoring, and muscle activation mapping. Inspired by the Myo armband (discontinued) but fully open-source.
+
+```
+Hardware:
+- Electrode configuration: 8 electrode pairs (16 total) arranged circumferentially
+  Pairs spaced evenly around forearm circumference
+  Inter-electrode spacing: 20mm within pair, ~45° arc between pairs
+- Dry electrodes: conductive silicone with silver coating
+  Contact area: 10×10mm per electrode
+- AFE: ADS1298 (8-channel, 24-bit)
+  - 8 simultaneous differential EMG channels
+  - Bandwidth: 10–500 Hz (bandpass filter)
+  - Sample rate: 2000 SPS (captures individual MUAPs and spectral content)
+  - Gain: 12× (programmable)
+- IMU: ICM-42688-P (6-axis, accelerometer + gyroscope)
+  - 3-axis ACC ±16g, 3-axis GYR ±2000°/s
+  - ODR 100Hz
+  - For orientation, motion artifact removal, and gesture context
+- MCU: STM32H7 (real-time EMG processing)
+- BLE: nRF52840 (streaming at 2kHz × 8ch × 16-bit = 32kB/s, needs BLE 5.0 2M PHY)
+- Battery: 500 mAh LiPo (6h continuous streaming, 12h with duty cycling)
+- Mechanical: elastic adjustable band (22–35cm circumference range)
+
+On-device gesture recognition (TinyML):
+- Features: MAV (Mean Absolute Value), WL (Waveform Length), ZC (Zero Crossings)
+  per 200ms window
+- Classifier: MLP or SVM, INT8 quantized, ~50KB model
+- Gestures: open, close, pinch, supination, pronation, point, grip, wrist flex/extend
+  Accuracy: >90% on trained user
+  Cross-user: ~70% (personalization training recommended)
+- Inference latency: <10ms for real-time prosthetic control
+
+Research mode: raw 2000 Hz data stream via BLE for full signal analysis
+
+UBERON: UBERON code for specific muscle group (user-specified on placement)
+```
+
+---
+
+#### NFSIM-NEURAL-01 — High-Density ECoG Research Array
+
+**Concept:** A 64-channel to 256-channel electrocorticography (ECoG) research electrode array with flexible Parylene-C substrate and Intan RHD2000 series acquisition front end. Designed to interface with open-source acquisition systems (Open Ephys).
+
+```
+Electrode array:
+- Substrate: Parylene-C (5μm base coat, 2μm encapsulation)
+  Biocompatible, transparent, flexible, ultra-thin (8–10μm total)
+- Electrode material: iridium oxide (IrOx) or PEDOT:PSS
+  IrOx: high charge injection capacity, low impedance (<100kΩ at 1kHz)
+  PEDOT:PSS: better biocompatibility, lower stiffness
+- Array size: 4×4 (16ch), 8×8 (64ch), 16×16 (256ch)
+- Electrode diameter: 200μm, pitch 400μm
+- Connection: ZIF (zero insertion force) connector to PCB
+
+Acquisition electronics:
+- Intan RHD2132 (32ch) or RHD2216 (16ch) per module
+  - 16-bit ADC, 20 kSPS per channel
+  - On-chip bandwidth filter: 0.1 Hz – 20 kHz (configurable)
+  - SPI interface, daisy-chainable
+  - 0.98 μVRMS noise (300 Hz – 10 kHz)
+- FPGA controller: Xilinx Artix-7 (data aggregation from multiple Intan chips)
+- Open Ephys compatibility: USB interface to Open Ephys GUI
+  (Open Ephys is the standard open-source neural recording software)
+
+Data rates:
+- 64ch @ 20kHz × 16-bit = 2.56 MB/s → USB 3.0 streaming
+- On-system buffering: 1 GB SDRAM
+
+Applications:
+- Intraoperative seizure mapping (research only)
+- BCI research (finger movement decoding, speech BCI)
+- Sensory processing studies (somatosensory, auditory)
+
+UBERON: UBERON:0001017 (central nervous system, brain surface)
+NOTE: This device requires surgery for placement. Lab/research only.
+```
+
+---
+
+#### NFSIM-EOG-01 — Electrooculography Sensor
+
+**Concept:** Around-eye electrodes for eye movement tracking. Measures horizontal and vertical eye position via corneoretinal potential (the eye acts as a dipole — cornea positive relative to retina).
+
+```
+Hardware:
+- 4 electrodes: nasal and temporal positions each eye (or 2 electrodes for horizontal only)
+- AFE: ADS1299 (low noise, sufficient for EOG amplitudes of 0.5–5mV)
+- Sampling: 250 Hz (EOG bandwidth <30 Hz)
+- BLE streaming
+
+Applications:
+- Sleep stage detection (REM characterized by saccades)
+- HCI (eye-gaze interface for mobility impaired)
+- Nystagmus detection
+- Driver fatigue monitoring
+UBERON: UBERON:0004548 (eye)
+```
+
+---
+
+#### NFSIM-EDA-01 — Electrodermal Activity Monitor
+
+**Concept:** Wristband-based EDA/GSR (Galvanic Skin Response) sensor for sympathetic nervous system activity monitoring. Stress, arousal, emotion research.
+
+```
+Hardware:
+- Two Ag/AgCl electrodes on volar wrist surface (thenar/hypothenar eminence preferable,
+  but wrist convenient for wearable)
+- 500mV AC, 30 Hz, applied between electrodes
+- Skin conductance measured: 0.05–30 μS range
+- ADC: 24-bit (ADS1256 for high precision)
+- High-pass + synchronous demodulation: extract DC skin conductance level
+  + phasic SCR (skin conductance response)
+- BLE: nRF52840
+- Battery: 200mAh (days of continuous monitoring at 4 Hz sample rate)
+- Sampling: 4 Hz continuous, 64 Hz burst for acute response capture
+
+Output:
+- SCL: tonic baseline (μS)
+- SCR: phasic event amplitude and latency
+- SDSCL: standard deviation of SCL (arousal variability metric)
+
+UBERON: UBERON:0001416 (skin, eccrine gland region)
+```
+
+---
+
+### Domain E: Ingestible / Traversing Capsules
+
+The ingestible capsule domain is unique in NanoFlowSIM because it represents sensors that physically traverse the body rather than being attached externally.
+
+**Universal capsule position tracking system:**
+All NanoFlowSIM capsules implement the same position estimation algorithm:
+
+```
+Position Estimator inputs:
+1. Pressure sensor readings (peristaltic pressure waves)
+2. IMU: acceleration + gyroscope (peristaltic motion patterns)
+3. Elapsed time from swallow (calibrated transit time models)
+4. Optional: pH sensor readings (stomach pH 1–3, small intestine pH 6–7, colon pH 7–8)
+5. Optional: 434MHz signal strength from external antenna array
+
+Anatomical zone output (with confidence):
+- Esophagus: 5–15 seconds post-swallow (rapid transit)
+- Stomach: 15 min – 4 hours (highly variable based on meal content)
+- Duodenum: 20 min – 5 hours
+- Small intestine (jejunum + ileum): 2–8 hours
+- Ileocecal junction: identifiable by pH shift and pressure pattern change
+- Colon (ascending, transverse, descending): 10–72 hours
+- Rectosigmoid: terminal phase, pressure pattern change
+
+UBERON tagging per zone:
+- Esophagus: UBERON:0001043
+- Stomach: UBERON:0000945
+- Duodenum: UBERON:0002114
+- Jejunum: UBERON:0002115
+- Ileum: UBERON:0002116
+- Colon: UBERON:0001155
+```
+
+**Universal capsule communication constraints:**
+- 434 MHz FSK (external body-penetrating radio, better than 2.4 GHz at depth)
+- Data rate: 10–100 kbps (limited by power budget)
+- Power budget: <25mW for electronics (extends battery life for 8–24h transit)
+- External: wearable receiver belt → BLE bridge → smartphone app
+
+---
+
+#### NFSIM-CAP-01 — Optical Imaging + Chemistry Capsule (GI Camera + pH/O2/Temp)
+
+**Concept:** Standard capsule endoscopy camera PLUS real-time pH, oxygen, and temperature sensors. Maps optical images with precise chemical environment data. Provides context for interpreting mucosal findings (inflamed areas are often hypoxic, low pH).
+
+```
+Dimensions: 26×11mm
+Total weight: <3.5g
+
+Imaging system:
+- Front: CMOS camera OV9726 (1MP, 60fps)
+  - FOV: 160° fisheye lens
+  - Illumination: 4× white LEDs (580nm warm white, oriented around lens)
+  - Frame rate: 4 fps (standard capsule rate), up to 60 fps burst
+  - Resolution: 640×480 @ 4fps for 8h streaming
+- Rear: optional second camera (for 2-directional coverage)
+
+Chemical sensors:
+- pH: ISFET sensor (ion-sensitive field effect transistor, H+ selective)
+  Range: 1–8 pH, accuracy ±0.3 pH
+- Oxygen: Clark-type O2 electrode (gas-permeable membrane)
+  Range: 0–100% pO2
+- Temperature: NTC thermistor 10kΩ B=3950
+  Range: 20–45°C, accuracy ±0.2°C
+
+Position sensors:
+- IMU: ICM-42605 (6-axis)
+- Pressure: BMP581 (absolute pressure, peristaltic wave detection)
+
+Electronics:
+- MCU: STM32L4R9 (low power, camera interface, multiple sensor ADCs)
+- Memory buffer: 8MB PSRAM (frame buffer + data buffer)
+
+Communication:
+- 434 MHz FSK transmitter: Si4463 (Silicon Labs)
+  Transmit power: 10 dBm (regulatory limit for implantable body devices in some regions)
+  Data rate: 76.8 kbps (sufficient for compressed JPEG frames + sensor data)
+  JPEG compression: hardware-assisted, target 15KB/frame at 640×480
+
+Power:
+- Primary battery: 2× SR44 silver oxide batteries (3.0V, 200mAh total)
+  Or: custom thin lithium battery
+- Expected runtime: 8–12 hours active imaging
+- Power management: sleep between frames, wake for transmission
+
+External receiver:
+- Belt-worn unit with 4-antenna diversity array (434MHz)
+- STM32H7 + nRF52840 (receiver + BLE bridge)
+- Records all received frames + sensor data → syncs to phone via BLE
+
+Data volume:
+- 4fps × 15KB/frame = 60KB/s × 8h = 1.7 GB total
+- Compressed on receiver side: run-length encoding for similar frames
+- Final: ~400-800 MB per complete GI transit study
+
+Clinical applications:
+- Small bowel Crohn's disease detection
+- Occult GI bleeding (video + hemoglobin sensor)
+- Barrett's esophagus surveillance
+- Celiac disease (villous atrophy pattern recognition via AI)
+```
+
+---
+
+#### NFSIM-CAP-02 — GI Ultrasound Capsule (Intraluminal US)
+
+**Concept:** Capsule with an ultrasound transducer array for transmural GI wall imaging from the inside. Sees GI wall layers (mucosa, submucosa, muscularis propria) plus nearby structures (mesenteric lymph nodes, portal vein, pancreas from stomach/duodenum).
+
+```
+Dimensions: 32×13mm (slightly wider than CAP-01 due to US transducer ring)
+
+Transducer:
+- CMUT (Capacitive Micromachined Ultrasound Transducer) ring
+- 64 elements circumferentially arranged
+- Frequency: 15–20 MHz
+- Imaging depth: 3cm radially (enough to see full GI wall + local lymph nodes)
+- Radial 360° coverage: B-mode scan every 0.5 seconds
+
+Electronics:
+- Custom low-power TX pulsers (miniaturized, 12-channel multiplexed)
+- TIA: OPA657 or similar low-noise, ultra-small package
+- ADC: ADS8661 (12-bit, 10MSPS)
+- FPGA: iCE40UP5K (low power, small package) for beamforming
+- MCU: STM32L4 for sensor control + data management
+
+Communication:
+- 434 MHz at 250 kbps (compressed US frames)
+- Frame size: 512 samples × 64 elements × 10-bit = ~41kB raw
+  After beamforming + JPEG compression: ~8KB per frame
+
+Power:
+- Battery: 2× custom prismatic lithium, 180mAh total
+- Runtime: 8h (us scan every 0.5s = 58,000 frames)
+
+Position tracking:
+- Pressure + IMU (same as CAP-01) + radial US can identify lumen diameter changes at transitions
+
+Clinical applications:
+- EUS (Endoscopic Ultrasound) equivalent without tethered endoscope
+- Submucosal tumor assessment
+- Lymph node staging in GI cancer
+- Pancreatic cyst surveillance
+```
+
+---
+
+#### NFSIM-CAP-03 — DNA / RNA Capture Capsule
+
+**Concept:** A capsule that mechanically captures cellular material and luminal contents from the GI tract at a specific anatomical location for DNA/RNA extraction. When triggered (pH change or remote trigger), a collection chamber opens and samples surrounding fluid/cells, then seals. Patient excretes capsule, retrieves it, and processes sample for sequencing.
+
+```
+Dimensions: 28×11mm
+
+Collection mechanism:
+- Trigger: pH sensor + timer
+  When pH rises above 6.5 (small intestine) → trigger opens collection door
+  OR: magnetic external trigger (patient holds magnet to abdomen)
+  OR: timed trigger (set for estimated transit time to target segment)
+- Door mechanism: shape-memory alloy (nitinol wire, heats to 45°C → actuation)
+  Or: electrochemical valve (dissolving anode releases spring-loaded door)
+- Collection chamber: 50μL gold-coated chamber
+
+Sample preservation:
+- RNAlater-equivalent preservation solution pre-loaded in chamber
+- Immediately stabilizes RNA upon sample contact
+- Chamber seals automatically after 60 seconds (spring mechanism)
+
+Retrieval protocol:
+- Patient collects stool sample, retrieves capsule (floats or color-coded)
+- Ships in provided cold pack or processes locally within 24h
+- Processing: standard bead-based DNA/RNA extraction → NFSIM-SEQ-01 or commercial sequencer
+
+Applications:
+- Gut microbiome sampling at specific GI locations (not just fecal — luminal at jejunum, ileum)
+- Small bowel mucosal gene expression (RNA from shed epithelial cells)
+- Tumor DNA shedding detection (cfDNA from early GI tumors)
+- Drug metabolism gene expression in enterocytes (CYP3A4, etc.)
+
+Power:
+- Small primary battery (only needed for sensor monitoring + actuation, not communication)
+- Runtime: 24–48h standby, 1 actuation event
+```
+
+---
+
+#### NFSIM-CAP-04 — Full Multi-Modal Research Capsule
+
+**Concept:** The ultimate ingestible research platform combining all sensor modalities in one capsule. Larger than clinical capsules — designed for research studies where capsule size is acceptable (volunteer studies).
+
+```
+Dimensions: 36×13mm (large, borderline swallowable for some subjects)
+
+Integrated systems:
+- Dual CMOS cameras (front + rear optical)
+- CMUT ultrasound ring (15MHz, 32-element)
+- Chemical sensors: pH, pO2, temperature, glucose
+- Bioimpedance: 4-electrode array, 1kHz–1MHz sweep (GI tissue properties)
+- IMU: 6-axis
+- Pressure: peristaltic detection
+- DNA capture: triggered collection chamber (100μL)
+- Drug delivery: micro-reservoir (optional payload, e.g., drug or nanoparticle bolus)
+  Release trigger: pH + position confirmation
+  Volume: 50–200μL
+
+Communication:
+- 434MHz FSK + 2.4GHz (burst mode when in stomach, external antenna strong enough)
+  434MHz primary: 100kbps for sensor data
+  2.4GHz secondary: for video bursts when signal permits
+
+Power:
+- 300mAh custom lithium stack
+- Smart power management: activate each sensor only when in relevant GI segment
+  (cameras active throughout; US active in stomach/duodenum; DNA capture in target region)
+- Runtime: 12–16 hours
+
+Applications:
+- Complete GI tract characterization study
+- Nanoparticle GI delivery research (dose a NP suspension, CAP-04 tracks its progression)
+- Drug absorption studies (watch drug release + detect chemical changes in lumen)
+```
+
+---
+
+#### NFSIM-CAP-05 — Core Temperature Capsule
+
+**Concept:** Minimalist capsule for core body temperature monitoring. The simplest ingestible sensor. Core temperature measured inside GI tract is more accurate than rectal, tympanic, or axillary measurement.
+
+```
+Dimensions: 22×9mm (small, easiest to swallow)
+Sensor: precision NTC thermistor, accuracy ±0.05°C
+Communication: 434MHz FSK, 1 reading/minute
+Power: 24h on single SR41 cell
+Applications: fever monitoring, heat stroke prevention, athletic heat management
+UBERON: UBERON:0002110 (lumen of GI tract, temperature of core body)
+```
+
+---
+
+#### NFSIM-CAP-06 — pH / Pressure / Motility Capsule
+
+**Concept:** Equivalent to commercial SmartPill (Medtronic). Monitors pH, temperature, and pressure throughout the entire GI tract. Provides complete motility profile (gastric emptying time, small bowel transit time, colonic transit time).
+
+```
+Sensors: pH (ISFET), temperature (NTC), pressure (BMP581 or equivalent)
+Communication: 434MHz
+Sampling: pH every 5s, pressure every 0.5s (to capture peristaltic waves)
+Data: complete motility profile → gastric emptying time, GI transit time, motility index
+Clinical use: gastroparesis diagnosis, chronic constipation evaluation, IBS workup
+```
+
+---
+
+#### NFSIM-CAP-07 — Microbiome Sampling Capsule
+
+**Concept:** Time-controlled, site-specific microbiome sampling with anaerobic preservation. The critical challenge: gut microbiome samples from stool are heavily contaminated with colonic bacteria, missing the small intestinal microbiome. CAP-07 captures true luminal samples from any GI segment.
+
+```
+Trigger: timed gelatin capsule dissolution (designed for specific GI segment based on transit time)
+  Outer capsule: standard HPMC coating (dissolves at pH > 7.0 = small intestine)
+  Inner capsule: custom timed release
+Collection: anaerobic sealed chamber with pre-deoxygenated collection medium
+  Medium: prereduced BHI (Brain-Heart Infusion) + glycerol for cryoprotection
+Preservation: temperature-stable for 24h without refrigeration
+Sample volume: 100μL
+Downstream processing: 16S rRNA sequencing, shotgun metagenomics
+UBERON: UBERON:0002115 (jejunum) or other target segment
+```
+
+---
+
+#### NFSIM-CAP-08 — Drug Delivery Verification Capsule
+
+**Concept:** A capsule that verifies whether an orally administered drug actually dissolves and is available for absorption in the intended GI segment, rather than passing through unabsorbed.
+
+```
+Internal sensors: UV/Vis photodetector + LED at drug's absorption wavelength
+Detection: measures local drug concentration in GI lumen as drug dose capsule
+  dissolves in same region
+Trigger: same location trigger as target drug dose capsule
+Output: drug dissolution profile (concentration vs. time at target site)
+  → pharmacokinetic ground truth at absorption site
+Applications: biopharmaceutics research, generic drug bioequivalence
+```
+
+---
+
+#### NFSIM-CAP-09 — Oxygen Mapping Capsule
+
+**Concept:** Sequential oxygen measurements throughout the GI tract. Oxygen gradient is diagnostically relevant: gut mucosal inflammation correlates with local hypoxia. Anaerobic microbial regions can be mapped.
+
+```
+Sensors: Clark-type O2 electrode (5 readings/minute)
+Output: pO2 profile vs. anatomical position
+Normal: stomach ~10-15 mmHg, small intestine 5-10 mmHg, colon near 0 mmHg
+Pathological: IBD → extreme hypoxia at inflamed segments
+```
+
+---
+
+#### NFSIM-CAP-10 — GI Bleeding Detection Capsule
+
+**Concept:** Hemoglobin-sensitive capsule for detecting occult GI bleeding. Combines optical (hemoglobin absorption at 575nm and 540nm) with chemical (heme peroxidase activity detection) sensing.
+
+```
+Sensors:
+- Dual-wavelength LED-photodiode pair (540nm + 575nm absorption of oxyhemoglobin)
+- Guaiac reaction on micro-pad: peroxidase activity of heme → colorimetric
+  Detected optically after contact with lumen
+
+Output: hemoglobin concentration estimate at each GI segment
+Sensitivity: detects 0.5mg Hb/mL (matches clinical sensitivity for occult blood)
+
+Applications:
+- Occult GI bleeding source localization (is it in small bowel vs. stomach vs. colon?)
+- Iron deficiency anemia investigation
+- Post-polypectomy monitoring
+```
+
+---
+
+### Domain F: Flow Cytometry & Environmental
+
+---
+
+#### NFSIM-FLOW-01 — Portable Flow Cytometer
+
+**Concept:** A portable acoustic-focusing flow cytometer for complete blood count (CBC) estimation and cell classification. Not a replacement for clinical-grade hematology analyzers but a field-deployable cell counting device.
+
+```
+Core principle:
+- Blood cells flow single-file through focused laser beam
+- Forward scatter (FSC): cell size
+- Side scatter (SSC): cell granularity/complexity
+- Fluorescence: labeled antibodies or intracellular markers (with sample prep)
+
+Acoustic focusing:
+- Acoustic focusing (not sheath flow) used to center cells in channel
+- Piezoelectric actuator at resonant frequency focuses particles to channel center
+- Eliminates need for precision hydrodynamic sheath fluid system
+- Simplifies fluidics dramatically for portable design
+
+Hardware:
+- Laser: 488nm solid-state diode (20mW CW)
+  OR: 405nm (violet) for additional fluorescence channel
+- Optics: beam shaping (cylindrical lens), focusing objective
+- Detection:
+  - FSC: photodiode (on-axis)
+  - SSC: photodiode (90°)
+  - FL1: photodiode with 530/30nm bandpass (FITC, Calcein)
+  - FL2: photodiode with 585/42nm bandpass (PE, PI)
+  - Optional FL3: 650nm longpass (PerCP, PI dead stain)
+- Transimpedance amplifiers: OPA657 per detector
+- ADC: ADS8688 (8-channel, 16-bit, 500kSPS)
+- FPGA: iCE40HX8K (event detection, histogram accumulation)
+- MCU: STM32H743
+
+Fluidics:
+- Sample uptake: 50μL whole blood diluted 1:100 in PBS (automated diluter)
+- Flow cell: quartz square capillary (250×250μm ID)
+- Piezo actuator: 1MHz resonance, bulk acoustic wave focusing
+- Waste collection: sealed waste bag (biohazard)
+- Pump: precision peristaltic (Watson-Marlow micro)
+
+Analysis:
+- Gating: FSC/SSC scatter plot → gate populations
+- CBC estimation: WBC count + 3-part differential (lymphocytes, monocytes, granulocytes)
+  RBC count + hematocrit (from scatter data)
+  Platelet count (small-scatter gate)
+- HIV monitoring: CD4 count (with anti-CD4 FITC-labeled antibody, sample prep required)
+- Malaria: fluorescent anti-parasite stain (SYBR Green in RBC)
+
+Output: CBC panel + scatter plots (JSON + PNG)
+UBERON: UBERON:0000178 (blood)
+BOM estimate: ~$380
+```
+
+---
+
+#### NFSIM-ENV-01 — Environmental Bio-Aerosol Sampler
+
+**Concept:** A portable air sampling device that collects biological aerosols and concentrates them for analysis by LAMP (NFSIM-PCR-03) or CRISPR (NFSIM-CRISPR-01). Enables environmental pathogen surveillance.
+
+```
+Hardware:
+- Cyclone collector: high-velocity air vortex concentrates bioaerosols into liquid
+  Flow rate: 10–30 LPM (liters per minute)
+  Collection efficiency: >90% for 1–10 μm particles
+- Fan: centrifugal blower, 5V 2A
+- Collection reservoir: 2mL buffer (PBS + stabilizer)
+- Collection time: 30–120 minutes → sample then processed by LAMP or CRISPR
+
+Sample processing interface:
+- Cartridge connector: direct injection of 50μL of concentrated sample
+  into NFSIM-CRISPR-01 or PCR-03 cartridge
+- No manual pipetting required
+
+Applications:
+- Hospital airborne pathogen surveillance (COVID, influenza, MRSA)
+- Indoor air quality monitoring
+- Field epidemiology outbreak tracking
+- BSL-2 compliant collection (most respiratory pathogens)
+
+BOM: ~$95
+```
+
+---
+
+## 9. Universal NFS Communication Protocol
+
+### Overview
+
+All NanoFlowSIM hardware devices communicate using the NFS (NanoFlowSIM) protocol. The protocol is designed to be simple, extensible, and implementable on microcontrollers with ≥32KB flash.
+
+### Physical Layer
+
+| Transport | Use Case | Devices |
+|---|---|---|
+| BLE 5.0 GATT | Primary wireless, wearables, patches | ECG, EEG, EMG, CGM, SWEAT, PCR-01–04, CRISPR |
+| USB-C (USB 2.0 CDC) | Lab devices, high-bandwidth, firmware update | PCR-01, SEQ-01, GELEC-01, FLOW-01 |
+| 434 MHz FSK | Ingestible capsules | CAP-01 through CAP-10 |
+| NFC ISO 15693 | Passive/low-power readout | CGM-01, CAP temperature |
+| Wi-Fi 802.11ac | High-bandwidth imaging | US-01, OCT-01, MICRO-01 |
+
+### BLE GATT Service Definitions (NFS Profile)
+
+**NFS Device Information Service (0x180A — standard BAS)**
+Standard BLE Device Information Service.
+
+**NFS Device Control Service**
+UUID: `4a6e7300-1000-4a6e-b000-4a6e00000001`
+
+Characteristics:
+
+| UUID | Name | Properties | Size | Description |
+|---|---|---|---|---|
+| 4a6e...-1001 | Device State | Read+Notify | 8 bytes | Status byte + error code + battery + flags |
+| 4a6e...-1002 | Command | Write | 20 bytes | Command opcode + parameters |
+| 4a6e...-1003 | Configuration | Read+Write | 100 bytes | Device-specific config JSON (compressed) |
+| 4a6e...-1004 | Error Log | Read | 100 bytes | Last error details |
+
+**NFS Data Stream Service**
+UUID: `4a6e7300-2000-4a6e-b000-4a6e00000002`
+
+| UUID | Name | Properties | Size | Description |
+|---|---|---|---|---|
+| 4a6e...-2001 | Primary Stream | Notify | 244 bytes | Real-time data (max BLE ATT MTU) |
+| 4a6e...-2002 | Batch Upload | Indicate | 512 bytes | Bulk data segments (extended MTU) |
+| 4a6e...-2003 | Stream Control | Write | 4 bytes | Start/stop stream, set interval |
+
+**NFS Metadata Service**
+UUID: `4a6e7300-3000-4a6e-b000-4a6e00000003`
+
+| UUID | Name | Properties | Size | Description |
+|---|---|---|---|---|
+| 4a6e...-3001 | Patient Assignment | Write | 36 bytes | Patient UUID assignment |
+| 4a6e...-3002 | UBERON Tag | Read+Write | 20 bytes | Anatomical region code (ASCII) |
+| 4a6e...-3003 | Session ID | Read | 36 bytes | Current session UUID |
+| 4a6e...-3004 | Timestamp Sync | Write | 8 bytes | Unix timestamp (microseconds) |
+
+### NFS Universal JSON Packet
+
+All device data is ultimately serialized as NFS JSON packets for storage and exchange:
+
+```json
+{
+  "nfs_version": "1.0.0",
+  "device_id": "NFSIM-ECG-01-ABCDEF",
+  "device_type": "NFSIM-ECG-01",
+  "session_id": "550e8400-e29b-41d4-a716-446655440000",
+  "patient_id": "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+  "timestamp_unix_us": 1748304000000000,
+  "sequence": 12345,
+  "anatomy_region": {
+    "primary": "UBERON:0000948",
+    "label": "heart",
+    "secondary": ["UBERON:0000178"]
+  },
+  "data_type": "ecg_continuous_segment",
+  "data": {
+    "sample_rate_hz": 250,
+    "lead": "I",
+    "duration_seconds": 10,
+    "samples_int16": "base64-encoded-array",
+    "lsb_uV": 4.88,
+    "detected_events": [
+      {"type": "normal_sinus", "confidence": 0.97}
+    ]
+  },
+  "quality": {
+    "score": 0.92,
+    "signal_noise_ratio_db": 28.4,
+    "artifact_fraction": 0.08
+  },
+  "device_status": {
+    "battery_pct": 74,
+    "temperature_c": 36.2,
+    "firmware_version": "1.2.3",
+    "uptime_seconds": 86400
+  }
+}
+```
+
+### USB Command Protocol
+
+For USB-connected devices (NFS-SERIAL over CDC):
+
+```
+Command format: "NFS:<COMMAND> [<PARAMS>]\r\n"
+Response: "NFS:OK [<DATA>]\r\n" or "NFS:ERR <code> <message>\r\n"
+
+Commands:
+NFS:PING                          → NFS:OK PONG
+NFS:STATUS                        → NFS:OK <JSON status object>
+NFS:START <session_id>            → NFS:OK <session started>
+NFS:STOP                          → NFS:OK <session stopped>
+NFS:CONFIGURE <JSON config>       → NFS:OK <config applied>
+NFS:CALIBRATE                     → NFS:OK <calibration sequence started>
+NFS:DUMP <start_ts> <end_ts>      → NFS:OK <data follows as JSON lines>
+NFS:UPDATE                        → NFS:OK <OTA update mode entered>
+NFS:PATIENT <patient_uuid>        → NFS:OK <patient assigned>
+NFS:UBERON <UBERON_code>          → NFS:OK <region assigned>
+NFS:RESET                         → NFS:OK <factory reset performed>
+NFS:VERSION                       → NFS:OK FW:1.2.3 HW:RevA PROTO:1.0.0
+```
+
+### 434 MHz Capsule Radio Protocol
+
+For ingestible capsules (434 MHz FSK, sub-carrier modulation):
+
+```
+Frame structure (variable length):
+[SYNC:2][DEVICE_ID:4][SEQ:2][TYPE:1][LENGTH:2][PAYLOAD:N][CRC16:2]
+
+SYNC: 0xAA55 (synchronization word)
+DEVICE_ID: Capsule serial number (4 bytes)
+SEQ: Sequence number (wraps at 65535)
+TYPE: 0x01=sensor, 0x02=image_header, 0x03=image_chunk, 0x04=heartbeat
+LENGTH: Payload length in bytes (max 256)
+PAYLOAD: Type-specific data
+CRC16: CRC-CCITT polynomial 0x1021
+
+Sensor payload (TYPE=0x01, 16 bytes max):
+[TIMESTAMP:4][PH_x100:2][TEMP_x100:2][O2_x100:2][PRESSURE:2][ZONE_ESTIMATE:1][FLAGS:1]
+
+Image header (TYPE=0x02):
+[FRAME_ID:4][JPEG_SIZE:3][WIDTH:2][HEIGHT:2][FLAGS:1]
+
+Image chunk (TYPE=0x03):
+[FRAME_ID:4][CHUNK_ID:2][DATA:N] (remaining bytes = chunk data)
+
+Retransmission:
+- External receiver ACKs each image header
+- Capsule retransmits missing chunks on next pass
+- Sensor data: fire-and-forget (redundant transmission)
+```
+
+---
+
+## 10. Firmware Architecture (Universal)
+
+### Universal Patterns
+
+Every NanoFlowSIM firmware follows these universal architectural patterns regardless of device type.
+
+### RTOS Selection
+
+| Device Class | RTOS | Reason |
+|---|---|---|
+| Most devices (STM32, nRF52840) | FreeRTOS | Mature, small footprint, excellent support |
+| Complex Linux devices (MICRO-01, SEQ-01 host) | Linux + systemd | Full OS needed for camera, USB host, complex compute |
+| Ultra-low-power (CGM-01, EDA-01) | Bare-metal with interrupt-driven state machine | Minimize power overhead |
+
+### FreeRTOS Task Hierarchy
+
+```
+Priority 7 (Highest) — SensorAcquisitionTask
+  - Reads sensor hardware at programmed rate
+  - Time-critical interrupt service routines
+  - Hardware timer callbacks
+  - DMA completion handling
+
+Priority 6 — SignalProcessingTask
+  - Real-time DSP (filtering, feature extraction)
+  - TinyML inference (pattern recognition, anomaly detection)
+  - Quality scoring
+
+Priority 5 — StorageTask
+  - Write processed data to flash/eMMC
+  - Buffer management (circular buffer → write on threshold)
+  - File system operations (FatFS or LittleFS)
+
+Priority 4 — CommunicationsTask
+  - BLE GATT updates (notifications to connected phone)
+  - USB CDC data streaming
+  - NFS packet assembly and transmission
+  - 434 MHz radio (capsule devices)
+
+Priority 3 — DeviceControlTask
+  - Command processing from BLE/USB
+  - Configuration management
+  - Mode switching (idle/active/calibration/OTA)
+
+Priority 2 — PowerManagementTask
+  - Battery monitoring (fuel gauge polling)
+  - Sleep/wake decisions
+  - Low-power mode transitions
+  - Thermal management
+
+Priority 1 (Lowest) — SystemMaintenanceTask
+  - OTA firmware update management
+  - Self-test routines
+  - Watchdog feeding
+  - Error logging
+```
+
+### Memory Map (STM32H7 example)
+
+```
+Flash layout (2MB):
+0x00000000 - 0x0000FFFF: Bootloader Stage 1 (64KB)
+0x00010000 - 0x0001FFFF: Bootloader Stage 2 (64KB)
+0x00020000 - 0x000FFFFF: Application (896KB)
+0x00100000 - 0x001EFFFF: OTA staging area (960KB)
+0x001F0000 - 0x001FFFFF: Configuration + calibration (64KB, wear-leveled)
+
+SRAM layout (1MB):
+0x20000000 - 0x2001FFFF: FreeRTOS heap + stack (128KB)
+0x20020000 - 0x2004FFFF: DMA buffers + sensor ring buffers (192KB)
+0x20050000 - 0x200FFFFF: Signal processing workspace (704KB)
+
+DTCM (128KB): Time-critical ISR data, DMA descriptors
+ITCM (64KB): Time-critical ISR code (copied from flash on boot)
+```
+
+### Two-Phase Initialization
+
+```
+Phase 1 (Pre-RTOS, bare-metal):
+1. System clock configuration (PLL, peripheral clocks)
+2. Flash/SRAM initialization
+3. Watchdog configuration
+4. Battery check (abort if critically low)
+5. SPI/I2C/UART peripheral initialization
+6. Sensor hardware reset and register initialization
+7. Load calibration coefficients from flash
+8. Patient ID and UBERON tag load from NFC/flash
+9. BLE/radio initialization (if power allows)
+10. RTOS heap and task creation
+11. FreeRTOS scheduler start → Phase 2
+
+Phase 2 (RTOS tasks):
+- All tasks start in SUSPENDED state
+- System task determines operational mode based on config
+- Wakes appropriate tasks based on mode
+```
+
+### TinyML Models Per Device
+
+| Device | Model Purpose | Architecture | Size (INT8) | Inference Time |
+|---|---|---|---|---|
+| NFSIM-ECG-01 | AFib + arrhythmia classification | LSTM + FC | 20 KB | 0.5ms @ 170MHz |
+| NFSIM-EEG-01 | Sleep stage classification | Conv1D + GRU | 40 KB | 2ms @ 480MHz |
+| NFSIM-EMG-01 | Gesture recognition | MLP | 50 KB | 0.2ms @ 480MHz |
+| NFSIM-BREATH-01 | VOC pattern classification | Gradient boosted tree | 30 KB | 5ms |
+| NFSIM-CRISPR-01 | Amplification curve classification | CNN 1D | 15 KB | 1ms |
+| NFSIM-MICRO-01 | Cell morphology classification | MobileNetV3 small | 2.1 MB | 80ms on RPi CM4 |
+| NFSIM-FLOW-01 | Cell population gating | Gaussian Mixture | 10 KB | 0.5ms |
+| NFSIM-CAP-01 | Mucosal pathology detection | MobileNetV2 INT8 | 3.4 MB | runs on external host |
+
+### OTA Firmware Update
+
+```
+Trigger: NFS:UPDATE command over USB or BLE + user confirmation
+
+Protocol (BLE):
+1. Client sends UPDATE_INIT {fw_size, fw_hash_sha256, target_version}
+2. Device responds: UPDATE_READY or UPDATE_REJECTED (insufficient space, battery too low)
+3. Client sends firmware in 244-byte chunks (BLE ATT MTU)
+4. Device: receives → writes to OTA staging area → CRC check per 4KB block
+5. After all chunks: device verifies SHA-256 of complete image
+6. If valid: device sets boot flag → reboot → bootloader validates → swaps to new firmware
+7. If invalid: OTA partition cleared, old firmware continues
+
+Rollback: if new firmware fails to start (watchdog), bootloader reverts
+```
+
+### Calibration Architecture
+
+```
+Every NFS device stores calibration in a 4KB calibration sector:
+
+CalibrationRecord {
+  magic: 0xNF5CA1 (identifies valid calibration)
+  version: u16
+  device_serial: [u8; 8]
+  calibration_date_unix: u32
+  calibration_expiry_unix: u32  (some sensors require periodic recalibration)
+  coefficients: [f32; 32]       (device-specific cal coefficients)
+  reference_values: [f32; 16]   (values used during calibration)
+  checksum: u32                 (CRC32 of above)
+}
+
+Calibration types:
+- Factory: performed once before shipping (stored, never cleared by user)
+- Field: performed by user before use (stored, overwrites field cal only)
+- Auto: continuous drift correction algorithms (applied in real-time, not stored)
+```
+
+---
+
+## 11. Software Stack
+
+### Desktop Application
+
+**Technology:** Electron 28 + React 18 + TypeScript + Tailwind CSS
+
+**Key Libraries:**
+```
+Three.js: 3D body map rendering
+@react-three/fiber: React Three.js integration
+@react-three/drei: Three.js helpers
+noble: BLE (Bluetooth Low Energy) via Node.js
+cornerstone.js: DICOM viewer
+cornerstoneDICOMImageLoader: DICOM file loading
+cornerstoneWADOImageLoader: WADO server support
+better-sqlite3: Local SQLite database (synchronous, fast)
+electron-store: Persistent settings
+electron-updater: Auto-update (Squirrel-based)
+zustand: Lightweight state management
+react-query: Server state + data fetching
+date-fns: Date manipulation
+recharts: 2D charts (glucose AGP, ECG statistics)
+fhirclient: FHIR OAuth2 client
+```
+
+**Architecture:**
+```
+main process (Node.js):
+- BLE management (noble)
+- SQLite queries (better-sqlite3)
+- File system (DICOM, FASTQ storage)
+- USB device management
+- Protocol handler: nanoflowsim:// deep links
+
+renderer process (React + TypeScript):
+- Body map 3D scene (Three.js)
+- Region detail panel
+- Timeline component
+- Data entry forms
+- DICOM viewer (cornerstone)
+- Simulation launcher
+- Settings
+
+preload.js (contextBridge IPC):
+- Typed API bridge: renderer → main
+- Exposed: db operations, BLE control, file I/O, NFS protocol commands
+- All IPC calls typed with TypeScript interfaces
+
+IPC channels:
+- ble:scan, ble:connect, ble:disconnect, ble:send-command
+- db:query, db:insert, db:update, db:delete
+- file:import-dicom, file:export-records
+- sim:start, sim:status, sim:results
+- patient:create, patient:switch, patient:export
+```
+
+### Mobile Application
+
+**Technology:** React Native 0.73 + Expo SDK 50
+
+**Key Libraries:**
+```
+expo-router: File-based routing
+react-native-ble-plx: BLE (Bluetooth Low Energy)
+expo-nfc: NFC (CGM readout)
+expo-secure-store: Encrypted local storage
+expo-camera: Camera for document scanning
+expo-notifications: Push notifications + local alerts
+expo-health: Apple Health / Google Health Connect
+react-native-vision-camera: High-performance camera
+expo-file-system: File management
+```
+
+**Architecture:**
+```
+app/
+  (tabs)/
+    index.tsx          3D body map (WebGL via expo-gl + Three.js)
+    timeline.tsx       Chronological data view
+    devices.tsx        Connected NFS devices
+    simulate.tsx       Simulation launcher
+    settings.tsx       Profile, sync, preferences
+  
+  _layout.tsx         Root navigation + authentication
+  modals/
+    region-detail/    Body region detail sheet
+    add-data/         Data entry modal
+    device-connect/   BLE pairing wizard
+```
+
+### Backend Server (Optional — self-hosted or cloud)
+
+**Technology:** Django 5 + Django REST Framework + Celery + PostgreSQL + Redis + MinIO + Django Channels
+
+```
+API:
+/api/v1/auth/          DID-based authentication
+/api/v1/patients/      Patient profile CRUD
+/api/v1/records/       Health records CRUD + filter + paginate
+/api/v1/sessions/      Continuous monitoring session management
+/api/v1/simulations/   Simulation job submission + results
+/api/v1/fhir/          FHIR R4 endpoint (patient + observation + diagnostic report)
+
+WebSocket:
+/ws/session/<session_id>/   Real-time data stream from NFS device (via app relay)
+/ws/simulation/<run_id>/    Simulation progress updates
+
+Storage:
+- PostgreSQL: structured records, metadata, indices
+- MinIO: binary data (DICOM, FASTQ, JPEG, audio)
+- Redis: session cache, real-time stream buffer, Celery task queue
+
+Celery tasks:
+- UBERON tagging of imported records
+- Simulation engine job execution
+- FHIR import processing
+- AI insight generation (periodic)
+- Notification dispatch
+```
+
+### SDK
+
+**Python SDK (`nfsim-sdk`):**
+```python
+from nfsim import NanoFlowSIM
+
+nfsim = NanoFlowSIM(patient_id="uuid", local=True)
+
+# Connect to device
+device = nfsim.connect_device("NFSIM-ECG-01", method="ble")
+device.start_session()
+
+# Stream data
+for packet in device.stream(duration=60):
+    print(packet.data)
+
+# Import records
+nfsim.import_fhir("https://myhospital.epic.com/fhir", auth_token="...")
+nfsim.import_vcf("patient_variants.vcf")
+nfsim.import_dicom("/path/to/dicom/folder/")
+
+# Run simulation
+sim = nfsim.simulation()
+sim.configure(
+    nanoparticle={"size_nm": 100, "ligand": "anti-HER2", "payload": "doxorubicin"},
+    therapy=["nanoparticle", "crispr"],
+    target_region="UBERON:0009835"  # HER2+ breast tumor
+)
+results = sim.run()
+print(results.targeting_efficiency)
+```
+
+**Node.js SDK (`@nfsim/sdk`):**
+```javascript
+import { NanoFlowSIM } from '@nfsim/sdk';
+
+const nfsim = new NanoFlowSIM({ patientId: 'uuid', local: true });
+const device = await nfsim.connectDevice('NFSIM-PCR-01', { method: 'ble' });
+await device.loadProtocol({ name: 'COVID_LAMP', temp: 65, duration: 30 });
+await device.startRun();
+const result = await device.waitForCompletion();
+await nfsim.saveRecord(result);
+```
+
+**Rust client library (`nfsim-client`):**
+```rust
+use nfsim_client::{NanoFlowSIM, DeviceType, Transport};
+
+let nfsim = NanoFlowSIM::new("patient-uuid").await?;
+let device = nfsim.connect(DeviceType::ECG01, Transport::Ble).await?;
+let session = device.start_session().await?;
+while let Some(packet) = session.next_packet().await {
+    nfsim.store(&packet).await?;
+}
+```
+
+---
+
+## 12. Monorepo Structure
 
 ```
 /nanoflowsim/
-├── README.md                          # This document
-├── LICENSE                            # MIT (software) + CERN OHL v2 (hardware)
+├── README.md                           ← This document
+├── LICENSE                             ← MIT (software) + CERN OHL v2 (hardware)
 ├── CONTRIBUTING.md
 ├── CHANGELOG.md
-├── .github/
-│   ├── workflows/
-│   │   ├── ci-firmware.yml
-│   │   ├── ci-software.yml
-│   │   ├── ci-hardware-drc.yml       # KiCad DRC check
-│   │   └── release.yml
-│   ├── ISSUE_TEMPLATE/
-│   └── PULL_REQUEST_TEMPLATE.md
 │
-├── /hardware/                         # All electronic hardware
+├── /simulation/                        PILLAR 1: Rust simulation workspace
+│   ├── Cargo.toml                      workspace manifest
+│   ├── nfsim-core/                     shared types, physics constants, UBERON
+│   ├── nfsim-molecular/                receptor-ligand, CRISPR, payload models
+│   ├── nfsim-cellular/                 endocytosis, trafficking, release
+│   ├── nfsim-tissue/                   permeability, TME, BBB, EPR
+│   ├── nfsim-systemic/                 PK/PD, circulation, immune clearance
+│   ├── nfsim-ml/                       therapy ranking, nanoparticle optimization
+│   ├── nfsim-backtesting/              clinical validation framework
+│   ├── nfsim-visualization/            3D trajectory + heatmap generation
+│   ├── nfsim-grpc/                     gRPC server for frontend communication
+│   └── nfsim-cli/                      command-line simulation runner
+│
+├── /platform/                          PILLAR 2 & 3: Patient data platform
+│   ├── /backend/                       Django 5 server
+│   │   ├── manage.py
+│   │   ├── requirements.txt
+│   │   ├── /nfsim_core/                Django project settings
+│   │   ├── /patients/                  Patient profile app
+│   │   ├── /records/                   Health record CRUD
+│   │   ├── /sessions/                  Continuous session management
+│   │   ├── /simulations/               Simulation job bridge
+│   │   ├── /fhir/                      FHIR R4 endpoint
+│   │   ├── /importers/                 VCF, DICOM, FHIR, CSV importers
+│   │   └── /uberon/                    UBERON ontology service
+│   │
+│   ├── /desktop/                       Electron + React desktop app
+│   │   ├── package.json
+│   │   ├── electron/
+│   │   │   ├── main.js
+│   │   │   └── preload.js
+│   │   └── src/
+│   │       ├── App.tsx
+│   │       ├── /components/
+│   │       │   ├── BodyMap3D.tsx       Three.js 3D body
+│   │       │   ├── RegionDetail.tsx    Region side panel
+│   │       │   ├── Timeline.tsx        Horizontal time scrubber
+│   │       │   ├── DicomViewer.tsx     Cornerstone DICOM
+│   │       │   ├── DeviceManager.tsx   BLE device control
+│   │       │   └── SimLauncher.tsx     Simulation configuration
+│   │       ├── /store/                 Zustand state stores
+│   │       ├── /db/                    SQLite queries (typed)
+│   │       ├── /ble/                   Noble BLE integration
+│   │       └── /ipc/                   Electron IPC bridge
+│   │
+│   ├── /mobile/                        React Native + Expo mobile app
+│   │   ├── package.json
+│   │   ├── app.json
+│   │   └── app/
+│   │       ├── _layout.tsx
+│   │       ├── (tabs)/
+│   │       └── modals/
+│   │
+│   └── /sdk/                           NanoFlowSIM SDKs
+│       ├── python/                     nfsim-sdk (PyPI)
+│       ├── node/                       @nfsim/sdk (npm)
+│       └── rust/                       nfsim-client (crates.io)
+│
+├── /hardware/                          PILLAR 3: All device hardware
+│   │
 │   ├── /NFSIM-PCR-01/
-│   │   ├── /schematic/               # KiCad .kicad_sch
-│   │   ├── /pcb/                     # KiCad .kicad_pcb
-│   │   ├── /gerbers/                 # Manufacturing output
-│   │   ├── /bom/                     # BOM.csv
-│   │   ├── /assembly/                # Pick & place, assembly drawing
-│   │   ├── /simulation/              # LTspice thermal sim
-│   │   └── hardware_spec.md
-│   ├── /NFSIM-PCR-02/
+│   │   ├── hardware/
+│   │   │   ├── schematic/
+│   │   │   │   ├── NFSIM-PCR-01-MCU.kicad_sch
+│   │   │   │   ├── NFSIM-PCR-01-Power.kicad_sch
+│   │   │   │   ├── NFSIM-PCR-01-Thermal.kicad_sch
+│   │   │   │   └── NFSIM-PCR-01.kicad_pro
+│   │   │   ├── pcb/
+│   │   │   │   ├── NFSIM-PCR-01-Main.kicad_pcb    (4-layer main board)
+│   │   │   │   └── NFSIM-PCR-01-Thermal.kicad_pcb (aluminum core thermal board)
+│   │   │   ├── gerbers/
+│   │   │   │   ├── NFSIM-PCR-01-Main-gerbers.zip
+│   │   │   │   └── NFSIM-PCR-01-Thermal-gerbers.zip
+│   │   │   ├── bom/
+│   │   │   │   ├── bom_main.csv
+│   │   │   │   ├── bom_thermal.csv
+│   │   │   │   └── bom_consolidated.xlsx
+│   │   │   ├── assembly/
+│   │   │   │   ├── pick_and_place_main.csv
+│   │   │   │   └── pick_and_place_thermal.csv
+│   │   │   ├── simulation/
+│   │   │   │   └── peltier_pid_ltspice.asc
+│   │   │   ├── datasheets/
+│   │   │   └── hardware_config.md      (pin map, power domains)
+│   │   ├── firmware/
+│   │   │   ├── CMakeLists.txt
+│   │   │   ├── platformio.ini
+│   │   │   ├── src/
+│   │   │   │   ├── main.c
+│   │   │   │   ├── drivers/
+│   │   │   │   │   ├── peltier.c/h
+│   │   │   │   │   ├── thermistor.c/h
+│   │   │   │   │   ├── display_st7789.c/h
+│   │   │   │   │   └── battery_max17055.c/h
+│   │   │   │   ├── tasks/
+│   │   │   │   │   ├── thermal_control.c/h
+│   │   │   │   │   ├── protocol_runner.c/h
+│   │   │   │   │   ├── ble_comm.c/h
+│   │   │   │   │   └── display_task.c/h
+│   │   │   │   ├── nfs_protocol.c/h    (universal NFS protocol layer)
+│   │   │   │   └── calibration.c/h
+│   │   │   ├── include/
+│   │   │   └── build/
+│   │   │       ├── NFSIM-PCR-01-v1.0.0.bin
+│   │   │       ├── NFSIM-PCR-01-v1.0.0.elf
+│   │   │       └── NFSIM-PCR-01-v1.0.0.map
+│   │   ├── mechanical/
+│   │   │   ├── cad/
+│   │   │   │   ├── NFSIM-PCR-01-top.step
+│   │   │   │   ├── NFSIM-PCR-01-bottom.step
+│   │   │   │   └── NFSIM-PCR-01-assembly.step
+│   │   │   ├── stl/
+│   │   │   │   ├── top_shell.stl
+│   │   │   │   ├── bottom_shell.stl
+│   │   │   │   └── tube_block_holder.stl
+│   │   │   ├── drawings/
+│   │   │   └── mechanical_spec.md
+│   │   ├── docs/
+│   │   │   ├── getting_started.md
+│   │   │   ├── theory.md
+│   │   │   ├── assembly_guide.md
+│   │   │   └── protocol_library.md
+│   │   └── production/
+│   │       ├── sop/
+│   │       ├── qc_checklist.csv
+│   │       └── packaging/
+│   │
+│   ├── /NFSIM-PCR-02/         (same structure)
+│   ├── /NFSIM-PCR-03/
+│   ├── /NFSIM-PCR-04/
 │   ├── /NFSIM-SEQ-01/
 │   ├── /NFSIM-SEQ-02/
 │   ├── /NFSIM-CRISPR-01/
@@ -3588,12 +4147,26 @@ stream.subscribe(|packet| client.patient(pid).ingest(packet)).await;
 │   ├── /NFSIM-US-01/
 │   ├── /NFSIM-US-02/
 │   ├── /NFSIM-US-03/
+│   ├── /NFSIM-US-04/
+│   ├── /NFSIM-US-05/
+│   ├── /NFSIM-US-06/
+│   ├── /NFSIM-US-07/
+│   ├── /NFSIM-US-08/
+│   ├── /NFSIM-US-09/
 │   ├── /NFSIM-MRI-01/
 │   ├── /NFSIM-XRAY-01/
 │   ├── /NFSIM-OCT-01/
+│   ├── /NFSIM-MICRO-01/
 │   ├── /NFSIM-CGM-01/
 │   ├── /NFSIM-SWEAT-01/
 │   ├── /NFSIM-CHEM-01/
+│   ├── /NFSIM-CHEM-02/
+│   ├── /NFSIM-CHEM-03/
+│   ├── /NFSIM-CHEM-04/
+│   ├── /NFSIM-CHEM-05/
+│   ├── /NFSIM-CHEM-06/
+│   ├── /NFSIM-CHEM-07/
+│   ├── /NFSIM-CHEM-08/
 │   ├── /NFSIM-OXY-01/
 │   ├── /NFSIM-BREATH-01/
 │   ├── /NFSIM-ECG-01/
@@ -3601,474 +4174,368 @@ stream.subscribe(|packet| client.patient(pid).ingest(packet)).await;
 │   ├── /NFSIM-EEG-01/
 │   ├── /NFSIM-EMG-01/
 │   ├── /NFSIM-NEURAL-01/
+│   ├── /NFSIM-EOG-01/
+│   ├── /NFSIM-EDA-01/
 │   ├── /NFSIM-CAP-01/
 │   ├── /NFSIM-CAP-02/
 │   ├── /NFSIM-CAP-03/
 │   ├── /NFSIM-CAP-04/
+│   ├── /NFSIM-CAP-05/
+│   ├── /NFSIM-CAP-06/
+│   ├── /NFSIM-CAP-07/
+│   ├── /NFSIM-CAP-08/
+│   ├── /NFSIM-CAP-09/
+│   ├── /NFSIM-CAP-10/
 │   ├── /NFSIM-FLOW-01/
-│   ├── /NFSIM-ENV-01/
-│   ├── /NFSIM-MICRO-01/
-│   └── /shared/                      # Shared PCB libraries
-│       ├── nfsim.kicad_sym
-│       ├── nfsim.kicad_mod
-│       └── nfsim_3d.kicad_3dlib
+│   └── /NFSIM-ENV-01/
 │
-├── /mechanical/                       # Physical enclosures and assemblies
-│   ├── /NFSIM-PCR-01/
-│   │   ├── /cad/                     # Fusion 360 f3d + STEP
-│   │   ├── /stl/                     # Print-ready STL
-│   │   ├── /drawings/                # 2D technical drawings PDF
-│   │   └── mechanical_spec.md
-│   ├── /NFSIM-US-03/                 # Capsule tooling drawings
-│   ├── ... (all 30 devices)
-│   └── /shared/                      # Common hardware fasteners library
+├── /shared-firmware/                   Shared firmware components across all devices
+│   ├── nfs_protocol/                   Universal NFS protocol implementation (C)
+│   ├── ble_gatt_server/               Generic BLE GATT server
+│   ├── power_management/              Battery + sleep management
+│   ├── ota_update/                    OTA firmware update client
+│   ├── calibration/                   Universal calibration framework
+│   ├── tinyml_runtime/                TFLite Micro integration
+│   └── uberon_tags.h                  UBERON code definitions
 │
-├── /firmware/                         # Embedded software
-│   ├── /NFSIM-PCR-01/
-│   │   ├── /src/
-│   │   │   ├── /drivers/             # Hardware abstraction layer
-│   │   │   │   ├── tec.c / tec.h
-│   │   │   │   ├── thermistor.c / thermistor.h
-│   │   │   │   ├── display.c / display.h
-│   │   │   │   └── ble.c / ble.h
-│   │   │   ├── /logic/
-│   │   │   │   ├── pid.c / pid.h
-│   │   │   │   ├── pcr_engine.c
-│   │   │   │   └── protocol_storage.c
-│   │   │   └── main.c
-│   │   ├── /include/
-│   │   ├── platformio.ini
-│   │   ├── CMakeLists.txt
-│   │   ├── /build/                   # Compiled artifacts (gitignored)
-│   │   └── firmware_spec.md
-│   ├── /NFSIM-ECG-01/
-│   ├── /NFSIM-CGM-01/
-│   ├── /NFSIM-SEQ-01/
-│   ├── /NFSIM-CAP-01/
-│   ├── ... (all 30 devices)
-│   ├── /shared/                      # Shared firmware modules
-│   │   ├── /nfs_protocol/            # NFS BLE GATT profile
-│   │   ├── /nfs_storage/             # NVS config, flash log
-│   │   ├── /nfs_ai/                  # TinyML inference wrappers
-│   │   └── /nfs_bootloader/          # Common bootloader
-│   └── /basecaller/                  # Open nanopore basecaller
-│       ├── /models/                  # PyTorch CRNN model
-│       ├── /src/                     # Python training + inference
-│       ├── /tests/
-│       └── requirements.txt
-│
-├── /software/                         # Host-side applications
-│   ├── /desktop/                     # Electron app
-│   │   ├── /src/
-│   │   │   ├── /main/
-│   │   │   └── /renderer/
-│   │   ├── /assets/
-│   │   │   └── body_mesh.gltf        # 3D anatomical body
-│   │   ├── package.json
-│   │   └── electron-builder.json
-│   ├── /mobile/                      # React Native / Expo
-│   │   ├── /app/                     # Expo file-based routes
-│   │   ├── /components/
-│   │   ├── package.json
-│   │   └── app.json
-│   ├── /web/                         # Web dashboard (CRA + Django)
-│   │   ├── /frontend/
-│   │   │   ├── /src/
-│   │   │   └── package.json
-│   │   └── /backend/
-│   │       ├── /nfsim_api/           # Django project
-│   │       ├── /simulation/          # Rust simulation bridge
-│   │       ├── requirements.txt
-│   │       └── manage.py
-│   ├── /sdk/
-│   │   ├── /python/                  # nfsim Python SDK
-│   │   ├── /nodejs/                  # @nfsim/sdk npm package
-│   │   └── /rust/                    # nfsim-client Rust crate
-│   ├── /protocol/
-│   │   └── protocol_spec.md          # THE COMMUNICATION CONTRACT
-│   └── software_spec.md
-│
-├── /simulation/                       # NanoFlowSIM Rust core engine
-│   ├── /src/
-│   │   ├── /molecular/
-│   │   ├── /cellular/
-│   │   ├── /tissue/
-│   │   ├── /systemic/
-│   │   ├── /ml/
-│   │   └── main.rs
-│   ├── /tests/
-│   ├── Cargo.toml
-│   └── simulation_spec.md
-│
-├── /docs/                             # Documentation
+├── /docs/                              Master documentation
 │   ├── /guides/
-│   │   ├── getting_started.md
-│   │   ├── first_device.md
-│   │   ├── data_import.md
-│   │   ├── running_simulations.md
-│   │   └── api_guide.md
+│   │   ├── getting_started.md         Complete new user guide
+│   │   ├── hardware_build_guide.md    PCB assembly across all devices
+│   │   ├── software_setup.md          Platform installation
+│   │   └── simulation_tutorial.md     First simulation walkthrough
 │   ├── /theory/
 │   │   ├── nanoparticle_physics.md
-│   │   ├── molecular_sensing.md
-│   │   ├── biosensor_chemistry.md
-│   │   └── signal_processing.md
-│   ├── /api/                         # Auto-generated from code
-│   ├── /hardware/                    # Per-device assembly guides
-│   └── /assets/                      # Diagrams, images
+│   │   ├── biological_sensing_domains.md  (this encyclopedia)
+│   │   ├── uberon_mapping.md
+│   │   └── fhir_integration.md
+│   ├── /api/
+│   │   ├── python_sdk.md
+│   │   ├── rest_api.md
+│   │   └── nfs_protocol.md
+│   └── /hardware_config/
+│       └── [DEVICE]-config.md for each device
 │
-├── /production/                       # Manufacturing
-│   ├── /sop/
-│   │   ├── pcb_assembly.md
-│   │   ├── calibration_procedure.md
-│   │   └── packaging.md
-│   ├── /quality/
-│   │   ├── qc_checklist_generic.csv
-│   │   └── test_procedures/
-│   ├── /packaging/
-│   └── production_run_template.md
+├── /production/                        Manufacturing guides
+│   ├── /sop/                          Assembly SOPs per device
+│   ├── /quality/                      QC checklists
+│   ├── /packaging/                    Box design, insert templates
+│   └── batch_tracking.md
 │
-├── /legal/
-│   ├── MIT_LICENSE_software.txt
-│   ├── CERN_OHL_v2_hardware.txt
-│   ├── /certifications/              # FCC, CE test reports
-│   ├── /third_party/                 # Third-party component licenses
-│   └── compliance_checklist.md
-│
-└── /media/
-    ├── /renders/                     # Device renders (Blender/KeyShot)
-    ├── /photos/                      # Prototype photos
-    ├── /video/                       # Demo video assets
-    └── /press/                       # Press kit
+└── /legal/
+    ├── LICENSE-SOFTWARE.md            MIT License (software, firmware)
+    ├── LICENSE-HARDWARE.md            CERN OHL-W v2 (hardware)
+    ├── /certifications/               FCC/CE test reports (when obtained)
+    ├── /third-party-licenses/         All dependency licenses
+    └── /compliance/
+        ├── RoHS_declaration.pdf       Lead-free component confirmation
+        └── REACH_declaration.pdf
 ```
 
 ---
 
-# 12. Production & Manufacturing
+## 13. Production, Manufacturing & Quality
 
-## 12.1 PCB Manufacturing
+### PCB Manufacturing Guidelines
 
-**Recommended Fabricators**:
-| Fabricator | Use Case | Notes |
-|---|---|---|
-| JLCPCB | Low-cost prototyping + small production | 2–4 layer, <1000 units |
-| PCBWay | 4–6 layer, flex, RF | Better tolerance for complex boards |
-| OSH Park | USA-based, community-friendly | Open-source friendly |
+**All NanoFlowSIM PCBs are designed for JLCPCB manufacturing compatibility:**
 
-**Gerber Export Checklist** (KiCad):
-- Top copper, bottom copper
-- Top soldermask, bottom soldermask
-- Top silkscreen, bottom silkscreen
-- Edge cuts
-- Drill file (Excellon)
-- Assembly drawing
-- Pick and place file
+```
+Standard rules:
+- Minimum trace width: 0.1mm (4 mil)
+- Minimum clearance: 0.1mm
+- Via drill: minimum 0.3mm, pad 0.6mm
+- Board thickness: 1.6mm standard (1.0mm for flex regions)
+- Copper weight: 1oz outer, 0.5oz inner
+- Surface finish: HASL (standard), ENIG for fine-pitch (>0.4mm BGA or QFP<80)
+- Soldermask: green (standard), black (optional for consumer aesthetics)
+- Silkscreen: white, all component reference designators visible
 
-## 12.2 Component Sourcing
+4-layer stackup (most devices):
+L1: Signal + components (1oz Cu)
+L2: GND plane (0.5oz Cu)
+L3: Power plane (0.5oz Cu)
+L4: Signal + components (1oz Cu)
+Core: FR4, Tg150 standard
+```
 
-**Primary distributors**:
-- Mouser Electronics (full stock, fast shipping)
-- Digi-Key (reliable, accurate lead times)
-- LCSC (for JLCPCB PCBA, low cost)
-- Arrow Electronics (volume pricing)
+**PCBA (PCB Assembly) via JLCPCB:**
+- Provide: Gerber files + BOM (with LCSC part numbers) + pick-and-place CSV
+- LCSC part availability check: all components must have LCSC part numbers
+- Parts without LCSC availability: customer-supplied or sourced from Mouser/Digi-Key
+- SMD assembly only: through-hole components (connectors, large caps) hand-soldered
 
-**Critical component sourcing notes**:
-- Peltier modules: eBay/AliExpress acceptable for prototyping, verify specifications
-- Nanopore flow cell proteins (α-hemolysin): Sigma-Aldrich H9395, lyophilized
-- Phi29 DNA polymerase: Thermo Fisher, Biolabs, or produced via open E. coli expression protocol
-- PZT transducer arrays: custom fabrication (Boston Piezo-Optics, Meggitt), MOQ 10–50 units
-- CMUT arrays: custom MEMS foundry (IMB-CNM, Fraunhofer), research partnership required
-- Medical-grade adhesives: 3M 1524 or 1585N, min order $50–200
+### Assembly SOP (Standard Operating Procedure) Template
 
-## 12.3 Quality Control Procedure (Generic)
+```
+NFSIM-[DEVICE]-[REV] ASSEMBLY SOP v1.0
+Status: Draft / Review / Released
 
-For each device, a QC checklist must be completed before shipping:
+1. SAFETY
+   - PPE required: safety glasses, gloves (when using solvents)
+   - ESD: grounded wrist strap required for all PCB handling
+   - Chemical safety: consult MSDS for all chemicals used
 
-| Test | Method | Pass Criteria |
-|---|---|---|
-| Visual inspection | Magnification 10× | No bridging, cold joints, missing components |
-| Power-on test | Apply nominal power | No smoke, draws expected current |
-| BLE advertisement | Smartphone scan | Device appears with correct name |
-| Sensor calibration | Reference standard | Within ±X% of reference |
-| Battery charge cycle | Full charge/discharge | Capacity within spec |
-| Wireless range | 10m BLE test | Stable connection |
-| Waterproof (if rated) | Immersion/spray test | No ingress |
-| Firmware version | Serial command | Correct version string |
-| Serial number burn | Factory tool | NVS confirmed written |
-| Final run test | Domain-specific | Expected data output |
+2. TOOLS REQUIRED
+   - Soldering iron: temperature-controlled, 350°C tip, fine tip
+   - Solder: 63/37 Sn/Pb or SAC305 (lead-free)
+   - Flux: no-clean rosin flux pen
+   - IPA isopropyl alcohol: PCB cleaning
+   - Hot air rework station (if BGA or fine-pitch)
+   - Multimeter, oscilloscope
+   - [Device-specific tools listed here]
 
-## 12.4 Calibration
+3. COMPONENTS
+   - Verify BOM revision matches PCB revision
+   - Inspect incoming components for damage
 
-All NFS devices with quantitative sensors require calibration:
+4. ASSEMBLY SEQUENCE
+   4.1. Inspect bare PCB (visual, dimensional)
+   4.2. PCBA boards: inspect PCBA quality (reflow quality, bridging)
+   4.3. Solder through-hole components (specified sequence)
+   4.4. Install cable harnesses
+   4.5. Install mechanical components (display, buttons)
 
-| Device | Calibration Method | Reference |
-|---|---|---|
-| NFSIM-PCR-01 | Temperature calibration with NIST-traceable thermocouple | ±0.5°C |
-| NFSIM-CGM-01 | Glucose solution (100, 200, 400 mg/dL) | ±5% |
-| NFSIM-ECG-01 | Signal generator + dummy load | Gain error <1% |
-| NFSIM-CHEM-01 | Certified reference material (CRM) | Per-analyte specification |
-| NFSIM-OXY-01 | Phantom (tissue-simulating) with reference oximeter | ±3% rSO₂ |
+5. FIRMWARE PROGRAMMING
+   5.1. Connect ST-Link V3 to SWD header (TC2030 connector)
+   5.2. Flash bootloader: [command]
+   5.3. Flash application: [command]
+   5.4. Verify: [NFS:PING → NFS:OK PONG]
 
-Calibration coefficients stored in device NVS, readable via NFC/BLE.
+6. QUALITY CONTROL
+   See QC checklist [DEVICE]-QC-v1.0.csv
+
+7. PACKAGING
+   [Device-specific packaging instructions]
+```
+
+### QC Checklist Template
+
+```csv
+Test ID, Test Name, Method, Expected Result, PASS/FAIL, Notes
+QC-001, Visual Inspection, Visual, No solder bridges/tombstones/damage, ,
+QC-002, Power Input, DMM, 5V ±5% at input connector, ,
+QC-003, 3.3V Rail, DMM, 3.3V ±3% at test point TP1, ,
+QC-004, 5V Rail (if applicable), DMM, 5V ±3% at TP2, ,
+QC-005, MCU Boot, USB serial, NFS:PING → NFS:OK PONG within 5s, ,
+QC-006, BLE Advertisement, BLE scanner, Device visible as NFSIM-[TYPE]-XXXXXX, ,
+QC-007, Battery Charging, USB-C + meter, Charging current 0.5–1A within 10s, ,
+QC-008, Battery Fuel Gauge, App, SOC reading ±5% of actual, ,
+QC-009, Sensor Functional, App, [Device-specific sensor test], ,
+QC-010, BOM Revision, Visual, BOM sticker matches PCB revision, ,
+```
 
 ---
 
-# 13. Legal, Compliance & Licensing
+## 14. Regulatory & Legal
 
-## 13.1 Software License
+### Device Classifications
 
-All NanoFlowSIM **software** (firmware, desktop app, mobile app, backend, SDK) is released under the **MIT License**:
-
-```
-MIT License
-Copyright (c) 2024 NanoFlowSIM Contributors
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-[...]
-```
-
-## 13.2 Hardware License
-
-All NanoFlowSIM **hardware** (schematics, PCB layouts, Gerbers, BOM, mechanical designs) is released under the **CERN Open Hardware Licence Version 2 — Permissive (CERN-OHL-P)**:
-
-Key conditions:
-- Free to use, study, modify, and distribute
-- Attribution required
-- Share-alike NOT required (Permissive variant)
-- No warranty
-
-## 13.3 Regulatory Classification
-
-All NFS devices are currently designed and documented for:
-- **Research use only (RUO)** or **Educational use**
-- Not intended for clinical diagnosis without appropriate national regulatory clearance
-
-**Regulatory pathways for clinical use** (guidance only, consult regulatory counsel):
-
-| Region | Body | Pathway | Device Class |
+| Device | US FDA Classification | EU MDR Classification | Notes |
 |---|---|---|---|
-| USA | FDA | 510(k) or De Novo | Class II (most devices) |
-| EU | Notified Body | MDR 2017/745 CE Mark | Class IIa/IIb |
-| UK | MHRA | UKCA | Aligned with EU MDR |
-| Canada | Health Canada | Medical Device License | Class II/III |
+| NFSIM-PCR-01–04, LAMP, RPA | RUO (Research Use Only) | Not regulated as MD | Labeled RUO, not for clinical diagnosis |
+| NFSIM-SEQ-01, SEQ-02 | RUO | Not regulated as MD | Labeled RUO |
+| NFSIM-CRISPR-01 | RUO | Not regulated as MD | Labeled RUO (clinical use requires 510k/CE IVD) |
+| NFSIM-US-01 (non-diagnostic labeling) | Class II 510k pathway if clinical | Class IIa IVD | As RUO: exempt. Clinical use: regulatory submission required |
+| NFSIM-CGM-01 (RUO) | RUO | Not regulated as MD | Not interoperable with clinical CGM systems unless certified |
+| NFSIM-CAP series (ingestible) | Class III (PMA pathway) for clinical | Class III EU MDR | Significant regulatory barrier; RUO only |
+| NFSIM-ECG-01 (consumer wellness) | General Wellness, exempt | Not regulated | "Heart Rate Variability" wellness use avoids prescription labeling |
+| NFSIM-ECG-01 (for AFib detection) | Class II De Novo / 510k | Class IIa MDR | Clinical arrhythmia detection requires clearance |
+| NFSIM-XRAY-01 | Requires state/federal authorization for operation | Class IIa radiological equipment | Cannot operate without radiation safety authorization |
+| NFSIM-MRI-01 | Class II 510k for clinical MRI | Class IIa | RUO research use significantly less regulated |
+| NFSIM-NEURAL-01 | Class III (PMA) for clinical use | Class III | Research only; surgical implant = strict regulation |
 
-**Specific notes**:
-- Ingestible capsules (NFSIM-CAP series): Class III in most jurisdictions (PMA/CE-Mark III)
-- Implantable devices (NFSIM-IMPLANT series): Class III, highest regulatory burden
-- IVD devices (NFSIM-CRISPR, NFSIM-CHEM, NFSIM-CGM): Separate IVD regulatory pathway in EU (IVDR 2017/746)
+**All NanoFlowSIM devices are labeled: "FOR RESEARCH USE ONLY. NOT FOR CLINICAL DIAGNOSTIC USE."**
 
-## 13.4 Radiation Safety
+### Wireless Certification
 
-**NFSIM-XRAY-01**: Complies with IEC 60601-1-3 (radiation protection). Operators in many jurisdictions require training/certification to operate diagnostic X-ray equipment. Check local regulations.
+```
+FCC (United States):
+- BLE modules: use pre-certified nRF52840 module (e.g., Sparkfun nRF52840 Mini,
+  Nordic Thingy:53 module) — FCC ID on module covers device use within spec
+- 434 MHz radio: Si4463 inside body = FCC Part 15 limits apply
+  If transmit power <-1 dBm conducted: Part 15B exempt
+  If transmit power 10dBm: requires FCC Part 15 intentional radiator certification
+- Wi-Fi: use certified Wi-Fi module (ESP32-WROOM-02 or similar)
+  FCC ID: 2AC7Z-ESP32WROOM32D (covers use within module specs)
+- USB-C: no wireless certification needed
 
-## 13.5 Data Privacy
+CE (European Union):
+- BLE: RED (Radio Equipment Directive) covered by module certification
+  nRF52840 QIAA module: CE marked, RED compliant
+- 434 MHz: RED certification required for 434 MHz TX regardless
+- General: EN 55032 emissions, EN 55035 immunity
 
-NanoFlowSIM's data platform is designed to comply with:
-- HIPAA (USA) — business associate agreement template included
-- GDPR (EU) — data minimization, right to erasure, data portability
-- PIPEDA (Canada)
+Canada (ISED):
+- RSS-247 Issue 2 covers BLE
+- Pre-certified module covers RSS-247 for BLE
 
-All genomic data handling follows ELSI (Ethical, Legal, and Social Issues) best practices:
-- Patient consent for each use case
-- De-identification before research sharing
-- Secure deletion on patient request
+Japan (MIC):
+- Telec certification required for 2.4GHz/BLE if selling in Japan
 
-## 13.6 FCC / CE Compliance
-
-All devices with RF transmission (BLE, Wi-Fi, 434 MHz):
-- Must undergo FCC Part 15 (USA) or RED Directive (EU) testing for marketing
-- BLE modules (nRF52840, ESP32) have pre-certified FCC/CE IDs when used within certification parameters
-- Custom 434 MHz capsule radio requires independent type approval
-
----
-
-# 14. Roadmap
-
-## Phase 1 — Foundation (Current)
-
-- [x] Complete hardware specification for all 30 devices
-- [x] Complete communication protocol specification
-- [x] Complete software architecture
-- [ ] KiCad PCB design complete for NFSIM-PCR-01, NFSIM-ECG-01, NFSIM-CGM-01
-- [ ] Firmware complete for NFSIM-PCR-01, NFSIM-ECG-01
-- [ ] Desktop application MVP with 3D body map, BLE connection, ECG display
-- [ ] Web API and patient data model deployed
-- [ ] NanoFlowSIM Rust simulation engine — molecular layer functional
-
-## Phase 2 — Hardware First Wave (6–12 months)
-
-- [ ] PCB design + prototype fabrication: all Tier 1 devices
-  - NFSIM-PCR-01, NFSIM-ECG-01, NFSIM-CGM-01, NFSIM-EEG-01, NFSIM-EMG-01, NFSIM-US-01, NFSIM-CRISPR-01
-- [ ] Firmware stabilization for Tier 1 devices
-- [ ] End-to-end data pipeline: device → BLE → desktop → 3D body map → NanoFlowSIM
-- [ ] NanoFlowSIM cellular + systemic simulation layers functional
-- [ ] DICOM import + auto-segmentation
-- [ ] FHIR R4 patient record import
-
-## Phase 3 — Simulation Integration (12–18 months)
-
-- [ ] Full back-testing engine with clinical trial data
-- [ ] Machine learning therapy recommendation engine
-- [ ] 3D nanoparticle trajectory visualization
-- [ ] Simulation export to PDF/FHIR DiagnosticReport
-- [ ] Research cohort view (de-identified multi-patient overlay)
-- [ ] Capsule sensor prototypes: NFSIM-CAP-01, NFSIM-CAP-03
-
-## Phase 4 — Advanced Devices (18–36 months)
-
-- [ ] NFSIM-SEQ-01 prototype validation (open nanopore sequencer)
-- [ ] NFSIM-CAP-02 (GI ultrasound capsule) prototype
-- [ ] NFSIM-MRI-01 prototype (low-field portable MRI)
-- [ ] NFSIM-FLOW-01 prototype
-- [ ] Open basecaller trained on public squiggle data
-- [ ] Closed-loop insulin system integration (OpenAPS protocol)
-- [ ] Multi-modal AI digital twin: continuous ECG + CGM + genomics fusion model
-
-## Phase 5 — Ecosystem Maturation (36+ months)
-
-- [ ] Regulatory pathway initiation for clinical-use devices (510(k) or CE)
-- [ ] Open manufacturing guide for distributed production
-- [ ] NanoFlowSIM clinical trial management module
-- [ ] Federation with hospital FHIR servers
-- [ ] Patient community and data contribution platform
-- [ ] High-throughput ligand and nanoparticle screening module
-- [ ] Continuous liquid biopsy monitor integration (when technology matures)
-
----
-
-# 15. Contributing
-
-NanoFlowSIM is an open-source project welcoming contributions across hardware, firmware, software, and science domains.
-
-## Getting Started
-
-1. Read this README completely
-2. Check open issues: `github.com/[org]/nanoflowsim/issues`
-3. Join the community Discord: [link]
-4. Pick an issue tagged `good first issue` or `hardware-help-wanted`
-
-## Contribution Areas
-
-| Area | Skills Needed | How to Contribute |
-|---|---|---|
-| Hardware design | KiCad, electronics | PCB review, new device design |
-| Firmware | C/C++, embedded systems | Bug fixes, new device firmware |
-| Simulation engine | Rust, biophysics | Algorithm implementation |
-| Software | React, TypeScript, Django | UI features, API endpoints |
-| Basecaller | PyTorch, signal processing | Model training, accuracy improvement |
-| 3D body model | Blender, anatomical knowledge | Mesh refinement, annotation |
-| Documentation | Technical writing | Guides, theory explanations |
-| Testing | QA, biology | Hardware validation, clinical testing |
-| Translation | Languages | Internationalization |
-
-## Development Setup
-
-**Firmware**:
-```bash
-# Install PlatformIO
-pip install platformio
-
-# Build NFSIM-ECG-01
-cd firmware/NFSIM-ECG-01
-pio run
-
-# Flash
-pio run --target upload
+Note: Using pre-certified radio modules (nRF52840, ESP32-WROOM) dramatically
+simplifies regulatory burden. Always operate within module's certified parameters.
 ```
 
-**Desktop App**:
-```bash
-cd software/desktop
-npm install
-npm run dev       # Development mode
-npm run build     # Production build
-```
+### Open-Source Licenses
 
-**Backend**:
-```bash
-cd software/web/backend
-pip install -r requirements.txt
-python manage.py migrate
-python manage.py runserver
-```
+**Hardware:** CERN Open Hardware Licence (CERN OHL-W v2)
+- Weakly reciprocal: modifications must be shared, products can be sold
+- Covers: schematics, PCB layouts, mechanical designs, BOMs
+- Attribution required: "Based on NanoFlowSIM hardware, CERN OHL-W v2"
 
-**Simulation Engine**:
-```bash
-cd simulation
-cargo build --release
-cargo test
-./target/release/nfsim-engine --config examples/config.json
-```
+**Firmware:** MIT License
+- Permissive: use, modify, distribute, sublicense, sell
+- Attribution required in copyright notice
 
-## Code Style
+**Software (platform):** MIT License
 
-- **Firmware (C/C++)**: Google C++ Style Guide
-- **Rust**: rustfmt + clippy (strict mode)
-- **Python**: Black + isort + flake8
-- **TypeScript**: ESLint + Prettier (Airbnb config)
-- **KiCad**: NFS schematic symbol conventions (see `/hardware/shared/STYLE.md`)
+**Simulation Engine:** Apache 2.0 License
+- Permissive, explicit patent grant
+- Attribution required
 
-## Pull Request Process
+**Documentation:** CC BY 4.0
+- Attribution required, derivatives allowed including commercial
 
-1. Fork → feature branch → PR against `develop`
-2. All CI must pass (DRC, build, tests)
-3. Hardware changes: attach Gerber preview image
-4. Firmware changes: attach test output or logic analyzer screenshot
-5. Two approvals required for merge
+### Data Privacy
+
+NanoFlowSIM platform:
+- Patient data never leaves the patient's device without explicit consent and action
+- No telemetry, no analytics, no data collection by NanoFlowSIM project
+- Optional cloud sync is 100% patient-controlled, patient-hosted
+- FHIR imports are read-only on the patient's behalf; data stays locally
+- HIPAA consideration: as RUO software, not a covered entity; however designed to HIPAA best practices
+- GDPR: patient is controller of their own data; NanoFlowSIM acts as data processor only when self-hosted cloud sync is used
+- Nagoya Protocol: genomic data from biological samples is stored only locally; no biological data fed to external databases without explicit patient consent
 
 ---
 
-# 16. Acknowledgements
+## 15. Roadmap
 
-NanoFlowSIM builds upon the shoulders of decades of open-source science and engineering:
+### Phase 1 — Foundation (Months 1–12)
 
-**Hardware Communities and Projects**
-- OpenPCR (Josh Perfetto, Tito Jankowski) — democratized thermocycling
-- OpenBCI (Joel Murphy, Conor Russomanno) — democratized EEG
-- Open Ephys (Josh Siegle et al.) — democratized neural recording
-- Opentrons — democratized lab automation
-- Bento Lab — portable biolab concept
-- Hyperfine — low-field portable MRI pioneers
-- Butterfly Network — CMUT-based portable ultrasound
+**Simulation Engine:**
+- [x] Core architecture design
+- [ ] nfsim-core crate (types, UBERON ontology)
+- [ ] nfsim-molecular crate (ligand-receptor kinetics)
+- [ ] nfsim-cellular crate (endocytosis, trafficking)
+- [ ] nfsim-cli (basic simulation runner)
+- [ ] gRPC API
 
-**Open-Source Bioinformatics**
-- GATK (Broad Institute) — genomic analysis toolkit
-- BWA, SAMtools — sequence alignment standards
-- Kilosort (Marius Pachitariu) — spike sorting
-- MNE-Python — neural signal analysis
-- OpenSim — musculoskeletal modeling
-- 3D Slicer — medical image processing
-- BART — MRI reconstruction
-- Guppy/Dorado (Oxford Nanopore) — basecalling reference
+**Platform:**
+- [ ] Django backend (patients, records, sessions APIs)
+- [ ] SQLite local data model (desktop)
+- [ ] Basic 3D body map (generic mesh, click to view)
+- [ ] NFS BLE protocol library (Python)
+- [ ] Desktop app (Electron skeleton)
 
-**Scientific Literature and Communities**
-- DIYbio community
-- iGEM Foundation — synthetic biology democratization
-- NIH BRAIN Initiative
-- FASTMRI Challenge (NYU/Facebook AI)
-- Open Worm Project
-- OpenNeuro — open neuroscience datasets
+**Hardware (Priority 1 devices):**
+- [ ] NFSIM-PCR-01 (thermal block, BLE, prototype)
+- [ ] NFSIM-ECG-01 (patch prototype)
+- [ ] NFSIM-CGM-01 (sensor prototype, in vitro testing)
 
-**Technologies**
-- Zephyr RTOS (Linux Foundation)
-- FreeRTOS (Amazon)
-- Three.js, Babylon.js — WebGL 3D
-- React Native / Expo
-- KiCad EDA
-- JLCPCB / PCBWay — accessible PCB manufacturing
+### Phase 2 — Core Platform (Months 6–18)
+
+**Simulation:**
+- [ ] nfsim-tissue, nfsim-systemic
+- [ ] BBB model
+- [ ] ML therapy ranking module
+- [ ] Visualization (3D trajectory output)
+
+**Platform:**
+- [ ] DICOM import + Cornerstone viewer
+- [ ] FHIR client (hospital record import)
+- [ ] Consumer mode UI complete
+- [ ] Mobile app (basic, BLE device management)
+- [ ] Timeline scrubber
+- [ ] Data entry flows (manual, import, device)
+
+**Hardware (Priority 2):**
+- [ ] NFSIM-PCR-02 (gel slip reader)
+- [ ] NFSIM-CRISPR-01 (fluorescence detection)
+- [ ] NFSIM-US-01 (ultrasound probe, firmware)
+- [ ] NFSIM-EEG-01 (ADS1299 board)
+- [ ] NFSIM-SWEAT-01 (flexible patch)
+
+### Phase 3 — Advanced Features (Months 12–24)
+
+**Simulation:**
+- [ ] Back-testing framework
+- [ ] Patient-specific simulation from DICOM mesh
+- [ ] Drug combination optimizer
+
+**Platform:**
+- [ ] Level 2 body map (DICOM-derived patient-specific mesh)
+- [ ] Level 3 (live sensor overlay on 3D)
+- [ ] Professional mode complete
+- [ ] Python + Node.js SDK release
+- [ ] AR overlay (mobile)
+- [ ] Pharmacogenomics drug checker
+
+**Hardware (Advanced):**
+- [ ] NFSIM-SEQ-01 (nanopore sequencer prototype)
+- [ ] NFSIM-CAP-01 (ingestible capsule prototype, animal testing)
+- [ ] NFSIM-MRI-01 (Halbach magnet assembly)
+- [ ] NFSIM-FLOW-01 (acoustic cytometry)
+
+### Phase 4 — Ecosystem (Months 18–36)
+
+- [ ] All 30+ devices released to community
+- [ ] CI/CD for firmware (automated build + flash testing)
+- [ ] NanoFlowSIM community forum + hardware sharing
+- [ ] Clinical research partnerships
+- [ ] Simulation validation against published trial data
+- [ ] App store release (macOS, Windows, Linux AppImage)
+- [ ] Mobile app stores (iOS + Android)
+
+### Phase 5 — Future (36+ Months)
+
+- [ ] Continuous cfDNA monitoring interface (when technology matures)
+- [ ] Neural implant interface (NFSIM-NEURAL-01 research deployment)
+- [ ] Full digital twin integration (all modalities fused)
+- [ ] AI-driven treatment protocol suggestion (simulation + patient data)
+- [ ] Federated research network (de-identified data sharing for simulation training)
+- [ ] Nanoparticle synthesis verification (connect simulation to actual NP characterization)
 
 ---
 
-*NanoFlowSIM is built on the belief that biological sensing, simulation, and precision medicine should be accessible to every human on earth — not just those with access to multimillion-dollar clinical infrastructure. Every schematic, every line of firmware, every simulation algorithm in this repository is a step toward that future.*
+## 16. License
+
+```
+NanoFlowSIM — Open-Source Precision Medicine Ecosystem
+
+Hardware (schematics, PCB layouts, mechanical designs, BOMs):
+  Licensed under CERN Open Hardware Licence Version 2 - Weakly Reciprocal (CERN OHL-W v2)
+  See /legal/LICENSE-HARDWARE.md
+
+Firmware (embedded C/C++/Rust code):
+  Licensed under MIT License
+  See /legal/LICENSE-SOFTWARE.md
+
+Platform Software (simulation engine, desktop app, mobile app, backend, SDKs):
+  Licensed under MIT License
+  See /legal/LICENSE-SOFTWARE.md
+
+Documentation:
+  Licensed under Creative Commons Attribution 4.0 International (CC BY 4.0)
+
+Third-party components retain their original licenses.
+See /legal/third-party-licenses/ for all dependencies.
+
+Copyright © 2026 NanoFlowSIM Contributors
+All contributors retain copyright over their specific contributions.
+
+DISCLAIMER:
+All NanoFlowSIM hardware devices are labeled FOR RESEARCH USE ONLY.
+They are NOT approved or cleared as medical devices by any regulatory authority.
+They are NOT intended for clinical diagnostic use.
+They are NOT intended to diagnose, treat, cure, or prevent any disease or condition.
+Use of these devices for clinical decision-making without appropriate regulatory clearance
+is strictly prohibited and may be illegal in your jurisdiction.
+```
 
 ---
 
-**Repository**: `github.com/[org]/nanoflowsim`
-**Documentation**: `docs.nfsim.io`
-**Community**: `discord.gg/nfsim`
-**License**: MIT (software) + CERN OHL v2 (hardware)
-**Version**: 1.0.0-alpha
+*NanoFlowSIM — Democratizing access to every layer of biological sensing and nanoparticle therapy modeling.*
+
+*Built open. Built portable. Built for everyone.*
