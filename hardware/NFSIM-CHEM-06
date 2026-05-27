@@ -1,0 +1,9 @@
+### NFSIM-CHEM-06 — Ketone/BHB Monitor
+
+**README.** Single-analyte β-hydroxybutyrate (BHB) meter. Ketogenic diet management, diabetic ketoacidosis screening.
+
+**SPECIFICATIONS.** BHB dehydrogenase + NAD/NADH detection strip; range 0.1–8 mmol/L; ~$35.
+
+**THEORY.** BHB + NAD⁺ → AcAc + NADH. NADH → e⁻ (via mediator) at WE.
+
+**ASSEMBLY.** Same chassis family as CHEM-05.
